@@ -27,7 +27,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
-
         <Button
             android:id="@+id/logout_btn"
             android:layout_width="wrap_content"
@@ -39,6 +38,7 @@
             android:paddingTop="@dimen/padding_base"
             android:text="@string/logout_button_text"
             android:textSize="@dimen/text_size_large" />
+
 
         <TextView
             android:layout_width="wrap_content"

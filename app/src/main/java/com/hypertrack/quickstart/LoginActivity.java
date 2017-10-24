@@ -117,11 +117,9 @@ public class LoginActivity extends BaseActivity {
         // Get User details, if specified
         final String name = nameText.getText().toString();
         final String phoneNumber = phoneNumberText.getText().toString();
-        final String lookupId = !HTTextUtils.isEmpty(lookupIdText.getText().toString()) ?
-                lookupIdText.getText().toString() : phoneNumber;
+        final String lookupId = !HTTextUtils.isEmpty(lookupIdText.getText().toString()) ? lookupIdText.getText().toString() : phoneNumber;
 
-        UserParams userParams = new UserParams().setName(name).setPhone(phoneNumber).setLookupId
-                (lookupId);
+        UserParams userParams = new UserParams().setName(name).setPhone(phoneNumber).setLookupId(lookupId);
         /**
          * Get or Create a User for given lookupId on HyperTrack Server here to
          * login your user & configure HyperTrack SDK with this generated
@@ -151,8 +149,7 @@ public class LoginActivity extends BaseActivity {
                 // Hide Login Button loader
                 loginBtnLoader.setVisibility(View.GONE);
 
-                Toast.makeText(LoginActivity.this, R.string.login_error_msg + " " + errorResponse
-                        .getErrorMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, R.string.login_error_msg + " " + errorResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -168,12 +165,10 @@ public class LoginActivity extends BaseActivity {
                 // Hide Login Button loader
                 loginBtnLoader.setVisibility(View.GONE);
 
-                Toast.makeText(LoginActivity.this, R.string.login_success_msg, Toast
-                        .LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, R.string.login_success_msg, Toast.LENGTH_SHORT).show();
 
                 // Start User Session by starting MainActivity
-                Intent mainActivityIntent = new Intent(LoginActivity.this, MainActivity.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Intent mainActivityIntent = new Intent(LoginActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(mainActivityIntent);
                 finish();
             }
@@ -183,8 +178,7 @@ public class LoginActivity extends BaseActivity {
                 // Hide Login Button loader
                 loginBtnLoader.setVisibility(View.GONE);
 
-                Toast.makeText(LoginActivity.this, R.string.login_error_msg + " " + errorResponse
-                        .getErrorMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, R.string.login_error_msg + " " + errorResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -197,8 +191,7 @@ public class LoginActivity extends BaseActivity {
      * @param grantResults
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
