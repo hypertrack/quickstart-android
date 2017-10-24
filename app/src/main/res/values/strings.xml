@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">HyperTrack QuickStart</string>
+
+    <!-- Login Screen strings -->
+    <string name="login_activity_title">Login</string>
+    <string name="login_button_text">Login</string>
+    <string name="login_screen_header">Enter your username and password \nto login.</string>
+    <string name="login_name_hint">Your Name</string>
+    <string name="login_phone_number_hint">Your Phone Number</string>
+    <string name="login_lookup_id_hint">Lookup Id</string>
+    <string name="login_lookup_id_description">* A lookupId is a unique id that will be added with
+        the user for unique identification. By default, it will be android Amandevice id.</string>
+
+    <string name="login_username_empty_error">Username can\'t be empty. Please try again</string>
+    <string name="login_username_invalid_error">Username is invalid. Please try again</string>
+    <string name="login_password_empty_error">Password can\'t be empty. Please try again</string>
+    <string name="login_password_invalid_error">Password is invalid. Please try again</string>
+
+    <string name="login_success_msg">User Logged In successful</string>
+    <string name="login_error_msg">User Login failed.</string>
+    <string name="login_error_msg_invalid_params">User Login failed. Please check input params
+        specified.</string>
+
+    <!-- Main Screen strings -->
+    <string name="main_logout_success_msg">Logout successful</string>
+    <string name="logout_button_text">Logout</string>
+
+    <!-- Permission strings -->
+    <string name="enable_location_settings">Enable Location settings in HIGH_ACCURACY mode to
+        proceed</string>
+    <string name="on_logout_tracking_will_be_stopped">On logout tracking will be stopped.</string>
+</resources>

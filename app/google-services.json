@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "490808352621",
+    "firebase_url": "https://public-projects-52f3d.firebaseio.com",
+    "project_id": "public-projects-52f3d",
+    "storage_bucket": "public-projects-52f3d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:490808352621:android:2891f0f90ba946fe",
+        "android_client_info": {
+          "package_name": "com.hypertrack.quickstart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "490808352621-cmou1bblh03lcr1j4teco2vsbmrq8hmf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoctqwgGDpBLrfOCgc33kWX3Ry60ngJfA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
