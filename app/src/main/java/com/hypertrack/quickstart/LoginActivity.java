@@ -90,12 +90,14 @@ public class LoginActivity extends BaseActivity {
      */
     private void checkForLocationSettings() {
         // Check for Location permission
+        // Refer here for more detail https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#boolean-checklocationpermission
         if (!HyperTrack.checkLocationPermission(this)) {
             HyperTrack.requestPermissions(this);
             return;
         }
 
         // Check for Location settings
+        // Refer here for more detail https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#boolean-checklocationservices
         if (!HyperTrack.checkLocationServices(this)) {
             HyperTrack.requestLocationServices(this);
         }
@@ -127,6 +129,8 @@ public class LoginActivity extends BaseActivity {
          * OR
          * Implement your API call for User Login and get back a HyperTrack
          * UserId from your API Server to be configured in the HyperTrack SDK.
+         *
+         * Refer here for more detail https://docs.hypertrack.com/sdks/android/reference/user.html#getorcreate-user
          */
         HyperTrack.getOrCreateUser(userParams, new HyperTrackCallback() {
             @Override
@@ -159,6 +163,7 @@ public class LoginActivity extends BaseActivity {
      */
     private void onUserLoginSuccess() {
 
+        //Refer here for more detail https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#void-starttracking
         HyperTrack.startTracking(new HyperTrackCallback() {
             @Override
             public void onSuccess(@NonNull SuccessResponse successResponse) {

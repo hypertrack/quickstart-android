@@ -23,7 +23,11 @@ Clone this repository
 $ https://github.com/hypertrack/quickstart-android.git
 ```
 
-#### Step 2. Get your HyperTrack API keys [here](https://dashboard.hypertrack.com/signup), and add the publishable key to [MyApplication](https://github.com/hypertrack/quickstart-android/blob/master/app/src/main/java/com/hypertrack/quickstart/MyApplication.java#L24) file.
+#### Step 2. Signup and get Test Publishable key.
+1. Signup [here](https://dashboard.hypertrack.com/signup) 
+2. Get `test` publishable key from [dashboard](https://dashboard.hypertrack.com/settings) settings page.
+3. Add the test publishable key to MyApplication file.
+
 ```java
 HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
 ```
@@ -38,7 +42,7 @@ But if you want to use your FCM configuration then replace `FCM Server Key` on H
 ## Usage
 
 #### Step 1. Location Permission and Location Setting.
-Ask for `location permission` and `location services`.
+Ask for `location permission` and `location services`. Refer [here](https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#boolean-checklocationpermission) for more detail.
 ```java
 // Check for Location permission
 if (!HyperTrack.checkLocationPermission(this)) {
@@ -53,9 +57,9 @@ if (!HyperTrack.checkLocationServices(this)) {
 ```
 
 #### Step 2. Create HyperTrack User & Start Tracking
-The next thing that you need to do is to create a HyperTrack user. More details about the function [here](https://docs.hypertrack.com/sdks/android/basic.html#step-1-create-sdk-user).
+The next thing that you need to do is to create a HyperTrack user. More details about the function [here](https://docs.hypertrack.com/sdks/android/reference/user.html#getorcreate-user).
 
-When the user is created, we need to start tracking his location and activity. Call the following method to do so ```HyperTrack.startTracking()```
+When the user is created, we need to start tracking his location and activity. Call the following method to do so ```HyperTrack.startTracking()```. Refer [here](https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#void-starttracking) for more detail
 
 ```java
 // Get User details, if specified
@@ -97,7 +101,7 @@ HyperTrack.getOrCreateUser(userParams, new HyperTrackCallback() {
 ```
 
 #### Step 4. Stop Tracking
-When user logs out call `HyperTracking.stopTracking()` to stop tracking the user's location and activity.
+When user logs out call `HyperTracking.stopTracking()` to stop tracking the user's location and activity. Refer [here](https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#void-stoptracking) for more detail
 
 ```java
 HyperTrack.stopTracking();
