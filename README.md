@@ -89,8 +89,6 @@ HyperTrack.getOrCreateUser(userParams, new HyperTrackCallback() {
 
     @Override
     public void onError(@NonNull ErrorResponse errorResponse) {
-        // Hide Login Button loader
-        loginBtnLoader.setVisibility(View.GONE);
 
         Toast.makeText(LoginActivity.this, R.string.login_error_msg + " " + errorResponse
                 .getErrorMessage(), Toast.LENGTH_SHORT).show();
