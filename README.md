@@ -4,12 +4,12 @@ Example app for Android SDK Onboarding flow
 HyperTrack Onboarding link: https://dashboard.hypertrack.com/onboarding/sdk/android
 
 <p>
-<img src="assets/login_activity.png" alt="Login Activity" width="270" height="480">
+<img src="assets/login_activity.png" alt="Login Activity" width="250" height="480">
 
 
-<img src="assets/login_activity_location_permission.png" alt="Location Permission" width="270" height="480">
+<img src="assets/login_activity_location_permission.png" alt="Location Permission" width="250" height="480">
 
-<img src="assets/main_activity.png" alt="LogOut" width="270" height="480">
+<img src="assets/main_activity.png" alt="LogOut" width="250" height="480">
 </p>
 
 ## Basic Setup
