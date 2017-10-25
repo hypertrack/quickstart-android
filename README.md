@@ -24,7 +24,7 @@ If you want to directly build the flow in your own app or wanted to create a new
 Clone this repository
 ```bash
 # Clone this repository
-$ https://github.com/hypertrack/quickstart-android.git
+$ git clone https://github.com/hypertrack/quickstart-android.git
 ```
 
 #### Step 2. Signup and get Test Publishable key.
@@ -36,12 +36,12 @@ $ https://github.com/hypertrack/quickstart-android.git
 HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
 ```
 
-#### Step 3. FCM Configuration
-By default, project is configured with test FCM credentials.
-Add `AAAAckZ1H20:APA91bEyilv0qgVyfSECb-jZxsgetGyKyJGVIavCOLhWn5GdI0aQBz76dPKAf5P73fVBE7OXoS5QicAV5ASrmcyhizGnNbD0DhwJPVSZaLKQrRGYH3Bam-7WGe3OEX_Chhf7CEPToVw0` as FCM server key on HyperTrack [dashboard](https://dashboard.hypertrack.com/settings).
+#### Step 3. FCM Integration
+The HyperTrack SDK requires FCM for a battery efficient real-time tracking experience. 
 
-But if you want to use your FCM configuration then replace `FCM Server Key` on HyperTrack [dashboard](https://dashboard.hypertrack.com/settings) with yours FCM server key and replace 
-[google-service.json](https://github.com/hypertrack/quickstart-android/blob/master/app/google-services.json) .
+1. Refer to the [FCM Integration guide](https://docs.hypertrack.com/sdks/android/gcm-integration.html#locate-your-gcmfcm-key). 
+
+2. After setting up your account on the [Firebase console](https://console.firebase.google.com), you will need to add the [google-services.json](https://support.google.com/firebase/answer/7015592) file to your [app folder](https://github.com/hypertrack/quickstart-android/tree/master/app).
 
 ## Usage
 
