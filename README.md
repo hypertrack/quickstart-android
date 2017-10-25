@@ -11,6 +11,11 @@ HyperTrack Onboarding link: https://dashboard.hypertrack.com/onboarding/sdk/andr
 <img src="assets/main_activity.png" alt="LogOut" width="250" height="480">
 </p>
 
+
+## Requirements
+1. [Android Studio](https://developer.android.com/studio/index.html) with emulator (or test device)
+2. HyperTrack API keys. Learn more about them [here](https://docs.hypertrack.com/gettingstarted/authentication.html), and sign up for them [here](https://dashboard.hypertrack.com/signup).
+
 ## Basic Setup
 
 #### Step 1. Clone this repository
