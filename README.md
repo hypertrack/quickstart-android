@@ -1,8 +1,6 @@
 # Sample Android App using HyperTrack SDK
 A simple Android application demonstrating the use of HyperTrack SDK.
 
-HyperTrack Onboarding link: https://dashboard.hypertrack.com/onboarding/sdk/android
-
 <p>
 <img src="assets/login_activity.png" alt="Login Activity" width="250" height="480">
 
@@ -13,13 +11,11 @@ HyperTrack Onboarding link: https://dashboard.hypertrack.com/onboarding/sdk/andr
 
 
 ## Requirements
-1. [Android Studio](https://developer.android.com/studio/index.html) with emulator (or test device)
-2. HyperTrack API keys. Learn more about them [here](https://docs.hypertrack.com/gettingstarted/authentication.html), and sign up for them [here](https://dashboard.hypertrack.com/signup).
+[Android Studio](https://developer.android.com/studio/index.html) with emulator (or test device)
 
 ## Basic Setup
 
 #### Step 1. Clone this repository
-If you want to directly build the flow in your own app or wanted to create a new project, you can ignore this step.
 
 Clone this repository
 ```bash
@@ -37,11 +33,9 @@ HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
 ```
 
 #### Step 3. FCM Integration
-The HyperTrack SDK requires FCM for a battery efficient real-time tracking experience. 
+The SDK has a bi-directional communication model with the server. This enables the SDK to run on a variable frequency model, which balances the fine trade-off between low latency tracking and battery efficiency, and improve robustness. For this purpose, the Android SDK uses FCM or GCM silent notifications. 
 
-1. Refer to the [FCM Integration guide](https://docs.hypertrack.com/sdks/android/gcm-integration.html#locate-your-gcmfcm-key). 
-
-2. After setting up your account on the [Firebase console](https://console.firebase.google.com), you will need to add the [google-services.json](https://support.google.com/firebase/answer/7015592) file to your [app folder](https://github.com/hypertrack/quickstart-android/tree/master/app).
+Refer to the [FCM Integration guide](https://docs.hypertrack.com/sdks/android/gcm-integration.html#locate-your-gcmfcm-key). 
 
 ## Usage
 
