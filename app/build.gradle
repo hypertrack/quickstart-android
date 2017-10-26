@@ -47,7 +47,7 @@ dependencies {
      * transitive = true, enables the SDK to include its internal dependencies
      * automatically. Refer here for more info on HyperTrack SDK dependencies.
      */
-    compile('com.hypertrack:android:0.4.19:release@aar') {
+    compile('com.hypertrack:android:0.4.20:release@aar') {
         transitive = true;
     }
     apply plugin: 'com.google.gms.google-services'
