@@ -1,5 +1,5 @@
 # Sample Android App using HyperTrack SDK
-A simple Android application demonstrating the use of HyperTrack SDK.
+A sample Android application demonstrating the use of HyperTrack SDK.
 
 <p>
 <img src="assets/login_activity.png" alt="Login Activity" width="250" height="480">
@@ -35,7 +35,13 @@ HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
 #### Step 3. FCM Integration
 The SDK has a bi-directional communication model with the server. This enables the SDK to run on a variable frequency model, which balances the fine trade-off between low latency tracking and battery efficiency, and improve robustness. For this purpose, the Android SDK uses FCM or GCM silent notifications. 
 
-Refer to the [FCM Integration guide](https://docs.hypertrack.com/sdks/android/gcm-integration.html#locate-your-gcmfcm-key). 
+By default, project is configured with test `google-service.json` credentials.
+
+You need to add FCM Server Key `AAAAckZ1H20:APA91bEyilv0qgVyfSECb-jZxsgetGyKyJGVIavCOLhWn5GdI0aQBz76dPKAf5P73fVBE7OXoS5QicAV5ASrmcyhizGnNbD0DhwJPVSZaLKQrRGYH3Bam-7WGe3OEX_Chhf7CEPToVw0` on HyperTrack [dashboard settings page](https://dashboard.hypertrack.com/settings).
+
+**Note:**
+But if you want to use your FCM configuration then replace `FCM Server Key` on HyperTrack [dashboard settings page](https://dashboard.hypertrack.com/settings) with yours FCM server key and replace
+[google-service.json](https://github.com/hypertrack/quickstart-android/blob/master/app/google-services.json) .
 
 ## Usage
 
@@ -103,6 +109,16 @@ When user logs out call `HyperTracking.stopTracking()` to stop tracking the user
 
 ```java
 HyperTrack.stopTracking();
+```
+
+## Testing (Mocking user Location)
+A user’s tracking session starts with HyperTrack.startTracking() and ends with HyperTrack.stopTracking(). In order to mock user movement developers would call `HyperTrack.startMockTracking()` and `HyperTrack.stopMockTracking()` respectively.
+
+[`HyperTrack.startMockTracking()`](https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#void-startmocktracking) API starts a simulation from the device's current location to a nearby place of interest within a 5-10km radius so the session is long enough to test your app & its features.
+
+Developer can simulate user's location to a particular destination location from a given source location.
+```
+public static void startMockTracking(@NonNull LatLng sourceLatLng, @NonNull LatLng destinationLatLng, @Nullable HyperTrackCallback callback);
 ```
 
 ## Documentation

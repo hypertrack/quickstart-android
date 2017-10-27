@@ -20,6 +20,6 @@ public class MyApplication extends Application {
         // https://docs.hypertrack.com/gettingstarted/authentication.html
         // @NOTE: Add **YOUR_PUBLISHABLE_KEY_HERE** here for SDK to be
         // authenticated with HyperTrack Server
-        HyperTrack.initialize(this, TEST_PUBLISHABLE_KEY);
+        HyperTrack.initialize(this, "pk_test_2d9865a43acc427636b85540cbaadfdd94b12214");
     }
 }
