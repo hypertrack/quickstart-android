@@ -21,7 +21,15 @@ Clone this repository
 ```bash
 # Clone this repository
 $ git clone https://github.com/hypertrack/quickstart-android.git
+$ git checkout mock-tracking
 ```
+
+**OR**
+
+In Android Studio
+
+**Goto File > New > Project from Version Control > Git**
+Enter Enter Git Repository URL https://github.com/hypertrack/quickstart-android.git and Click on Clone.
 
 #### Step 2. Signup and get Test Publishable key.
 1. Signup [here](https://dashboard.hypertrack.com/signup).
