@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 26
+    buildToolsVersion '26.0.3'
     defaultConfig {
         applicationId "com.hypertrack.quickstart"
         minSdkVersion 14
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -35,8 +35,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
     testCompile 'junit:junit:4.12'
 
     /**
@@ -47,8 +47,9 @@ dependencies {
      * transitive = true, enables the SDK to include its internal dependencies
      * automatically. Refer here for more info on HyperTrack SDK dependencies.
      */
-    compile('com.hypertrack:android:0.4.20:release@aar') {
+    implementation('com.hypertrack:android:0.6.3@aar') {
         transitive = true;
     }
-    apply plugin: 'com.google.gms.google-services'
+    compile 'com.hypertrack:hyperlog:0.0.7'
 }
+apply plugin: 'com.google.gms.google-services'
