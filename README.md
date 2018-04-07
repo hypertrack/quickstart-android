@@ -20,7 +20,8 @@ A sample Android application demonstrating the use of HyperTrack SDK.
 Clone this repository
 ```bash
 # Clone this repository
-$ git clone https://github.com/hypertrack/android-sdk-onboarding.git
+$ git clone https://github.com/hypertrack/quickstart-android.git
+$ git checkout mock-tracking
 ```
 
 **OR**
@@ -28,12 +29,12 @@ $ git clone https://github.com/hypertrack/android-sdk-onboarding.git
 In Android Studio
 
 **Goto File > New > Project from Version Control > Git**
-Enter Enter Git Repository URL https://github.com/hypertrack/android-sdk-onboarding.git and Click on Clone.
+Enter Enter Git Repository URL https://github.com/hypertrack/quickstart-android.git and Click on Clone.
 
 #### Step 2. Signup and get Test Publishable key.
 1. Signup [here](https://dashboard.hypertrack.com/signup).
 2. Get `test` publishable key from [dashboard](https://dashboard.hypertrack.com/settings) settings page.
-3. Add the test publishable key to [MyApplicationhttps://github.com/hypertrack/android-sdk-onboarding/blob/master/app/src/main/java/com/hypertrack/androidsdkonboarding/MyApplication.java) file.
+3. Add the test publishable key to [MyApplication](https://github.com/hypertrack/quickstart-android/blob/master/app/src/main/java/com/hypertrack/quickstart/MyApplication.java) file.
 
 ```java
 HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
@@ -41,7 +42,14 @@ HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
 
 #### Step 3. FCM Integration
 The SDK has a bi-directional communication model with the server. This enables the SDK to run on a variable frequency model, which balances the fine trade-off between low latency tracking and battery efficiency, and improve robustness. For this purpose, the Android SDK uses FCM or GCM silent notifications. 
-Refer [here](https://docs.hypertrack.com/sdks/android/gcm-integration.html) for more info 
+
+By default, project is configured with test `google-service.json` credentials.
+
+For testing purpose, you need to add FCM Server Key `AAAAckZ1H20:APA91bEyilv0qgVyfSECb-jZxsgetGyKyJGVIavCOLhWn5GdI0aQBz76dPKAf5P73fVBE7OXoS5QicAV5ASrmcyhizGnNbD0DhwJPVSZaLKQrRGYH3Bam-7WGe3OEX_Chhf7CEPToVw0` on HyperTrack [dashboard settings page](https://dashboard.hypertrack.com/settings).
+
+**Note:**
+But if you want to use your FCM configuration or moving to production then replace `FCM Server Key` on HyperTrack [dashboard settings page](https://dashboard.hypertrack.com/settings) with yours FCM server key and replace
+[google-service.json](https://github.com/hypertrack/quickstart-android/blob/master/app/google-services.json) .
 
 ## Usage
 
@@ -63,7 +71,7 @@ if (!HyperTrack.checkLocationServices(this)) {
 #### Step 2. Create HyperTrack User
 The next thing that you need to do is to create a HyperTrack user. More details about the function [here](https://docs.hypertrack.com/sdks/android/reference/user.html#getorcreate-user).
 
-When the user is created, we need to create action to start tracking his location and activity.
+When the user is created, we need to start tracking his location and activity.
 
 ```java
 // Get User details, if specified
@@ -154,7 +162,7 @@ public static void createMockAction(ActionParams actionParams, @NonNull LatLng s
 For detailed documentation of the APIs, customizations and what all you can build using HyperTrack, please visit the official [docs](https://docs.hypertrack.com/).
 
 ## Contribute
-Feel free to clone, use, and contribute back via [pull requests](https://help.github.com/articles/about-pull-requests/). We'd love to see your pull requests - send them in! Please use the [issues tracker](https://github.com/hypertrack/android-sdk-onboarding/issues) to raise bug reports and feature requests.
+Feel free to clone, use, and contribute back via [pull requests](https://help.github.com/articles/about-pull-requests/). We'd love to see your pull requests - send them in! Please use the [issues tracker](https://github.com/hypertrack/quickstart-android/issues) to raise bug reports and feature requests.
 
 We are excited to see what live location feature you build in your app using this project. Do ping us at help@hypertrack.io once you build one, and we would love to feature your app on our blog!
 
