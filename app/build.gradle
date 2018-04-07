@@ -47,7 +47,7 @@ dependencies {
      * transitive = true, enables the SDK to include its internal dependencies
      * automatically. Refer here for more info on HyperTrack SDK dependencies.
      */
-    implementation('com.hypertrack:android:0.6.24@aar') {
+    implementation('com.hypertrack:android:0.7.0@aar') {
         transitive = true;
     }
     compile 'com.hypertrack:hyperlog:0.0.9'
