@@ -51,10 +51,6 @@ For testing purpose, you need to add FCM Server Key `AAAAckZ1H20:APA91bEyilv0qgV
 But if you want to use your FCM configuration or moving to production then replace `FCM Server Key` on HyperTrack [dashboard settings page](https://dashboard.hypertrack.com/settings) with yours FCM server key and replace
 [google-service.json](https://github.com/hypertrack/quickstart-android/blob/master/app/google-services.json) .
 
-**Note:**
-But if you want to use your FCM configuration or moving to production then replace `FCM Server Key` on HyperTrack [dashboard settings page](https://dashboard.hypertrack.com/settings) with yours FCM server key and replace
-[google-service.json](https://github.com/hypertrack/quickstart-android/blob/master/app/google-services.json) .
-
 ## Usage
 
 #### Step 1. Location Permission and Location Setting.
