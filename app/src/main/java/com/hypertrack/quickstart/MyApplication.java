@@ -1,6 +1,7 @@
 package com.hypertrack.quickstart;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.hypertrack.lib.HyperTrack;
 
@@ -21,5 +22,6 @@ public class MyApplication extends Application {
         // @NOTE: Add **YOUR_PUBLISHABLE_KEY_HERE** here for SDK to be
         // authenticated with HyperTrack Server
         HyperTrack.initialize(this, TEST_PUBLISHABLE_KEY);
+        HyperTrack.enableDebugLogging(Log.VERBOSE);
     }
 }
