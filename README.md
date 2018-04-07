@@ -68,21 +68,21 @@ if (!HyperTrack.checkLocationServices(this)) {
 }
 ```
 
-#### Step 2. Create HyperTrack User & Start Tracking
+#### Step 2. Create HyperTrack User
 The next thing that you need to do is to create a HyperTrack user. More details about the function [here](https://docs.hypertrack.com/sdks/android/reference/user.html#getorcreate-user).
 
-When the user is created, we need to start tracking his location and activity. Call the following method to do so ```HyperTrack.startTracking()```. Refer [here](https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#void-starttracking) for more detail.
+When the user is created, we need to start tracking his location and activity.
 
 ```java
 // Get User details, if specified
 final String name = nameText.getText().toString();
 final String phoneNumber = phoneNumberText.getText().toString();
-final String lookupId = !HTTextUtils.isEmpty(lookupIdText.getText().toString()) ?
-        lookupIdText.getText().toString() : phoneNumber;
+final String uniqueId = !HTTextUtils.isEmpty(uniqueId.getText().toString()) ?
+        uniqueId.getText().toString() : phoneNumber;
 
-UserParams userParams = new UserParams().setName(name).setPhone(phoneNumber).setLookupId(lookupId);
+UserParams userParams = new UserParams().setName(name).setPhone(phoneNumber).setUniqueId(uniqueId);
 /**
- * Get or Create a User for given lookupId on HyperTrack Server here to
+ * Get or Create a User for given uniqueId on HyperTrack Server here to
  * login your user & configure HyperTrack SDK with this generated
  * HyperTrack UserId.
  * OR
@@ -100,7 +100,7 @@ HyperTrack.getOrCreateUser(userParams, new HyperTrackCallback() {
         // so no need to call HyperTrack.setUserId() API
 
         // On UserLogin success
-        HyperTrack.startTracking();
+        onUserLoginSuccess();
     }
 
     @Override
@@ -112,21 +112,50 @@ HyperTrack.getOrCreateUser(userParams, new HyperTrackCallback() {
 });
 ```
 
-#### Step 4. Stop Tracking
-When user logs out call `HyperTracking.stopTracking()` to stop tracking the user's location and activity. Refer [here](https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#void-stoptracking) for more detail.
+### STEP 3. Create Action to start tracking
+```java
+ private void onUserLoginSuccess() {
+
+        //Refer here for more detail
+        // https://docs.hypertrack.com/sdks/android/reference/action.html#create-and-assign-action
+        ActionParamsBuilder actionParamsBuilder = new ActionParamsBuilder();
+        actionParamsBuilder.setType(Action.TYPE_VISIT);
+        actionParamsBuilder.setExpectedPlace(new Place().setAddress("HyperTrack").setCountry("India"));
+        HyperTrack.createAndAssignAction(actionParamsBuilder.build(), new HyperTrackCallback() {
+            @Override
+            public void onSuccess(@NonNull SuccessResponse response) {
+                Action action = (Action) response.getResponseObject();
+                saveAction(action);
+                Intent mainActivityIntent = new Intent(LoginActivity.this,
+                        MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(mainActivityIntent);
+                finish();
+                Log.d(TAG, "onSuccess:  Action Created");
+            }
+
+            @Override
+            public void onError(@NonNull ErrorResponse errorResponse) {
+                Log.e(TAG, "onError:  Action Creation Failed: " + errorResponse.getErrorMessage());
+            }
+        });
+    }
+```
+
+#### Step 4. Complete Action to stop tracking
+When user logs out call `HyperTracking.completeAction(actionId)` to complete the action. Refer [here](https://docs.hypertrack.com/sdks/android/reference/action.html#complete-action) for more detail.
 
 ```java
-HyperTrack.stopTracking();
+HyperTrack.completeAction(actionId);
 ```
 
 ## Testing (Mocking user Location)
-A user’s tracking session starts with HyperTrack.startTracking() and ends with HyperTrack.stopTracking(). In order to mock user movement developers would call `HyperTrack.startMockTracking()` and `HyperTrack.stopMockTracking()` respectively.
+A user’s tracking session starts with HyperTrack.createMockAction() and ends with HyperTrack.completeMockAction(). In order to mock user movement developers would call `HyperTrack.createMockAction()` and `HyperTrack.completeMockAction()` respectively.
 
-[`HyperTrack.startMockTracking()`](https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#void-startmocktracking) API starts a simulation from the device's current location to a nearby place of interest within a 5-10km radius so the session is long enough to test your app & its features.
+[`HyperTrack.createMockAction()`]() API starts a simulation from the device's current location to a nearby place of interest within a 5-10km radius so the session is long enough to test your app & its features.
 
 Developer can simulate user's location to a particular destination location from a given source location.
 ```
-public static void startMockTracking(@NonNull LatLng sourceLatLng, @NonNull LatLng destinationLatLng, @Nullable HyperTrackCallback callback);
+public static void createMockAction(ActionParams actionParams, @NonNull LatLng sourceLatLng, @NonNull LatLng destinationLatLng, @Nullable HyperTrackCallback callback);
 ```
 
 ## Documentation
