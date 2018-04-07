@@ -45,8 +45,6 @@ The SDK has a bi-directional communication model with the server. This enables t
 
 By default, project is configured with test `google-service.json` credentials.
 
-For testing purpose, you need to add FCM Server Key `AAAAckZ1H20:APA91bEyilv0qgVyfSECb-jZxsgetGyKyJGVIavCOLhWn5GdI0aQBz76dPKAf5P73fVBE7OXoS5QicAV5ASrmcyhizGnNbD0DhwJPVSZaLKQrRGYH3Bam-7WGe3OEX_Chhf7CEPToVw0` on HyperTrack [dashboard settings page](https://dashboard.hypertrack.com/settings).
-
 **Note:**
 But if you want to use your FCM configuration or moving to production then replace `FCM Server Key` on HyperTrack [dashboard settings page](https://dashboard.hypertrack.com/settings) with yours FCM server key and replace
 [google-service.json](https://github.com/hypertrack/quickstart-android/blob/master/app/google-services.json) .
