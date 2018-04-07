@@ -29,12 +29,6 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/tracking_toggle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/start_tracking" />
-
-        <Button
             android:id="@+id/logout_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

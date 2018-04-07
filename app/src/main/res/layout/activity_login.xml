@@ -56,16 +56,16 @@
             android:inputType="phone" />
 
         <EditText
-            android:id="@+id/login.lookup_id"
+            android:id="@+id/login.unique_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_high"
-            android:hint="@string/login_lookup_id_hint" />
+            android:hint="@string/login_unique_id_hint" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/login_lookup_id_description"/>
+            android:text="@string/login_unique_id_description"/>
 
             <FrameLayout
                 android:id="@+id/login.driver_login_btn_layout"

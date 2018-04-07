@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -18,7 +19,10 @@ import com.google.gson.GsonBuilder;
 import com.hypertrack.lib.HyperTrack;
 import com.hypertrack.lib.callbacks.HyperTrackCallback;
 import com.hypertrack.lib.internal.common.util.HTTextUtils;
+import com.hypertrack.lib.models.Action;
+import com.hypertrack.lib.models.ActionParamsBuilder;
 import com.hypertrack.lib.models.ErrorResponse;
+import com.hypertrack.lib.models.Place;
 import com.hypertrack.lib.models.SuccessResponse;
 import com.hypertrack.lib.models.User;
 import com.hypertrack.lib.models.UserParams;
@@ -29,7 +33,8 @@ import com.hypertrack.lib.models.UserParams;
 
 public class LoginActivity extends BaseActivity {
 
-    private EditText nameText, phoneNumberText, lookupIdText;
+    private static final String TAG = LoginActivity.class.getSimpleName();
+    private EditText nameText, phoneNumberText, uniqueIdText;
     private LinearLayout loginBtnLoader;
     public static final String HT_QUICK_START_SHARED_PREFS_KEY = "com.hypertrack.quickstart:SharedPreference";
 
@@ -65,10 +70,10 @@ public class LoginActivity extends BaseActivity {
         // Initialize Password Views
         phoneNumberText = (EditText) findViewById(R.id.login_phone_number);
 
-        //Initialize lookupIdText
-        lookupIdText = (EditText) findViewById(R.id.login_lookup_id);
+        //Initialize uniqueIdText
+        uniqueIdText = (EditText) findViewById(R.id.login_unique_id);
         String UUID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-        lookupIdText.setText(UUID);
+        uniqueIdText.setText(UUID);
 
         // Initialize Login Btn Loader
         loginBtnLoader = (LinearLayout) findViewById(R.id.login_btn_loader);
@@ -94,14 +99,16 @@ public class LoginActivity extends BaseActivity {
      */
     private void checkForLocationSettings() {
         // Check for Location permission
-        // Refer here for more detail https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#boolean-checklocationpermission
+        // Refer here for more detail
+        // https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#boolean-checklocationpermission
         if (!HyperTrack.checkLocationPermission(this)) {
             HyperTrack.requestPermissions(this);
             return;
         }
 
         // Check for Location settings
-        // Refer here for more detail https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#boolean-checklocationservices
+        // Refer here for more detail
+        // https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#boolean-checklocationservices
         if (!HyperTrack.checkLocationServices(this)) {
             HyperTrack.requestLocationServices(this);
         }
@@ -123,18 +130,23 @@ public class LoginActivity extends BaseActivity {
         // Get User details, if specified
         final String name = nameText.getText().toString();
         final String phoneNumber = phoneNumberText.getText().toString();
-        final String lookupId = !HTTextUtils.isEmpty(lookupIdText.getText().toString()) ? lookupIdText.getText().toString() : phoneNumber;
+        final String uniqueId = !HTTextUtils.isEmpty(uniqueIdText.getText().toString()) ?
+                uniqueIdText.getText().toString() : phoneNumber;
 
-        UserParams userParams = new UserParams().setName(name).setPhone(phoneNumber).setLookupId(lookupId);
+        UserParams userParams = new UserParams().
+                setName(name).
+                setPhone(phoneNumber).
+                setUniqueId(uniqueId);
         /**
-         * Get or Create a User for given lookupId on HyperTrack Server here to
+         * Get or Create a User for given uniqueId on HyperTrack Server here to
          * login your user & configure HyperTrack SDK with this generated
          * HyperTrack UserId.
          * OR
          * Implement your API call for User Login and get back a HyperTrack
          * UserId from your API Server to be configured in the HyperTrack SDK.
          *
-         * Refer here for more detail https://docs.hypertrack.com/sdks/android/reference/user.html#getorcreate-user
+         * Refer here for more detail
+         * https://docs.hypertrack.com/sdks/android/reference/user.html#getorcreate-user
          */
         HyperTrack.getOrCreateUser(userParams, new HyperTrackCallback() {
             @Override
@@ -158,7 +170,8 @@ public class LoginActivity extends BaseActivity {
                 // Hide Login Button loader
                 loginBtnLoader.setVisibility(View.GONE);
 
-                Toast.makeText(LoginActivity.this, R.string.login_error_msg + " " + errorResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, R.string.login_error_msg + " " +
+                        errorResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -168,27 +181,26 @@ public class LoginActivity extends BaseActivity {
      */
     private void onUserLoginSuccess() {
 
-        //Refer here for more detail https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#void-starttracking
-        HyperTrack.startTracking(new HyperTrackCallback() {
+        //Refer here for more detail
+        // https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#void-starttracking
+        ActionParamsBuilder actionParamsBuilder = new ActionParamsBuilder();
+        actionParamsBuilder.setType(Action.TYPE_VISIT);
+        actionParamsBuilder.setExpectedPlace(new Place().setAddress("HyperTrack").setCountry("India"));
+        HyperTrack.createAndAssignAction(actionParamsBuilder.build(), new HyperTrackCallback() {
             @Override
-            public void onSuccess(@NonNull SuccessResponse successResponse) {
-                // Hide Login Button loader
-                loginBtnLoader.setVisibility(View.GONE);
-
-                Toast.makeText(LoginActivity.this, R.string.login_success_msg, Toast.LENGTH_SHORT).show();
-
-                // Start User Session by starting MainActivity
-                Intent mainActivityIntent = new Intent(LoginActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            public void onSuccess(@NonNull SuccessResponse response) {
+                Action action = (Action) response.getResponseObject();
+                saveAction(action);
+                Intent mainActivityIntent = new Intent(LoginActivity.this,
+                        MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(mainActivityIntent);
                 finish();
+                Log.d(TAG, "onSuccess:  Action Created");
             }
 
             @Override
             public void onError(@NonNull ErrorResponse errorResponse) {
-                // Hide Login Button loader
-                loginBtnLoader.setVisibility(View.GONE);
-
-                Toast.makeText(LoginActivity.this, R.string.login_error_msg + " " + errorResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onError:  Action Creation Failed: " + errorResponse.getErrorMessage());
             }
         });
     }
@@ -201,7 +213,8 @@ public class LoginActivity extends BaseActivity {
      * @param grantResults
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -212,7 +225,8 @@ public class LoginActivity extends BaseActivity {
 
             } else {
                 // Handle Location Permission denied error
-                Toast.makeText(this, "Location Permission denied.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Location Permission denied.",
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -234,20 +248,31 @@ public class LoginActivity extends BaseActivity {
 
             } else {
                 // Handle Enable Location Services request denied error
-                Toast.makeText(this, R.string.enable_location_settings, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.enable_location_settings,
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     private void saveUser(User user) {
-        SharedPreferences sharedPreferences = getSharedPreferences(HT_QUICK_START_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(HT_QUICK_START_SHARED_PREFS_KEY,
+                Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("user", new GsonBuilder().create().toJson(user));
         editor.apply();
     }
 
+    private void saveAction(Action action) {
+        SharedPreferences sharedPreferences = getSharedPreferences(HT_QUICK_START_SHARED_PREFS_KEY,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("action_id", action.getId());
+        editor.apply();
+    }
+
     private User getUser() {
-        SharedPreferences sharedPreferences = getSharedPreferences(HT_QUICK_START_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(HT_QUICK_START_SHARED_PREFS_KEY,
+                Context.MODE_PRIVATE);
         String jsonString = sharedPreferences.getString("user", "null");
         if (HTTextUtils.isEmpty(jsonString)) {
             return null;
@@ -262,6 +287,4 @@ public class LoginActivity extends BaseActivity {
 
         return user;
     }
-
-
 }
