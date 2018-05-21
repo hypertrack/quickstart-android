@@ -121,7 +121,7 @@ HyperTrack.getOrCreateUser(userParams, new HyperTrackCallback() {
         ActionParamsBuilder actionParamsBuilder = new ActionParamsBuilder();
         actionParamsBuilder.setType(Action.TYPE_VISIT);
         actionParamsBuilder.setExpectedPlace(new Place().setAddress("HyperTrack").setCountry("India"));
-        HyperTrack.createAndAssignAction(actionParamsBuilder.build(), new HyperTrackCallback() {
+        HyperTrack.createAction(actionParamsBuilder.build(), new HyperTrackCallback() {
             @Override
             public void onSuccess(@NonNull SuccessResponse response) {
                 Action action = (Action) response.getResponseObject();
