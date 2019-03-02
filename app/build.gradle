@@ -1,55 +1,40 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.3'
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.hypertrack.quickstart"
-        minSdkVersion 14
-        targetSdkVersion 26
+        minSdkVersion 16
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
 
-/**
- * HyperTrack SDKs are hosted on the below url. Add the url as specified below.
- * If this exists already, add a new "maven {url }" entry in the existing
- * repositories block.
- */
 repositories {
-    maven { url 'http://hypertrack-android-sdk.s3-website-us-west-2.amazonaws.com/' }
+    maven {
+//        url 'http://hypertrack-core-android.s3-website-us-east-1.amazonaws.com/'
+          url "file://" + System.properties['user.home'] + "/.m2/repository"
+    }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
 
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
-    testCompile 'junit:junit:4.12'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation("com.hypertrack.core:android:0.9.1@aar") {transitive = true}
 
-    /**
-     * HyperTrack SDKs are shipped as @aar formats. Include the HyperTrack SDK's
-     * latest version as specified below. For detailed SDK changelog, Refer to
-     * https://docs.hypertrack.com/sdks/android/changelog.html.
-     *
-     * transitive = true, enables the SDK to include its internal dependencies
-     * automatically. Refer here for more info on HyperTrack SDK dependencies.
-     */
-    implementation('com.hypertrack:android:0.7.39@aar') {
-        transitive = true;
-    }
-    compile 'com.hypertrack:hyperlog:0.0.9'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
 }
-apply plugin: 'com.google.gms.google-services'

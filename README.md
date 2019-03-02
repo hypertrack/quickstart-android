@@ -1,39 +1,18 @@
 # Sample Android App using HyperTrack SDK
+
 A sample Android application demonstrating the use of HyperTrack SDK.
-
-<p>
-<img src="assets/login_activity.png" alt="Login Activity" width="250" height="480">
-
-<img src="assets/login_activity_location_permission.png" alt="Location Permission" width="250" height="480">
-
-<img src="assets/main_activity.png" alt="LogOut" width="250" height="480">
-</p>
+ - [Quickstart app](#quickstart-app)
+ - [FAQ](#Frequently-Asked-Questions)
 
 
-## Requirements
-[Android Studio](https://developer.android.com/studio/index.html) with emulator (or test device)
 
-## Basic Setup
+## Quickstart
+#### Step 1. Open this project in [Android Studio](https://developer.android.com/studio/index.html)
+![Android-Studio-quickstart-android](tbd)
 
-#### Step 1. Clone this repository
-
-Clone this repository
-```bash
-# Clone this repository
-$ git clone https://github.com/hypertrack/quickstart-android.git
-$ git checkout mock-tracking
-```
-
-**OR**
-
-In Android Studio
-
-**Goto File > New > Project from Version Control > Git**
-Enter Enter Git Repository URL https://github.com/hypertrack/quickstart-android.git and Click on Clone.
-
-#### Step 2. Signup and get Test Publishable key.
-1. Signup [here](https://dashboard.hypertrack.com/signup).
-2. Get `test` publishable key from [dashboard](https://dashboard.hypertrack.com/settings) settings page.
+#### Step 2. Signup and get Publishable key.
+1. Signup [here](https://v3.dashboard.hypertrack.com/signup).
+2. Get `test` publishable key from [dashboard](https://v3.dashboard.hypertrack.com/account/keys) settings page.
 3. Add the test publishable key to [MyApplication](https://github.com/hypertrack/quickstart-android/blob/master/app/src/main/java/com/hypertrack/quickstart/MyApplication.java) file.
 
 ```java
@@ -41,7 +20,7 @@ HyperTrack.initialize(this.getApplicationContext(), BuildConfig.HYPERTRACK_PK);
 ```
 
 #### Step 3. FCM Integration
-The SDK has a bi-directional communication model with the server. This enables the SDK to run on a variable frequency model, which balances the fine trade-off between low latency tracking and battery efficiency, and improve robustness. For this purpose, the Android SDK uses FCM or GCM silent notifications. 
+The SDK has a bi-directional communication model with the server. This enables the SDK to run on a variable frequency model, which balances the fine trade-off between low latency tracking and battery efficiency, and improve robustness. For this purpose, the Android SDK uses FCM or GCM silent notifications.
 
 By default, project is configured with test `google-service.json` credentials.
 
@@ -92,7 +71,7 @@ UserParams userParams = new UserParams().setName(name).setPhone(phoneNumber).set
 HyperTrack.getOrCreateUser(userParams, new HyperTrackCallback() {
     @Override
     public void onSuccess(@NonNull SuccessResponse successResponse) {
-       
+
         User user = (User) successResponse.getResponseObject();
         String userId = user.getId();
         // Handle createUser success here, if required
