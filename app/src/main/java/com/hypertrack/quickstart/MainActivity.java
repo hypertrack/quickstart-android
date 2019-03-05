@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements LocationPermissio
         super.onResume();
         Log.d(TAG, "onResume");
         deviceId.setText(HyperTrackCore.getDeviceId());
-        updatedUI();
+        updateUiWithDelay();
 
     }
 
