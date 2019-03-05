@@ -33,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/pause_tracking"
+        android:onClick="onClick"
         android:textAlignment="center"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="316dp" />
