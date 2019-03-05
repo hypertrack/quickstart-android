@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/deviceIdTextView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/checking"
+        android:textIsSelectable="true"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="57dp" />
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/locationPermissionButton"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_marginBottom="77dp"
+        android:enabled="true"
+        android:hint="@string/request_location_permission"
+        android:onClick="onClick"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/trackingButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/pause_tracking"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="316dp" />
+
+</LinearLayout>
