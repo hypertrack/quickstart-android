@@ -75,7 +75,7 @@ TBD
 
 ## Frequently Asked Questions
 - [What API levels (Android versions) are supported](#supported-versions)
-- [NoClassDefFoundError](#java.lang.NoClassDefFoundError)
+- [NoClassDefFoundError](#javalangnoclassdeffounderror)
 
 
 #### Supported versions
@@ -84,7 +84,6 @@ Currently we do support all of the Android versions starting from API 17 (Androi
 #### java.lang.NoClassDefFoundError
 I've added SDK and my app started failing with message like `Fatal Exception: java.lang.NoClassDefFoundError`.
 The reason of it, is that on Android API level 19 and below you cannot have more than 65536 methods in your app (including libraries methods). Please, check [this Starckoverflow](https://stackoverflow.com/questions/34997835/fatal-exception-java-lang-noclassdeffounderror-when-calling-static-method-in-an) answer for solutions.
-
 
 
 
