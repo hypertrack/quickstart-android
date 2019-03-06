@@ -37,12 +37,25 @@ Next, you can [start with the Quickstart app](#quickstart-app), or can [integrat
 #### Step 3. Check your location on the HyperTrack [dashboard](https://v3.dashboard.hypertrack.com/devices)
 
 ## Integrate the SDK
- - [Initialize SDK](#step-1-initialize-sdk)
- - [Ask for permission](#step-2-location-data-access-permission)
- - [Cleanup resources](#step-3-cleanup-resources)
- - [Manage tracking](#step-4-manage-tracking-state)
+ - [Add Hypertrack SDK dependency](#step-1-add-hypertrack-sdk-dependency)
+ - [Initialize SDK](#step-2-initialize-sdk)
+ - [Ask for permission](#step-3-location-data-access-permission)
+ - [Cleanup resources](#step-4-cleanup-resources)
+ - [Manage tracking](#step-5-manage-tracking-state)
 
-#### Step 1. Initialize SDK
+#### Step 1. Add Hypertrack SDK dependency
+Add following lines to your applications `build.gradle`:
+```
+repositories {
+    maven {
+        url 'http://hypertrack-core-android.s3-website-us-east-1.amazonaws.com/'
+...
+dependencies {
+        implementation("com.hypertrack.core:android:3.0.0@aar") {transitive = true}
+
+```
+
+#### Step 2. Initialize SDK
 Add SDK init call to your _Application's_ `onCreate()` callback:
 ```java
 @Override
@@ -52,7 +65,7 @@ public void onCreate() {
 }
 ```
 
-#### Step 2. Location data access permission.
+#### Step 3. Location data access permission.
 Ask for `location permission` when appropriate, passing _listener_ to receive callback.
 ```java
 if (!HyperTrack.checkLocationPermission(this)) {
@@ -61,7 +74,7 @@ if (!HyperTrack.checkLocationPermission(this)) {
 }
 ```
 
-#### Step 3. Cleanup resources
+#### Step 4. Cleanup resources
 Add `HyperTrackCore.onStop()` call to your Application's `onTerminate()` callback
 ```java
 @Override
@@ -71,13 +84,13 @@ public void onTerminate() {
 }
 ```
 
-#### Step 4. Manage tracking state.
+#### Step 5. Manage tracking state.
 Depending on your needs, you can always _pause_ and _resume_ tracking, invoking `HyperTrackCore.pauseTracking()` and `HyperTrackCore.resumeTracking()` SDK methods.
 
-#### Step 5. Customize foreground service notification
+#### Step 6. Customize foreground service notification
 TBD
 
-#### Step 6. Set device metadata
+#### Step 7. Set device metadata
 TBD
 
 #### You are all set
@@ -96,7 +109,7 @@ Once your app is running, go to the [Dashboard page](https://v3.dashboard.hypert
 
 
 #### Supported versions
-Currently we do support all of the Android versions starting from API 17 (Android 4.2 Jelly Bean)
+Currently we do support all of the Android versions starting from API 19 (Android 4.4 Kit Kat)
 
 #### java.lang.NoClassDefFoundError
 I've added SDK and my app started failing with message like `Fatal Exception: java.lang.NoClassDefFoundError`.
