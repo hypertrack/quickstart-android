@@ -1,4 +1,4 @@
-# Quickstart App using HyperTrack Core SDK
+# HyperTrack Quickstart for Android SDK
 
 A sample Android application demonstrating the use of HyperTrack SDK.
  - [Quickstart](#quickstart-app)
