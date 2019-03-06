@@ -2,8 +2,8 @@
 
 A sample Android application demonstrating the use of HyperTrack SDK.
  - [Quickstart](#quickstart-app)
- - [Add to your project](#Add-Hypertrack-SDK-to-your-project)
- - [FAQ](#Frequently-Asked-Questions)
+ - [Add to your project](#add-hypertrack-sdk-to-your-project)
+ - [FAQ](#frequently-asked-questions)
 
 ## Quickstart app
 #### Step 1. Open this project in [Android Studio](https://developer.android.com/studio/index.html)
@@ -18,15 +18,15 @@ A sample Android application demonstrating the use of HyperTrack SDK.
 4. Connect device or start simulator instance.
 4. In Android studio press `run` button.
 ![run](https://user-images.githubusercontent.com/10487613/53847992-9ece1c80-3f67-11e9-8969-339484ed232c.png)
-5. Check your location at [dashboard](https://v3.dashboard.hypertrack.com/devices)
+#### Step 3. Check your location at [dashboard](https://v3.dashboard.hypertrack.com/devices)
 ![device-view](https://user-images.githubusercontent.com/10487613/53848754-6bd95800-3f6a-11e9-8464-580f791f3eea.png)
 
 
 ## Add Hypertrack SDK to your project
- - [Initialize SDK](Initialize-SDK)
- - [Ask for permission](Location-data-access-permission)
- - [Cleanup resources](Cleanup-resources)
- - [Manage tracking](Manage-tracking-state)
+ - [Initialize SDK](#step-1-initialize-sdk)
+ - [Ask for permission](#step-2-location-data-access-permission)
+ - [Cleanup resources](#step-3-cleanup-resources)
+ - [Manage tracking](#step-4-manage-tracking-state)
 
 #### Step 1. Initialize SDK
 Add SDK init call to your _Application's_ `onCreate()` callback:
