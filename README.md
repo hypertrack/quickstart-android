@@ -25,7 +25,7 @@ Next, you can [start with the Quickstart app](#quickstart-app), or can [integrat
 
 #### Step 2. Set your Publishable key
 
-1. Add the test publishable key to [MyApplication](https://github.com/hypertrack/quickstart-android/blob/42ccbfc62cc06c049e695d7c8c6fcf4c46f214eb/app/src/main/java/com/hypertrack/quickstart/MyApplication.java#L16) file.
+1. Add the publishable key to [MyApplication](https://github.com/hypertrack/quickstart-android/blob/42ccbfc62cc06c049e695d7c8c6fcf4c46f214eb/app/src/main/java/com/hypertrack/quickstart/MyApplication.java#L16) file.
 
 2. Run project on your device use simulator instance.
 
