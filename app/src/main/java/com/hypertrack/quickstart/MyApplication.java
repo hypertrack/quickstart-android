@@ -13,7 +13,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "Application onCreate");
-        HyperTrackCore.initialize(getApplicationContext(),"uvIAA8xJANxUxDgINOX62-LINLuLeymS6JbGieJ9PegAPITcr9fgUpROpfSMdL9kv-qFjl17NeAuBHse8Qu9sw");
+        HyperTrackCore.initialize(getApplicationContext(),getString(R.string.your_publishable_key));
     }
 
     @Override

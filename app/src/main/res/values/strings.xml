@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">quickstart</string>
+    <string name="app_name">Quickstart</string>
     <string name="checking">checking …</string>
     <string name="request_location_permission">Request Location Permission</string>
     <string name="pause_tracking">Pause tracking</string>
@@ -7,4 +7,5 @@
     <string name="service_not_running">Location service isn\'t running</string>
     <string name="request_permission">Request Location permission</string>
     <string name="resume_tracking">Resume tracking</string>
+    <string name="your_publishable_key">uvIAA8xJANxUxDgINOX62-LINLuLeymS6JbGieJ9PegAPITcr9fgUpROpfSMdL9kv-qFjl17NeAuBHse8Qu9sw</string>
 </resources>
