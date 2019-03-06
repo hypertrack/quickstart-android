@@ -34,9 +34,7 @@ Next, you can [start with the Quickstart app](#quickstart-app), or can [integrat
 ![run](https://user-images.githubusercontent.com/10487613/53847992-9ece1c80-3f67-11e9-8969-339484ed232c.png)
 
 
-#### Step 3. Check your location at [dashboard](https://v3.dashboard.hypertrack.com/devices)
-![device-view](https://user-images.githubusercontent.com/10487613/53848754-6bd95800-3f6a-11e9-8464-580f791f3eea.png)
-
+#### Step 3. Check your location on the HyperTrack [dashboard](https://v3.dashboard.hypertrack.com/devices)
 
 ## Integrate the SDK
  - [Initialize SDK](#step-1-initialize-sdk)
@@ -84,9 +82,9 @@ TBD
 
 ## Dashboard
 
-Once your app is running go to the [Dashboard page](https://v3.dashboard.hypertrack.com/devices) where you can see a list of all your devices and their location on the map.
+Once your app is running, go to the [Dashboard page](https://v3.dashboard.hypertrack.com/devices) where you can see a list of all your devices and their location on the map.
 
-![Dashboard](Images/Dashboard.png)
+![Dashboard](https://user-images.githubusercontent.com/10487613/53848754-6bd95800-3f6a-11e9-8464-580f791f3eea.png)
 
 ## Frequently Asked Questions
 - [What API levels (Android versions) are supported](#supported-versions)
