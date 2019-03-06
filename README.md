@@ -2,6 +2,7 @@
 
 A sample Android application demonstrating the use of HyperTrack SDK.
  - [Quickstart](#quickstart-app)
+ - [Add to your project](#Add-Hypertrack-SDK-to-your-project)
  - [FAQ](#Frequently-Asked-Questions)
 
 ## Quickstart app
@@ -21,22 +22,47 @@ A sample Android application demonstrating the use of HyperTrack SDK.
 ![device-view](https://user-images.githubusercontent.com/10487613/53848754-6bd95800-3f6a-11e9-8464-580f791f3eea.png)
 
 
-## Usage
+## Add Hypertrack SDK to your project
+ - [Initialize SDK](Initialize-SDK)
+ - [Ask for permission](Location-data-access-permission)
+ - [Cleanup resources](Cleanup-resources)
+ - [Manage tracking](Manage-tracking-state)
 
-#### Step 1. Location Permission and Location Setting.
-Ask for `location permission` and `location services`. Refer [here](https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#boolean-checklocationpermission) for more detail.
+#### Step 1. Initialize SDK
+Add SDK init call to your _Application's_ `onCreate()` callback:
 ```java
-// Check for Location permission
+@Override
+public void onCreate() {
+    super.onCreate();
+    HyperTrackCore.initialize(getApplicationContext(),getString(R.string.your_publishable_key));
+}
+```
+
+#### Step 2. Location data access permission.
+Ask for `location permission` when appropriate, passing _listener_ to receive callback.
+```java
 if (!HyperTrack.checkLocationPermission(this)) {
-    HyperTrack.requestPermissions(this);
+    HyperTrack.requestPermissions(mPermissionCallback);
     return;
 }
 ```
 
-#### Step 2.
+#### Step 3. Cleanup resources
+Add `HyperTrackCore.onStop()` call to your Application's `onTerminate()` callback
+```java
+@Override
+public void onTerminate() {
+    super.onTerminate();
+    HyperTrackCore.onStop();
+}
+```
 
+#### Step 4. Manage tracking state.
+Depending on your needs, you can always _pause_ and _resume_ tracking, invoking `HyperTrackCore.pauseTracking()` and `HyperTrackCore.resumeTracking()` SDK methods.
 
-
+## Frequently Asked Questions
+ - supported versions
+ -
 
 ## Support
 Join our [Slack community](http://slack.hypertrack.com) for instant responses, or interact with our growing [community](https://community.hypertrack.com). You can also email us at help@hypertrack.com.
