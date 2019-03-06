@@ -1,9 +1,23 @@
 # HyperTrack Quickstart for Android SDK
 
-A sample Android application demonstrating the use of HyperTrack SDK.
- - [Quickstart](#quickstart-app)
- - [Add to your project](#add-hypertrack-sdk-to-your-project)
- - [FAQ](#frequently-asked-questions)
+[HyperTrack](https://www.hypertrack.com) lets you add live location tracking to your mobile app. This repo contains an example client app that has everything you need to get started in minutes. 
+
+* [Publishable Key](#publishable-key) - Get your Publishable Key
+* [Quickstart](#quickstart-app) - Start with a ready-to-go app
+* [Integrate the SDK](#integrate-the-sdk) - Integrate the SDK into your app
+* [Dashboard](#dashboard) - See all your devices' locations on HyperTrack Dashboard
+* [FAQ](#frequently-asked-questions)
+
+## Publishable Key
+
+We use Publishable Key to identify your devices. To get one:
+1. Go to the [Signup page](https://v3.dashboard.hypertrack.com/signup). Enter your email address and password.
+2. Open the verification link sent to your inbox.
+3. Open the [Keys page](https://v3.dashboard.hypertrack.com/account/keys), where you can copy your Publishable Key.
+
+![Signup flow](Images/Signup_flow.png)
+
+Next, you can [start with the Quickstart app](#quickstart), or can [integrate the SDK](#install-the-sdk) in your app.
 
 ## Quickstart app
 #### Step 1. Open this project in [Android Studio](https://developer.android.com/studio/index.html)
@@ -29,7 +43,7 @@ A sample Android application demonstrating the use of HyperTrack SDK.
 ![device-view](https://user-images.githubusercontent.com/10487613/53848754-6bd95800-3f6a-11e9-8464-580f791f3eea.png)
 
 
-## Add Hypertrack SDK to your project
+## Integrate the SDK
  - [Initialize SDK](#step-1-initialize-sdk)
  - [Ask for permission](#step-2-location-data-access-permission)
  - [Cleanup resources](#step-3-cleanup-resources)
@@ -72,6 +86,12 @@ TBD
 
 #### Step 6. Set device metadata
 TBD
+
+## Dashboard
+
+Once your app is running go to the [Dashboard page](https://v3.dashboard.hypertrack.com/devices) where you can see a list of all your devices and their location on the map.
+
+![Dashboard](Images/Dashboard.png)
 
 ## Frequently Asked Questions
 - [What API levels (Android versions) are supported](#supported-versions)
