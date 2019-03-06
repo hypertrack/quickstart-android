@@ -1,6 +1,6 @@
 # HyperTrack Quickstart for Android SDK
 
-[HyperTrack](https://www.hypertrack.com) lets you add live location tracking to your mobile app. This repo contains an example client app that has everything you need to get started in minutes. 
+[HyperTrack](https://www.hypertrack.com) lets you add live location tracking to your mobile app. This repo contains an example client app that has everything you need to get started in minutes.
 
 * [Publishable Key](#publishable-key)–Get your Publishable Key
 * [Quickstart](#quickstart-app)–Start with a ready-to-go app
@@ -105,4 +105,4 @@ The reason of it, is that on Android API level 19 and below you cannot have more
 
 
 ## Support
-Join our [Slack community](http://slack.hypertrack.com) for instant responses, or interact with our growing [community](https://community.hypertrack.com). You can also email us at help@hypertrack.com.
+Join our [Slack community](http://slack.hypertrack.com) for instant responses. You can also email us at help@hypertrack.com.
