@@ -11,13 +11,20 @@ A sample Android application demonstrating the use of HyperTrack SDK.
 
 #### Step 2. Signup and get Publishable key.
 1. Signup [here](https://v3.dashboard.hypertrack.com/signup).
+
 2. Get `test` publishable key from [dashboard](https://v3.dashboard.hypertrack.com/account/keys) settings page.
 
 ![Dashoard Settings](https://user-images.githubusercontent.com/10487613/53847261-ccfe2d00-3f64-11e9-8883-6b9a626c4ce3.png)
+
 3. Add the test publishable key to [MyApplication](https://github.com/hypertrack/quickstart-android/blob/42ccbfc62cc06c049e695d7c8c6fcf4c46f214eb/app/src/main/java/com/hypertrack/quickstart/MyApplication.java#L16) file.
-4. Connect device or start simulator instance.
-4. In Android studio press `run` button.
+
+4. Run project on your device use simulator instance.
+
+4. Go through one-time permission flow (applicable for Android M and later).
+
 ![run](https://user-images.githubusercontent.com/10487613/53847992-9ece1c80-3f67-11e9-8969-339484ed232c.png)
+
+
 #### Step 3. Check your location at [dashboard](https://v3.dashboard.hypertrack.com/devices)
 ![device-view](https://user-images.githubusercontent.com/10487613/53848754-6bd95800-3f6a-11e9-8464-580f791f3eea.png)
 
@@ -60,9 +67,15 @@ public void onTerminate() {
 #### Step 4. Manage tracking state.
 Depending on your needs, you can always _pause_ and _resume_ tracking, invoking `HyperTrackCore.pauseTracking()` and `HyperTrackCore.resumeTracking()` SDK methods.
 
+#### Step 5. Customize foreground service notification
+TBD
+
+#### Step 6. Set device metadata
+TBD
+
 ## Frequently Asked Questions
- - supported versions
- -
+ - supported platform versions (17+)
+ - TBD
 
 ## Support
 Join our [Slack community](http://slack.hypertrack.com) for instant responses, or interact with our growing [community](https://community.hypertrack.com). You can also email us at help@hypertrack.com.
