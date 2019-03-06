@@ -15,7 +15,7 @@ We use Publishable Key to identify your devices. To get one:
 2. Open the verification link sent to your inbox.
 3. Open the [Keys page](https://v3.dashboard.hypertrack.com/account/keys), where you can copy your Publishable Key.
 
-![Signup flow](Images/Signup_flow.png)
+![Keys page in dashboard](https://user-images.githubusercontent.com/10487613/53847261-ccfe2d00-3f64-11e9-8883-6b9a626c4ce3.png)
 
 Next, you can [start with the Quickstart app](#quickstart-app), or can [integrate the SDK](#integrate-the-sdk) in your app.
 
@@ -23,18 +23,13 @@ Next, you can [start with the Quickstart app](#quickstart-app), or can [integrat
 #### Step 1. Open this project in [Android Studio](https://developer.android.com/studio/index.html)
 ![Android-Studio-quickstart-android](https://user-images.githubusercontent.com/10487613/53846914-9ecc1d80-3f63-11e9-80fe-07456c4ac0f8.png)
 
-#### Step 2. Signup and get Publishable key.
-1. Signup [here](https://v3.dashboard.hypertrack.com/signup).
+#### Step 2. Set your Publishable key
 
-2. Get `test` publishable key from [dashboard](https://v3.dashboard.hypertrack.com/account/keys) settings page.
+1. Add the test publishable key to [MyApplication](https://github.com/hypertrack/quickstart-android/blob/42ccbfc62cc06c049e695d7c8c6fcf4c46f214eb/app/src/main/java/com/hypertrack/quickstart/MyApplication.java#L16) file.
 
-![Dashoard Settings](https://user-images.githubusercontent.com/10487613/53847261-ccfe2d00-3f64-11e9-8883-6b9a626c4ce3.png)
+2. Run project on your device use simulator instance.
 
-3. Add the test publishable key to [MyApplication](https://github.com/hypertrack/quickstart-android/blob/42ccbfc62cc06c049e695d7c8c6fcf4c46f214eb/app/src/main/java/com/hypertrack/quickstart/MyApplication.java#L16) file.
-
-4. Run project on your device use simulator instance.
-
-4. Go through one-time permission flow (applicable for Android M and later).
+3. Go through one-time permission flow (applicable for Android M and later).
 
 ![run](https://user-images.githubusercontent.com/10487613/53847992-9ece1c80-3f67-11e9-8969-339484ed232c.png)
 
