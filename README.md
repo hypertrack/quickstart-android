@@ -82,7 +82,7 @@ TBD
 
 ## Dashboard
 
-Once your app is running, go to the [Dashboard page](https://v3.dashboard.hypertrack.com/devices) where you can see a list of all your devices and their location on the map.
+Once your app is running, go to the [Dashboard page](#dashboard) where you can see a list of all your devices and their location on the map.
 
 ![Dashboard](https://user-images.githubusercontent.com/10487613/53848754-6bd95800-3f6a-11e9-8464-580f791f3eea.png)
 
