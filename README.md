@@ -37,21 +37,28 @@ Next, you can [start with the Quickstart app](#quickstart-app), or can [integrat
 #### Step 3. Check your location on the HyperTrack [dashboard](https://v3.dashboard.hypertrack.com/devices)
 
 ## Integrate the SDK
- - [Add Hypertrack SDK dependency](#step-1-add-hypertrack-sdk-dependency)
+ - [Add Hypertrack SDK](#step-1-add-hypertrack-sdk)
  - [Initialize SDK](#step-2-initialize-sdk)
  - [Ask for permission](#step-3-location-data-access-permission)
  - [Cleanup resources](#step-4-cleanup-resources)
  - [Manage tracking](#step-5-manage-tracking-state)
 
-#### Step 1. Add Hypertrack SDK dependency
+#### Step 1. Add Hypertrack SDK
 Add following lines to your applications `build.gradle`:
 ```
+// Import the SDK within your repositories block 
 repositories {
-    maven {
-        url 'http://hypertrack-core-android.s3-website-us-east-1.amazonaws.com/'
-...
+    maven { url 'http://hypertrack-core-android.s3-website-us-east-1.amazonaws.com/' }
+    ...
+}
+    
+//Add HyperTrack as a dependency
 dependencies {
-        implementation("com.hypertrack:sdk:3.0.0-SNAPSHOT@aar") {transitive = true}
+    implementation("com.hypertrack:sdk:3.0.0-SNAPSHOT@aar"){
+        transitive = true;
+    }
+    ...
+}
 ```
 
 #### Step 2. Initialize SDK
