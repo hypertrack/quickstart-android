@@ -51,8 +51,7 @@ repositories {
         url 'http://hypertrack-core-android.s3-website-us-east-1.amazonaws.com/'
 ...
 dependencies {
-        implementation("com.hypertrack.core:android:3.0.0@aar") {transitive = true}
-
+        implementation("com.hypertrack:sdk:3.0.0-SNAPSHOT@aar") {transitive = true}
 ```
 
 #### Step 2. Initialize SDK
@@ -61,7 +60,7 @@ Add SDK init call to your _Application's_ `onCreate()` callback:
 @Override
 public void onCreate() {
     super.onCreate();
-    HyperTrackCore.initialize(getApplicationContext(),getString(R.string.your_publishable_key));
+    HyperTrack.initialize(getApplicationContext(),getString(R.string.your_publishable_key));
 }
 ```
 
@@ -75,12 +74,12 @@ if (!HyperTrack.checkLocationPermission(this)) {
 ```
 
 #### Step 4. Cleanup resources
-Add `HyperTrackCore.onStop()` call to your Application's `onTerminate()` callback
+Add `HyperTrack.onStop()` call to your Application's `onTerminate()` callback
 ```java
 @Override
 public void onTerminate() {
     super.onTerminate();
-    HyperTrackCore.onStop();
+    HyperTrack.onStop();
 }
 ```
 

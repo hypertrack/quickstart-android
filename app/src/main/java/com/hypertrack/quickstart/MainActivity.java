@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.hypertrack.core_android_sdk.HyperTrackCore;
-import com.hypertrack.core_android_sdk.permissions.LocationPermissionCallback;
+import com.hypertrack.sdk.HyperTrack;
+import com.hypertrack.sdk.permissions.LocationPermissionCallback;
 
 public class MainActivity extends AppCompatActivity implements LocationPermissionCallback {
 
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements LocationPermissio
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume");
-        deviceId.setText(HyperTrackCore.getDeviceId());
+        deviceId.setText(HyperTrack.getDeviceId());
         updateUiWithDelay();
 
     }
@@ -46,15 +46,15 @@ public class MainActivity extends AppCompatActivity implements LocationPermissio
 
         switch (view.getId()) {
             case R.id.locationPermissionButton:
-                if (!HyperTrackCore.checkLocationPermission(this)) {
-                    HyperTrackCore.requestLocationPermissions(this, this);
+                if (!HyperTrack.checkLocationPermission(this)) {
+                    HyperTrack.requestLocationPermissions(this, this);
                 }
                 break;
             case R.id.trackingButton:
-                if (HyperTrackCore.isTracking()) {
-                    HyperTrackCore.pauseTracking();
+                if (HyperTrack.isTracking()) {
+                    HyperTrack.pauseTracking();
                 } else {
-                    HyperTrackCore.resumeTracking();
+                    HyperTrack.resumeTracking();
                 }
         }
     }
@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity implements LocationPermissio
     private void updatedUI() {
         Log.d(TAG, "Updating UI");
         // checking for location data access permissions:
-        if (HyperTrackCore.checkLocationPermission(this)) {
+        if (HyperTrack.checkLocationPermission(this)) {
             requestLocationPermission.setEnabled(false);
-            if (HyperTrackCore.isLocationServiceRunning()) {
+            if (HyperTrack.isLocationServiceRunning()) {
                 requestLocationPermission.setText(getString(R.string.service_running));
             } else {
                 requestLocationPermission.setText(getString(R.string.service_not_running));
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements LocationPermissio
             trackingSwitcher.setEnabled(false);
         }
 
-        if (HyperTrackCore.isTracking()) {
+        if (HyperTrack.isTracking()) {
             trackingSwitcher.setText(getString(R.string.pause_tracking));
         } else {
             trackingSwitcher.setText(getString(R.string.resume_tracking));
