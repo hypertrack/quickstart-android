@@ -46,12 +46,12 @@ Next, you can [start with the Quickstart app](#quickstart-app), or can [integrat
 #### Step 1. Add Hypertrack SDK
 Add following lines to your applications `build.gradle`:
 ```
-// Import the SDK within your repositories block 
+// Import the SDK within your repositories block
 repositories {
     maven { url 'http://hypertrack-core-android.s3-website-us-east-1.amazonaws.com/' }
     ...
 }
-    
+
 //Add HyperTrack as a dependency
 dependencies {
     implementation("com.hypertrack:sdk:3.0.0-SNAPSHOT@aar"){
@@ -93,11 +93,23 @@ public void onTerminate() {
 #### Step 5. Manage tracking state.
 Depending on your needs, you can always _pause_ and _resume_ tracking, invoking `HyperTrack.pauseTracking()` and `HyperTrack.resumeTracking()` SDK methods.
 
-#### Step 6. Customize foreground service notification
-TBD
+#### Step 6. (optional) Customize foreground service notification
+HyperTrack tracking runs as a separate foreground service, so when tracking is on you'll see a notification icon at the top of the screen.
+By default it will display your app icon and message `{app name} is running` but you can customize it anytime after initialization by calling
+```java
+HyperTrack.addNotificationIconsAndTitle(
+    R.drawable.ic_small,
+    R.drawable.ic_large,
+    notificationTitleText,
+    notificationBodyText
+);
+```
 
-#### Step 7. Set device metadata
-TBD
+#### Step 7. (optional) Set device metadata
+All of the tracking devices are uniquely identified by per-device set [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier). Sometimes it is more convenient to tag device with specific name, that will make it easier to choose it at dashboard.
+```java
+HyperTrack.setNameAndMetadataForDevice(name, metaData);
+```
 
 #### You are all set
 
