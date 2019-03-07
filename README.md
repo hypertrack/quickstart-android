@@ -84,7 +84,7 @@ public void onTerminate() {
 ```
 
 #### Step 5. Manage tracking state.
-Depending on your needs, you can always _pause_ and _resume_ tracking, invoking `HyperTrackCore.pauseTracking()` and `HyperTrackCore.resumeTracking()` SDK methods.
+Depending on your needs, you can always _pause_ and _resume_ tracking, invoking `HyperTrack.pauseTracking()` and `HyperTrack.resumeTracking()` SDK methods.
 
 #### Step 6. Customize foreground service notification
 TBD
