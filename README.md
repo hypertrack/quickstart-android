@@ -21,7 +21,7 @@ Next, you can [start with the Quickstart app](#quickstart-app), or can [integrat
 
 ## Quickstart app
 #### Step 1. Open this project in [Android Studio](https://developer.android.com/studio/index.html)
-![Android-Studio-quickstart-android](https://user-images.githubusercontent.com/10487613/53846914-9ecc1d80-3f63-11e9-80fe-07456c4ac0f8.png)
+![Android-Studio-quickstart-android](https://user-images.githubusercontent.com/10487613/53929273-0eb0d580-4042-11e9-9736-51fbb7945bfd.png)
 
 #### Step 2. Set your Publishable key
 
