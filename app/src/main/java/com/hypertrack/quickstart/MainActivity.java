@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.hypertrack.sdk.HyperTrack;
 import com.hypertrack.sdk.permissions.LocationPermissionCallback;
 
+import java.util.Collections;
+
 public class MainActivity extends AppCompatActivity implements LocationPermissionCallback {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements LocationPermissio
         trackingSwitcher = findViewById(R.id.trackingButton);
         deviceId = findViewById(R.id.deviceIdTextView);
 
-
+        HyperTrack.setNameAndMetadataForDevice(getString(R.string.name), Collections.<String, Object>emptyMap());
 
     }
 
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements LocationPermissio
         switch (view.getId()) {
             case R.id.locationPermissionButton:
                 if (!HyperTrack.checkLocationPermission(this)) {
-                    HyperTrack.requestLocationPermissions(this, this);
+                    HyperTrack.requestLocationPermission(this, this);
                 }
                 break;
             case R.id.trackingButton:
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements LocationPermissio
         // checking for location data access permissions:
         if (HyperTrack.checkLocationPermission(this)) {
             requestLocationPermission.setEnabled(false);
-            if (HyperTrack.isLocationServiceRunning()) {
+            if (HyperTrack.isServiceRunning()) {
                 requestLocationPermission.setText(getString(R.string.service_running));
             } else {
                 requestLocationPermission.setText(getString(R.string.service_not_running));

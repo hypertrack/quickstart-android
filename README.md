@@ -54,7 +54,7 @@ repositories {
 
 //Add HyperTrack as a dependency
 dependencies {
-    implementation("com.hypertrack:sdk:3.0.0-SNAPSHOT@aar"){
+    implementation("com.hypertrack:hypertrack:3.0.0-SNAPSHOT@aar"){
         transitive = true;
     }
     ...
@@ -95,7 +95,7 @@ Depending on your needs, you can always _pause_ and _resume_ tracking, invoking 
 
 #### Step 6. (optional) Customize foreground service notification
 HyperTrack tracking runs as a separate foreground service, so when tracking is on you'll see a notification icon at the top of the screen.
-By default it will display your app icon and message `{app name} is running` but you can customize it anytime after initialization by calling
+By default it will display your app icon with text `{app name} is running` but you can customize it anytime after initialization by calling
 ```java
 HyperTrack.addNotificationIconsAndTitle(
     R.drawable.ic_small,
