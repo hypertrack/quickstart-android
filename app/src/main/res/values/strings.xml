@@ -7,6 +7,6 @@
     <string name="service_not_running">Location service isn\'t running</string>
     <string name="request_permission">Request Location permission</string>
     <string name="resume_tracking">Resume tracking</string>
-    <string name="your_publishable_key">uvIAA8xJANxUxDgINOX62-LINLuLeymS6JbGieJ9PegAPITcr9fgUpROpfSMdL9kv-qFjl17NeAuBHse8Qu9sw</string>
+    <string name="your_publishable_key">past_your_key_here</string>
     <string name="name">Elvis</string>
 </resources>
