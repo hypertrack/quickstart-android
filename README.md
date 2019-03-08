@@ -127,6 +127,8 @@ Once your app is running, go to the [Dashboard page](https://v3.dashboard.hypert
 - [What API levels (Android versions) are supported](#supported-versions)
 - [NoClassDefFoundError](#javalangnoclassdeffounderror)
 - [Handling dependency conflicts](#dependencies)
+- [Persistent notification](#persistent-notification)
+- [Handling custom ROMs](#handling-custom-roms)
 
 
 #### Supported versions
@@ -168,6 +170,40 @@ Common problem here is depending on different versions of `com.android.support` 
   implementation `com.android.support:support-media-compat:26.1.0`
 ```
 That will take precedence over SDK version and you'll have one version of support library on your classpath.
+
+
+#### Persistent notification
+HyperTrack SDK, by default, runs as a foreground service. This is to ensure that the location tracking works reliably even when your app is minimized. A foreground service is a service that the user is actively aware of and isn't a candidate for the system to kill when low on memory.
+Android mandates that a foreground service provides a persistent notification in the status bar. This means that the notification cannot be dismissed by the user.
+
+#### Handling custom ROMs
+Smartphones are getting more and more powerful, but the battery capacity is lagging behind. Device manufactures are always trying to squeeze some battery saving features into the firmware with each new Android release. Manufactures like Xiaomi, Huawei and OnePlus have their own battery savers that kills the services running in the background. Read more.
+To avoid OS killing the service, users of your app need to override the automatic battery management and set it manual. To inform your users and direct them to the right setting page, you may add the following code in your app. This would intent out your user to the right settings page on the device.
+```
+try {
+    Intent intent = new Intent();
+    String manufacturer = android.os.Build.MANUFACTURER;
+    if ("xiaomi".equalsIgnoreCase(manufacturer)) {
+        intent.setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity"));
+    }
+    else if ("oppo".equalsIgnoreCase(manufacturer)) {
+        intent.setComponent(new ComponentName("com.coloros.safecenter", "com.coloros.safecenter.permission.startup.StartupAppListActivity"));
+    }
+    else if ("vivo".equalsIgnoreCase(manufacturer)) {
+        intent.setComponent(new ComponentName("com.vivo.permissionmanager", "com.vivo.permissionmanager.activity.BgStartUpManagerActivity"));
+    }
+
+    List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+    if  (list.size() > 0) {
+        context.startActivity(intent);
+    }
+    }
+    catch (Exception e) {
+        Crashlytics.logException(e);
+}
+```
+You may also try out open source libraries like https://github.com/judemanutd/AutoStarter
+
 
 ## Support
 Join our [Slack community](http://slack.hypertrack.com) for instant responses. You can also email us at help@hypertrack.com.
