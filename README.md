@@ -167,7 +167,7 @@ SDK dependencies graph looks like below:
 
 Common problem here is depending on different versions of `com.android.support` library components. You can explicitly specify required version by adding it as a dependency in your app's `build.gradle`, e.g.:
 ```
-  implementation `com.android.support:support-media-compat:26.1.0`
+  implementation `com.android.support:support-media-compat:28.0.0`
 ```
 That will take precedence over SDK version and you'll have one version of support library on your classpath.
 
