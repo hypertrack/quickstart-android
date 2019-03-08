@@ -167,7 +167,7 @@ SDK dependencies graph looks like below:
 
 Common problem here is depending on different versions of `com.android.support` library components. You can explicitly specify required version by adding it as a dependency in your app's `build.gradle`, e.g.:
 ```
-  implementation `com.android.support:support-media-compat:26.1.0`
+  implementation `com.android.support:support-v4:28.0.0`
 ```
 That will take precedence over SDK version and you'll have one version of support library on your classpath.
 
@@ -175,6 +175,8 @@ That will take precedence over SDK version and you'll have one version of suppor
 #### Persistent notification
 HyperTrack SDK, by default, runs as a foreground service. This is to ensure that the location tracking works reliably even when your app is minimized. A foreground service is a service that the user is actively aware of and isn't a candidate for the system to kill when low on memory.
 Android mandates that a foreground service provides a persistent notification in the status bar. This means that the notification cannot be dismissed by the user.
+
+![persistent-notification](https://user-images.githubusercontent.com/10487613/54007190-6ec47c00-4115-11e9-9743-332befbcf8f5.png)
 
 #### Handling custom ROMs
 Smartphones are getting more and more powerful, but the battery capacity is lagging behind. Device manufactures are always trying to squeeze some battery saving features into the firmware with each new Android release. Manufactures like Xiaomi, Huawei and OnePlus have their own battery savers that kills the services running in the background. Read more.
