@@ -92,10 +92,10 @@ public void onTerminate() {
 }
 ```
 
-#### Step 5. Manage tracking state.
+#### Step 5. _(optional)_ Manage tracking state
 Depending on your needs, you can always _pause_ and _resume_ tracking, invoking `HyperTrack.pauseTracking()` and `HyperTrack.resumeTracking()` SDK methods.
 
-#### Step 6. (optional) Customize foreground service notification
+#### Step 6. _(optional)_ Customize foreground service notification
 HyperTrack tracking runs as a separate foreground service, so when tracking is on you'll see a notification icon at the top of the screen.
 By default it will display your app icon with text `{app name} is running` but you can customize it anytime after initialization by calling
 ```java
