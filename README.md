@@ -41,7 +41,7 @@ Next, you can [start with the Quickstart app](#quickstart-app), or can [integrat
 ## Integrate the SDK
  - [Add Hypertrack SDK](#step-1-add-hypertrack-sdk)
  - [Initialize SDK](#step-2-initialize-sdk)
- - [Ask for permission](#step-3-location-data-access-permission)
+ - [Ask for permission](#step-3-get-location-permission)
  - [Cleanup resources](#step-4-cleanup-resources)
  - [Manage tracking](#step-5-manage-tracking-state)
 
@@ -73,7 +73,7 @@ public void onCreate() {
 }
 ```
 
-#### Step 3. Location data access permission.
+#### Step 3. Get location permission
 Ask for `location permission` when appropriate, passing _listener_ to receive callback.
 ```java
 if (!HyperTrack.checkLocationPermission(this)) {
@@ -96,8 +96,7 @@ public void onTerminate() {
 Depending on your needs, you can always _pause_ and _resume_ tracking, invoking `HyperTrack.pauseTracking()` and `HyperTrack.resumeTracking()` SDK methods.
 
 #### Step 6. _(optional)_ Customize foreground service notification
-HyperTrack tracking runs as a separate foreground service, so when tracking is on you'll see a notification icon at the top of the screen.
-By default it will display your app icon with text `{app name} is running` but you can customize it anytime after initialization by calling
+HyperTrack tracking runs as a separate foreground service, so when tracking is ON, your users will see a persistent notification. By default, it displays your app icon with text `{app name} is running` but you can customize it anytime after initialization by calling:
 ```java
 HyperTrack.addNotificationIconsAndTitle(
     R.drawable.ic_small,
@@ -108,14 +107,14 @@ HyperTrack.addNotificationIconsAndTitle(
 ```
 
 #### Step 7. (optional) Set device metadata
-All of the tracking devices are uniquely identified by per-device set [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier). Sometimes it is more convenient to tag device with specific name, that will make it easier to choose it at dashboard.
+All devices tracked on HyperTrack are uniquely identified using [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier). You may tag a device with a name that you will make it easy to view on HyperTrack Dashboard.
 ```java
 HyperTrack.setNameAndMetadataForDevice(name, metaData);
 ```
 
 #### You are all set
 
-You can run the app and start using HyperTrack. You can see your devices on the [dashboard](#dashboard).
+You can now run the app and start using HyperTrack. You can see your devices on the [dashboard](#dashboard).
 
 ## Dashboard
 
