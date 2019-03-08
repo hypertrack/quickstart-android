@@ -1,49 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     tools:context=".MainActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar_layout"
+    <TextView
+        android:id="@+id/deviceIdTextView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:text="@string/checking"
+        android:textIsSelectable="true"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="57dp" />
+
+    <Button
+        android:id="@+id/locationPermissionButton"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_margin="20dp"
+        android:enabled="true"
+        android:hint="@string/request_location_permission"
+        android:onClick="onClick"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/trackingButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_margin="20dp"
+        android:hint="@string/pause_tracking"
+        android:onClick="onClick"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="316dp" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:elevation="8dp"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-    </android.support.design.widget.AppBarLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/logout_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingBottom="@dimen/padding_base"
-            android:paddingLeft="@dimen/padding_xxxhigh"
-            android:paddingRight="@dimen/padding_xxxhigh"
-            android:paddingTop="@dimen/padding_base"
-            android:text="@string/logout_button_text"
-            android:textSize="@dimen/text_size_large" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_high"
-            android:text="@string/on_logout_tracking_will_be_stopped" />
-    </LinearLayout>
 </LinearLayout>

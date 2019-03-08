@@ -1,71 +1,109 @@
 package com.hypertrack.quickstart;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.hypertrack.lib.HyperTrack;
+import com.hypertrack.sdk.HyperTrack;
+import com.hypertrack.sdk.permissions.LocationPermissionCallback;
 
-import static com.hypertrack.quickstart.LoginActivity.HT_QUICK_START_SHARED_PREFS_KEY;
+import java.util.Collections;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity implements LocationPermissionCallback {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    private Button requestLocationPermission;
+    private Button trackingSwitcher;
+    private TextView deviceId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize Toolbar
-        initToolbar(getString(R.string.app_name));
+        requestLocationPermission = findViewById(R.id.locationPermissionButton);
+        trackingSwitcher = findViewById(R.id.trackingButton);
+        deviceId = findViewById(R.id.deviceIdTextView);
 
-        // Initialize UI Views
-        initUIViews();
+        HyperTrack.setNameAndMetadataForDevice(getString(R.string.name), Collections.<String, Object>emptyMap());
+
     }
 
-    private void initUIViews() {
-        // Initialize AssignAction Button
-        Button logoutButton = (Button) findViewById(R.id.logout_btn);
-        if (logoutButton != null) logoutButton.setOnClickListener(logoutButtonClickListener);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+        deviceId.setText(HyperTrack.getDeviceId());
+        updateUiWithDelay();
+
     }
 
-    // Click Listener for AssignAction Button
-    private View.OnClickListener logoutButtonClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+    public void onClick(View view) {
+        Log.d(TAG, "onClick for view " + view.getId());
 
-            Toast.makeText(MainActivity.this, R.string.main_logout_success_msg,
-                    Toast.LENGTH_SHORT).show();
-
-            // Stop HyperTrack SDK
-            // Refer here for more detail
-            // https://docs.hypertrack.com/sdks/android/reference/hypertrack.html#void-stoptracking
-            HyperTrack.completeAction(getActionId());
-            clearUser();
-
-            // Proceed to LoginActivity for a fresh User Login
-            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-            loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(loginIntent);
-            finish();
+        switch (view.getId()) {
+            case R.id.locationPermissionButton:
+                if (!HyperTrack.checkLocationPermission(this)) {
+                    HyperTrack.requestLocationPermission(this, this);
+                }
+                break;
+            case R.id.trackingButton:
+                if (HyperTrack.isTracking()) {
+                    HyperTrack.pauseTracking();
+                } else {
+                    HyperTrack.resumeTracking();
+                }
         }
-    };
-
-    public  void clearUser() {
-        SharedPreferences sharedPreferences = getSharedPreferences(HT_QUICK_START_SHARED_PREFS_KEY,
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
     }
 
-    private String getActionId() {
-        SharedPreferences sharedPreferences = getSharedPreferences(HT_QUICK_START_SHARED_PREFS_KEY,
-                Context.MODE_PRIVATE);
-        return sharedPreferences.getString("action_id", null);
+    private void updatedUI() {
+        Log.d(TAG, "Updating UI");
+        // checking for location data access permissions:
+        if (HyperTrack.checkLocationPermission(this)) {
+            requestLocationPermission.setEnabled(false);
+            if (HyperTrack.isServiceRunning()) {
+                requestLocationPermission.setText(getString(R.string.service_running));
+            } else {
+                requestLocationPermission.setText(getString(R.string.service_not_running));
+            }
+            trackingSwitcher.setEnabled(true);
+        } else {
+            requestLocationPermission.setEnabled(true);
+            requestLocationPermission.setText(getString(R.string.request_permission));
+            trackingSwitcher.setEnabled(false);
+        }
+
+        if (HyperTrack.isTracking()) {
+            trackingSwitcher.setText(getString(R.string.pause_tracking));
+        } else {
+            trackingSwitcher.setText(getString(R.string.resume_tracking));
+        }
+    }
+
+    @Override
+    public void onLocationPermissionGranted() {
+        Log.d(TAG, "Location data access permission was granted");
+        updateUiWithDelay();
+    }
+
+    @Override
+    public void onLocationPermissionDenied() {
+        Log.w(TAG, "Location data access permission was denied");
+        updatedUI();
+    }
+
+    private void updateUiWithDelay() {
+                final Handler handler = new Handler();
+                handler.postDelayed(
+                        new Runnable() {
+                            @Override
+                            public void run() { updatedUI(); }
+                        },
+                5000);
     }
 }
