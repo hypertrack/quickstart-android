@@ -43,7 +43,9 @@ Next, you can [start with the Quickstart app](#quickstart-app), or can [integrat
  - [Initialize SDK](#step-2-initialize-sdk)
  - [Ask for permission](#step-3-get-location-permission)
  - [Cleanup resources](#step-4-cleanup-resources)
- - [Manage tracking](#step-5-manage-tracking-state)
+ - [Manage tracking (optional)](#step-5-optional-manage-tracking-state)
+ - [Customize notification icon (optional)](#step-6-optional-customize-foreground-service-notification)
+ - [Identify devices (optional)](#step-7-optional-identify-devices)
 
 #### Step 1. Add Hypertrack SDK
 Add following lines to your applications `build.gradle`:
@@ -56,7 +58,7 @@ repositories {
 
 //Add HyperTrack as a dependency
 dependencies {
-    implementation("com.hypertrack:hypertrack:3.0.0@aar"){
+    implementation("com.hypertrack:hypertrack:3.0.2@aar"){
         transitive = true;
     }
     ...
@@ -106,8 +108,9 @@ HyperTrack.addNotificationIconsAndTitle(
 );
 ```
 
-#### Step 7. (optional) Set device metadata
-All devices tracked on HyperTrack are uniquely identified using [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier). You may tag a device with a name that you will make it easy to view on HyperTrack Dashboard.
+#### Step 7. (optional) Identify devices
+All devices tracked on HyperTrack are uniquely identified using [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier). You can get this identifier programmatically in your app by calling `HyperTrack.getDeviceId()` after initialization.
+Another approach is to tag device with a name that will make it easy to distinguish them on HyperTrack Dashboard.
 ```java
 HyperTrack.setNameAndMetadataForDevice(name, metaData);
 ```
