@@ -79,7 +79,7 @@ public void onCreate() {
 Ask for `location permission` when appropriate, passing _listener_ to receive callback.
 ```java
 if (!HyperTrack.checkLocationPermission(this)) {
-    HyperTrack.requestPermissions(mPermissionCallback);
+    HyperTrack.requestLocationPermission(this, mPermissionCallback);
     return;
 }
 ```
