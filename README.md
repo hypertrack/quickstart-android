@@ -123,7 +123,7 @@ You can now run the app and start using HyperTrack. You can see your devices on 
 
 Once your app is running, go to the [Dashboard page](https://dashboard.hypertrack.com/devices) where you can see a list of all your devices and their location on the map.
 
-![Dashboard](https://user-images.githubusercontent.com/10487613/53848754-6bd95800-3f6a-11e9-8464-580f791f3eea.png)
+![Dashboard](https://user-images.githubusercontent.com/10487613/55571612-80964080-570e-11e9-91b5-f2773063a821.png)
 
 ## Frequently Asked Questions
 - [What API levels (Android versions) are supported](#supported-versions)
