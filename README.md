@@ -52,13 +52,16 @@ Add following lines to your applications `build.gradle`:
 ```
 // Import the SDK within your repositories block
 repositories {
-    maven { url 'http://hypertrack-core-android.s3-website-us-east-1.amazonaws.com/' }
+    maven {
+        name 'hypertrack'
+        url 'http://hypertrack-core-android.s3-website-us-east-1.amazonaws.com/'
+    }
     ...
 }
 
 //Add HyperTrack as a dependency
 dependencies {
-    implementation("com.hypertrack:hypertrack:3.0.3@aar"){
+    implementation("com.hypertrack:hypertrack:3.0.4@aar"){
         transitive = true;
     }
     ...
