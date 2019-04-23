@@ -23,22 +23,11 @@
         tools:layout_editor_absoluteY="57dp" />
 
     <Button
-        android:id="@+id/locationPermissionButton"
-        android:layout_width="match_parent"
-        android:layout_height="51dp"
-        android:layout_margin="20dp"
-        android:enabled="true"
-        android:hint="@string/request_location_permission"
-        android:onClick="onClick"
-        android:textAlignment="center"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <Button
         android:id="@+id/trackingButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:hint="@string/pause_tracking"
+        android:hint="@string/resume_tracking"
         android:onClick="onClick"
         android:textAlignment="center"
         tools:layout_editor_absoluteX="0dp"

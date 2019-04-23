@@ -6,7 +6,7 @@
     <string name="service_running">Location service running</string>
     <string name="service_not_running">Location service isn\'t running</string>
     <string name="request_permission">Request Location permission</string>
-    <string name="resume_tracking">Resume tracking</string>
+    <string name="resume_tracking">Start tracking</string>
     <string name="your_publishable_key">past_your_key_here</string>
     <string name="name">Elvis</string>
 </resources>

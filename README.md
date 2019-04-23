@@ -17,35 +17,31 @@ We use Publishable Key to identify your devices. To get one:
 2. Open the verification link sent to your inbox.
 3. Open the [Keys page](https://dashboard.hypertrack.com/account/keys), where you can copy your Publishable Key.
 
-![Keys page in dashboard](https://user-images.githubusercontent.com/10487613/53847261-ccfe2d00-3f64-11e9-8883-6b9a626c4ce3.png)
+![Keys page in dashboard](https://user-images.githubusercontent.com/10487613/56365755-45aa0780-61fa-11e9-858d-9a2e24ca31c9.png)
 
 Next, you can [start with the Quickstart app](#quickstart-app), or can [integrate the SDK](#integrate-the-sdk) in your app.
 
 ## Quickstart app
 #### Step 1. Open this project in [Android Studio](https://developer.android.com/studio/index.html)
-![Android-Studio-quickstart-android](https://user-images.githubusercontent.com/10487613/53929273-0eb0d580-4042-11e9-9736-51fbb7945bfd.png)
+![Android-Studio-quickstart-android](https://user-images.githubusercontent.com/10487613/56304771-81d06000-6147-11e9-8f9d-3eafd1eabd47.png)
 
 #### Step 2. Set your Publishable key
 
-1. Add the publishable key to [MyApplication](https://github.com/hypertrack/quickstart-android/blob/42ccbfc62cc06c049e695d7c8c6fcf4c46f214eb/app/src/main/java/com/hypertrack/quickstart/MyApplication.java#L16) file.
+1. Add the publishable key to [MyActivity](https://github.com/hypertrack/quickstart-android-hidden/blob/88f24d0e37c6ba75f6b6f5ad9ca711b4e0af1bfc/app/src/main/java/com/hypertrack/quickstart/MainActivity.java#L22) file.
 
 2. Run project on your device use simulator instance.
 
 3. Go through one-time permission flow (applicable for Android M and later).
 
-![run](https://user-images.githubusercontent.com/10487613/53847992-9ece1c80-3f67-11e9-8969-339484ed232c.png)
+![run](https://user-images.githubusercontent.com/10487613/56304774-81d06000-6147-11e9-94c4-386c7a56d869.png)
 
 
 #### Step 3. Check your location on the HyperTrack [dashboard](https://dashboard.hypertrack.com/devices)
 
 ## Integrate the SDK
  - [Add Hypertrack SDK](#step-1-add-hypertrack-sdk)
- - [Initialize SDK](#step-2-initialize-sdk)
- - [Ask for permission](#step-3-get-location-permission)
- - [Cleanup resources](#step-4-cleanup-resources)
- - [Manage tracking (optional)](#step-5-optional-manage-tracking-state)
- - [Customize notification icon (optional)](#step-6-optional-customize-foreground-service-notification)
- - [Identify devices (optional)](#step-7-optional-identify-devices)
+ - [Start tracking](#step-2-initialize-sdk)
+ - [Utility methods (optional)](#step-3-optional-utility-methods)
 
 #### Step 1. Add Hypertrack SDK
 Add following lines to your applications `build.gradle`:
@@ -54,53 +50,35 @@ Add following lines to your applications `build.gradle`:
 repositories {
     maven {
         name 'hypertrack'
-        url 'http://hypertrack-core-android.s3-website-us-east-1.amazonaws.com/'
+        url 'http://m2.hypertrack.com'
     }
     ...
 }
 
 //Add HyperTrack as a dependency
 dependencies {
-    implementation("com.hypertrack:hypertrack:3.0.4@aar"){
+    implementation("com.hypertrack:hypertrack:3.1.0@aar"){
         transitive = true;
     }
     ...
 }
 ```
 
-#### Step 2. Initialize SDK
-Add SDK init call to your _Application's_ `onCreate()` callback:
+#### Step 2. Start tracking.
+Add SDK init call when you wan't to start tracking:
 ```java
-@Override
-public void onCreate() {
-    super.onCreate();
-    HyperTrack.initialize(getApplicationContext(),getString(R.string.your_publishable_key));
-}
+    HyperTrack.initialize(MyActivity.this, "your-publishable-key-here");
 ```
+SDK will prompt for permission, if necessary, adding fragment on top of activity, that was passed in as a first argument.
+That's it. You have implemented tracking.
 
-#### Step 3. Get location permission
-Ask for `location permission` when appropriate, passing _listener_ to receive callback.
-```java
-if (!HyperTrack.checkLocationPermission(this)) {
-    HyperTrack.requestLocationPermission(this, mPermissionCallback);
-    return;
-}
-```
+#### Step 3. _(optional)_ Utility Methods
+###### Turn tracking on and off
+Depending on your needs, you can always _stop_ and _start_ tracking, invoking `HyperTrack.stopTracking()` and `HyperTrack.startTracking()` SDK methods.
+Also, checkout [overloaded variants](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/com/hypertrack/sdk/HyperTrack.html#initialize-android.app.Activity-java.lang.String-com.hypertrack.sdk.TrackingInitDelegate-) of `initialize` methods for fine-grained control
+on initialization, permission request and tracking start. You can determine current tracking state using `HyperTrack.isTracking()` call.
 
-#### Step 4. Cleanup resources
-Add `HyperTrack.onStop()` call to your Application's `onTerminate()` callback
-```java
-@Override
-public void onTerminate() {
-    super.onTerminate();
-    HyperTrack.onStop();
-}
-```
-
-#### Step 5. _(optional)_ Manage tracking state
-Depending on your needs, you can always _pause_ and _resume_ tracking, invoking `HyperTrack.pauseTracking()` and `HyperTrack.resumeTracking()` SDK methods.
-
-#### Step 6. _(optional)_ Customize foreground service notification
+###### Customize foreground service notification
 HyperTrack tracking runs as a separate foreground service, so when tracking is ON, your users will see a persistent notification. By default, it displays your app icon with text `{app name} is running` but you can customize it anytime after initialization by calling:
 ```java
 HyperTrack.addNotificationIconsAndTitle(
@@ -111,7 +89,7 @@ HyperTrack.addNotificationIconsAndTitle(
 );
 ```
 
-#### Step 7. (optional) Identify devices
+###### Identify devices
 All devices tracked on HyperTrack are uniquely identified using [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier). You can get this identifier programmatically in your app by calling `HyperTrack.getDeviceId()` after initialization.
 Another approach is to tag device with a name that will make it easy to distinguish them on HyperTrack Dashboard.
 ```java
@@ -126,12 +104,12 @@ You can now run the app and start using HyperTrack. You can see your devices on 
 
 Once your app is running, go to the [Dashboard page](https://dashboard.hypertrack.com/devices) where you can see a list of all your devices and their location on the map.
 
-![Dashboard](https://user-images.githubusercontent.com/10487613/55571612-80964080-570e-11e9-91b5-f2773063a821.png)
+![Dashboard](https://user-images.githubusercontent.com/10487613/56365147-d5e74d00-61f8-11e9-9214-629c26368d8c.png)
 
 ## Frequently Asked Questions
 - [What API levels (Android versions) are supported](#supported-versions)
 - [NoClassDefFoundError](#javalangnoclassdeffounderror)
-- [Handling dependency conflicts](#dependencies)
+- [Android X](#android-x)
 - [Persistent notification](#persistent-notification)
 - [Handling custom ROMs](#handling-custom-roms)
 
@@ -143,38 +121,9 @@ Currently we do support all of the Android versions starting from API 19 (Androi
 I've added SDK and my app started failing with message like `Fatal Exception: java.lang.NoClassDefFoundError`.
 The reason of it, is that on Android API level 19 and below you cannot have more than 65536 methods in your app (including libraries methods). Please, check [this Stackoverflow](https://stackoverflow.com/questions/34997835/fatal-exception-java-lang-noclassdeffounderror-when-calling-static-method-in-an) answer for solutions.
 
-#### Dependencies
-SDK dependencies graph looks like below:
+#### Android X
 
-    +--- com.android.volley:volley:1.1.0
-    +--- com.google.code.gson:gson:2.8.5
-    +--- org.greenrobot:eventbus:3.1.1
-    +--- com.parse.bolts:bolts-tasks:1.4.0
-    +--- net.grandcentrix.tray:tray:0.12.0
-    |    \--- com.android.support:support-annotations:26.0.1
-    \--- com.google.android.gms:play-services-location:16.0.0
-         +--- com.google.android.gms:play-services-base:16.0.1
-         |    +--- com.google.android.gms:play-services-basement:16.0.1
-         |    |    \--- com.android.support:support-v4:26.1.0
-         |    |         +--- com.android.support:support-compat:26.1.0
-         |    |         +--- com.android.support:support-media-compat:26.1.0
-         |    |         |    +--- com.android.support:support-annotations:26.1.0
-         |    |         |    \--- com.android.support:support-compat:26.1.0
-         |    |         +--- com.android.support:support-core-utils:26.1.0
-         |    |         +--- com.android.support:support-core-ui:26.1.0
-         |    |         \--- com.android.support:support-fragment:26.1.0
-         |    \--- com.google.android.gms:play-services-tasks:16.0.1
-         |         \--- com.google.android.gms:play-services-basement:16.0.1
-         +--- com.google.android.gms:play-services-basement:16.0.1
-         +--- com.google.android.gms:play-services-places-placereport:16.0.0
-         |    \--- com.google.android.gms:play-services-basement:16.0.1
-         \--- com.google.android.gms:play-services-tasks:16.0.1
-
-Common problem here is depending on different versions of `com.android.support` library components. You can explicitly specify required version by adding it as a dependency in your app's `build.gradle`, e.g.:
-```
-  implementation `com.android.support:support-v4:28.0.0`
-```
-That will take precedence over SDK version and you'll have one version of support library on your classpath.
+Common problem here is depending on different versions of `com.android.support` library components. Our choice is to follow Google advice to migrate to [Android X](https://developer.android.com/jetpack/androidx). So in case, if you see message like `Failed resolution of: Landroidx/my/app/NotificationCompat$Builder` in logs, migrate your project to android x. It will have positive impact on overall app stability, even outside of HyperTrack.
 
 
 #### Persistent notification
