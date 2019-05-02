@@ -97,7 +97,7 @@ HyperTrack.setNameAndMetadataForDevice(name, metaData);
 ```
 
 ###### Create custom events
-If you want to have some other data (except for location) in this devices dataset, you can create it by invoking
+Use this optional method if you want to tag the tracked data with custom events that happen in your app. E.g. user marking a task as done, user tapping a button to share location, user accepting an assigned job, device entering a geofence, etc.
 ```java
 Map<String, Object> order = new HashMap<>();
 order.put("item", "Martin D-18");
@@ -106,7 +106,7 @@ order.put("price", 7.75);
 
 HyperTrack.customEvent(order);
 ```
-Look for methods [documentation](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/index.html?com/hypertrack/sdk/HyperTrack.html) for more details.
+Look into [documentation](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/index.html?com/hypertrack/sdk/HyperTrack.html) for more details.
 
 
 #### You are all set
