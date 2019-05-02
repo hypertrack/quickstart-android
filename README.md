@@ -125,6 +125,7 @@ Once your app is running, go to the [Dashboard page](https://dashboard.hypertrac
 - [Android X](#android-x)
 - [Persistent notification](#persistent-notification)
 - [Handling custom ROMs](#handling-custom-roms)
+- [HyperTrack notification shows even after app is killed](hyperTrack-notification-shows-even-after-app-is-killed)
 
 
 #### Supported versions
@@ -173,6 +174,8 @@ try {
 ```
 You may also try out open source libraries like https://github.com/judemanutd/AutoStarter
 
+#### HyperTrack notification shows even after my app is terminated
+The HyperTrack service runs as a separate component and it is still running when the app that started it is terminated. That is why you can observe that notification. When you stop tracking (`stopTracking()`), the notification goes away.
 
 ## Support
 Join our [Slack community](http://slack.hypertrack.com) for instant responses. You can also email us at help@hypertrack.com.
