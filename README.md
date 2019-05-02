@@ -96,6 +96,19 @@ Another approach is to tag device with a name that will make it easy to distingu
 HyperTrack.setNameAndMetadataForDevice(name, metaData);
 ```
 
+###### Create custom events
+If you want to have some other data (except for location) in this devices dataset, you can create it by invoking
+```java
+Map<String, Object> order = new HashMap<>();
+order.put("item", "Martin D-18");
+order.put("previousOwners", Collections.emptyList());
+order.put("price", 7.75);
+
+HyperTrack.customEvent(order);
+```
+Look for methods [documentation](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/index.html?com/hypertrack/sdk/HyperTrack.html) for more details.
+
+
 #### You are all set
 
 You can now run the app and start using HyperTrack. You can see your devices on the [dashboard](#dashboard).
