@@ -125,7 +125,7 @@ Once your app is running, go to the [Dashboard page](https://dashboard.hypertrac
 - [Android X](#android-x)
 - [Persistent notification](#persistent-notification)
 - [Handling custom ROMs](#handling-custom-roms)
-- [HyperTrack notification shows even after app is killed](hyperTrack-notification-shows-even-after-app-is-killed)
+- [HyperTrack notification shows even after app is terminated](hyperTrack-notification-shows-even-after-app-is-terminated)
 
 
 #### Supported versions
