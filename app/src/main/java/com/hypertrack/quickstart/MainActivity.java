@@ -1,16 +1,18 @@
 package com.hypertrack.quickstart;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.hypertrack.sdk.HyperTrack;
+import com.hypertrack.sdk.TrackingInitDelegate;
+import com.hypertrack.sdk.TrackingInitError;
 
 import java.util.Collections;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Log.d(TAG, "onResume");
         HyperTrack.enableDebugLogging();
-        HyperTrack.setNameAndMetadataForDevice(getString(R.string.name), Collections.<String, Object>emptyMap());
-        deviceId.setText(HyperTrack.getDeviceId());
-        updateUiWithDelay();
 
     }
 
@@ -50,35 +49,31 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Tracking button pressed");
                 if (HyperTrack.isTracking()) {
                     HyperTrack.stopTracking();
-                    updateUiWithDelay();
+                    updateUi();
                 } else {
-                    HyperTrack.initialize(this, PUBLISHABLE_KEY);
-                    updateUiWithDelay();
+                    HyperTrack.initialize(this, PUBLISHABLE_KEY, new TrackingInitDelegate() {
+                        @Override public void onError(@NonNull TrackingInitError error)
+                        { Log.e(TAG, "Initialization failed with error"); }
+
+                        @Override public void onSuccess() {
+                            HyperTrack.setNameAndMetadataForDevice(getString(R.string.name), Collections.<String, Object>emptyMap());
+                            updateUi();
+                        }
+                    });
                 }
 
         }
     }
 
-    private void updatedUI() {
+    private void updateUi() {
         Log.d(TAG, "Updating UI");
-        // checking for location data access permissions:
-        trackingSwitcher.setEnabled(true);
+        deviceId.setText(HyperTrack.getDeviceId());
 
+        trackingSwitcher.setEnabled(true);
         if (HyperTrack.isTracking()) {
             trackingSwitcher.setText(getString(R.string.pause_tracking));
         } else {
             trackingSwitcher.setText(getString(R.string.resume_tracking));
         }
-        deviceId.setText(HyperTrack.getDeviceId());
-    }
-
-    private void updateUiWithDelay() {
-                final Handler handler = new Handler();
-                handler.postDelayed(
-                        new Runnable() {
-                            @Override
-                            public void run() { updatedUI(); }
-                        },
-                5000);
     }
 }

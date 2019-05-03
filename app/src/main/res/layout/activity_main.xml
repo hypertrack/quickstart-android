@@ -15,7 +15,7 @@
         android:layout_gravity="center"
         android:layout_margin="20dp"
         android:gravity="center"
-        android:text="@string/checking"
+        android:text=""
         android:textIsSelectable="true"
         android:textSize="16sp"
         android:textStyle="bold"

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Quickstart</string>
-    <string name="checking">checking …</string>
     <string name="request_location_permission">Request Location Permission</string>
     <string name="pause_tracking">Pause tracking</string>
     <string name="service_running">Location service running</string>
