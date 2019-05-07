@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Log.d(TAG, "onResume");
         HyperTrack.enableDebugLogging();
+        updateUi();
 
     }
 
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Tracking button pressed");
                 if (HyperTrack.isTracking()) {
                     HyperTrack.stopTracking();
-                    updateUi();
+                    trackingSwitcher.setText(getString(R.string.resume_tracking));
                 } else {
                     HyperTrack.initialize(this, PUBLISHABLE_KEY, new TrackingInitDelegate() {
                         @Override public void onError(@NonNull TrackingInitError error)

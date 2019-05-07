@@ -122,7 +122,7 @@ Once your app is running, go to the [Dashboard page](https://dashboard.hypertrac
 ## Frequently Asked Questions
 - [What API levels (Android versions) are supported](#supported-versions)
 - [NoClassDefFoundError](#javalangnoclassdeffounderror)
-- [Android X](#android-x)
+- [Dependencies Conflicts](#dependencies)
 - [Persistent notification](#persistent-notification)
 - [Handling custom ROMs](#handling-custom-roms)
 - [HyperTrack notification shows even after app is terminated](#hypertrack-notification-shows-even-after-my-app-is-terminated)
@@ -135,10 +135,50 @@ Currently we do support all of the Android versions starting from API 19 (Androi
 I've added SDK and my app started failing with message like `Fatal Exception: java.lang.NoClassDefFoundError`.
 The reason of it, is that on Android API level 19 and below you cannot have more than 65536 methods in your app (including libraries methods). Please, check [this Stackoverflow](https://stackoverflow.com/questions/34997835/fatal-exception-java-lang-noclassdeffounderror-when-calling-static-method-in-an) answer for solutions.
 
-#### Android X
+#### Dependencies
+SDK dependencies graph looks like below:
 
-Common problem here is depending on different versions of `com.android.support` library components. Our choice is to follow Google advice to migrate to [Android X](https://developer.android.com/jetpack/androidx). So in case, if you see message like `Failed resolution of: Landroidx/my/app/NotificationCompat$Builder` in logs, migrate your project to android x. It will have positive impact on overall app stability, even outside of HyperTrack.
+    +--- com.android.volley:volley:1.1.0
+    +--- com.google.code.gson:gson:2.8.5
+    +--- org.greenrobot:eventbus:3.1.1
+    +--- com.parse.bolts:bolts-tasks:1.4.0
+    +--- net.grandcentrix.tray:tray:0.12.0
+    |    \--- com.android.support:support-annotations:23.0.1 -> 28.0.0
+    +--- com.google.android.gms:play-services-location:16.0.0
+    |    +--- com.google.android.gms:play-services-base:16.0.1
+    |    |    +--- com.google.android.gms:play-services-basement:16.0.1
+    |    |    |    \--- com.android.support:support-v4:26.1.0
+    |    |    |         +--- com.android.support:support-compat:26.1.0
+    |    |    |         |    +--- com.android.support:support-annotations:26.1.0 -> 28.0.0
+    |    |    |         |    \--- android.arch.lifecycle:runtime:1.0.0
+    |    |    |         |         +--- android.arch.lifecycle:common:1.0.0
+    |    |    |         |         \--- android.arch.core:common:1.0.0
+    |    |    |         +--- com.android.support:support-media-compat:26.1.0
+    |    |    |         |    +--- com.android.support:support-annotations:26.1.0 -> 28.0.0
+    |    |    |         |    \--- com.android.support:support-compat:26.1.0 (*)
+    |    |    |         +--- com.android.support:support-core-utils:26.1.0
+    |    |    |         |    +--- com.android.support:support-annotations:26.1.0 -> 28.0.0
+    |    |    |         |    \--- com.android.support:support-compat:26.1.0 (*)
+    |    |    |         +--- com.android.support:support-core-ui:26.1.0
+    |    |    |         |    +--- com.android.support:support-annotations:26.1.0 -> 28.0.0
+    |    |    |         |    \--- com.android.support:support-compat:26.1.0 (*)
+    |    |    |         \--- com.android.support:support-fragment:26.1.0
+    |    |    |              +--- com.android.support:support-compat:26.1.0 (*)
+    |    |    |              +--- com.android.support:support-core-ui:26.1.0 (*)
+    |    |    |              \--- com.android.support:support-core-utils:26.1.0 (*)
+    |    |    \--- com.google.android.gms:play-services-tasks:16.0.1
+    |    |         \--- com.google.android.gms:play-services-basement:16.0.1 (*)
+    |    +--- com.google.android.gms:play-services-basement:16.0.1 (*)
+    |    +--- com.google.android.gms:play-services-places-placereport:16.0.0
+    |    |    \--- com.google.android.gms:play-services-basement:16.0.1 (*)
+    |    \--- com.google.android.gms:play-services-tasks:16.0.1 (*)
+    \--- com.android.support:support-annotations:28.0.0
 
+Common problem here is depending on different versions of `com.android.support` library components. You can explicitly specify required version by adding it as a dependency in your app's `build.gradle`, e.g.:
+```
+  implementation `com.android.support:support-v4:28.0.0`
+```
+That will take precedence over SDK version and you'll have one version of support library on your classpath.
 
 #### Persistent notification
 HyperTrack SDK, by default, runs as a foreground service. This is to ensure that the location tracking works reliably even when your app is minimized. A foreground service is a service that the user is actively aware of and isn't a candidate for the system to kill when low on memory.
