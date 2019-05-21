@@ -212,7 +212,12 @@ try {
         Crashlytics.logException(e);
 }
 ```
-You may also try out open source libraries like https://github.com/judemanutd/AutoStarter
+You may also try out open source libraries like https://github.com/judemanutd/AutoStarter.
+
+Some manufacturers don't allow to whitelist apps programmatically. In that case the only way to achieve service reliability is manual setup. E.g. for Oxygen OS (OnePlus) you need to select *Lock* menu item from app options button in _Recent Apps_ view:
+
+![one-plus-example](https://user-images.githubusercontent.com/10487613/58070846-388a8a80-7ba3-11e9-8b4f-11e39d26382b.png)
+
 
 #### HyperTrack notification shows even after my app is terminated
 The HyperTrack service runs as a separate component and it is still running when the app that started it is terminated. That is why you can observe that notification. When you stop tracking (`stopTracking()`), the notification goes away.
