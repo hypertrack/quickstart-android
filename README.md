@@ -108,6 +108,19 @@ HyperTrack.customEvent(order);
 ```
 Look into [documentation](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/index.html?com/hypertrack/sdk/HyperTrack.html) for more details.
 
+###### Enable server to device communication
+Server to device communication uses firebase push notifications as transport for commands so for remote tracking state management Firebase integration is required. So you need to [setup Firebase Cloud Messaging](https://firebase.google.com/docs/android/setup), if you have no push notifications enabled so far. Next step is to specify `HyperTrackMessagingService` as push messages receiver by adding following snippet to your apps Android manifest:
+```xml
+...
+  <service android:name="com.hypertrack.sdk.HyperTrackMessagingService" android:exported="false">
+      <intent-filter>
+          <action android:name="com.google.firebase.MESSAGING_EVENT" />
+      </intent-filter>
+  </service>
+</application>
+```
+If you already use firebase push notifications you can extend `HyperTrackMessagingService` instead of Firebase, or declare two receivers side by side, if you wish.
+Check out [Quickstart app with notifications integrated](https://github.com/hypertrack/quickstart-android/tree/push-integration-example) if you prefer to get a look at example.
 
 #### You are all set
 
