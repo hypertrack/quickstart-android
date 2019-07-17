@@ -57,7 +57,7 @@ repositories {
 
 //Add HyperTrack as a dependency
 dependencies {
-    implementation("com.hypertrack:hypertrack:3.1.6@aar"){
+    implementation("com.hypertrack:hypertrack:3.3.0@aar"){
         transitive = true;
     }
     ...
