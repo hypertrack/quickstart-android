@@ -57,7 +57,7 @@ repositories {
 
 //Add HyperTrack as a dependency
 dependencies {
-    implementation("com.hypertrack:hypertrack:3.1.6@aar"){
+    implementation("com.hypertrack:hypertrack:3.3.0@aar"){
         transitive = true;
     }
     ...
@@ -96,15 +96,15 @@ Another approach is to tag device with a name that will make it easy to distingu
 HyperTrack.setNameAndMetadataForDevice(name, metaData);
 ```
 
-###### Create custom events
-Use this optional method if you want to tag the tracked data with custom events that happen in your app. E.g. user marking a task as done, user tapping a button to share location, user accepting an assigned job, device entering a geofence, etc.
+###### Create trip marker
+Use this optional method if you want to associate data with specific place in your trip. E.g. user marking a task as done, user tapping a button to share location, user accepting an assigned job, device entering a geofence, etc.
 ```java
 Map<String, Object> order = new HashMap<>();
 order.put("item", "Martin D-18");
 order.put("previousOwners", Collections.emptyList());
 order.put("price", 7.75);
 
-HyperTrack.customEvent(order);
+HyperTrack.tripMarker(order);
 ```
 Look into [documentation](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/index.html?com/hypertrack/sdk/HyperTrack.html) for more details.
 
