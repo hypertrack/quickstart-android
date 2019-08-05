@@ -23,7 +23,6 @@ repositories {
         name 'hypertrack'
         url 'http://m2.hypertrack.com'
     }
-    mavenLocal()
 }
 
 dependencies {
