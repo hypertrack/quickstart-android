@@ -79,7 +79,7 @@ Also, checkout [overloaded variants](http://hypertrack-javadoc.s3-website-us-wes
 on initialization, permission request and tracking start. You can determine current tracking state using `HyperTrack.isTracking()` call.
 
 ###### Add SDK state listener to catch events.
-You can subscribe to SDK status changes `HyperTrack.addTrackingStateListener(TrackingStateObserver.OnTrackingStateChangeListener)` and handle them in the appropriate methods `onError(TrackingError)` `onStart()` `onStop()`
+You can subscribe to SDK status changes `HyperTrack.addTrackingStateListener(TrackingStateObserver.OnTrackingStateChangeListener)` and handle them in the appropriate methods `onError(TrackingError)` `onTrackingStart()` `onTrackingStop()`
 
 ###### Customize foreground service notification
 HyperTrack tracking runs as a separate foreground service, so when tracking is ON, your users will see a persistent notification. By default, it displays your app icon with text `{app name} is running` but you can customize it anytime after initialization by calling:
@@ -128,6 +128,7 @@ Check out [Quickstart app with notifications integrated](https://github.com/hype
 #### You are all set
 
 You can now run the app and start using HyperTrack. You can see your devices on the [dashboard](#dashboard).
+Also you can find more about SDK integration [here](https://github.com/hypertrack/live-app-android).
 
 ## Dashboard
 
