@@ -27,12 +27,14 @@ public class MainActivity extends AppCompatActivity {
 
         trackingSwitcher = findViewById(R.id.trackingButton);
         deviceId = findViewById(R.id.deviceIdTextView);
+    }
 
-        // Only for debug version
+    @Override
+    protected void onResume() {
+        super.onResume();
         if (BuildConfig.DEBUG) {
             HyperTrack.enableDebugLogging();
         }
-
         if (HyperTrack.isTracking()) {
             onTrackingStart();
         }
