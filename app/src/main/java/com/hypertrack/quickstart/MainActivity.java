@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.hypertrack.sdk.HyperTrack;
+import com.hypertrack.sdk.TrackingError;
+import com.hypertrack.sdk.TrackingStateObserver;
 
 import java.util.Collections;
 
@@ -36,16 +38,16 @@ public class MainActivity extends AppCompatActivity {
             HyperTrack.enableDebugLogging();
         }
         if (HyperTrack.isTracking()) {
-            onTrackingStart();
+            updateOnTrackingStart();
         }
     }
 
-    public void onTrackingStart() {
+    public void updateOnTrackingStart() {
         deviceId.setText(HyperTrack.getDeviceId());
         trackingSwitcher.setText(getString(R.string.pause_tracking));
     }
 
-    public void onTrackingStop() {
+    public void updateOnTrackingStop() {
         trackingSwitcher.setText(getString(R.string.resume_tracking));
     }
 
@@ -57,15 +59,30 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Tracking button pressed");
                 if (HyperTrack.isTracking()) {
                     HyperTrack.stopTracking();
-
-                    onTrackingStop();
                 } else {
                     // Initialize SDK with activity instance and start tracking immediately. It's preferred to use main activity.
                     HyperTrack.initialize(this, PUBLISHABLE_KEY);
+                    HyperTrack.addTrackingStateListener(new TrackingStateObserver.OnTrackingStateChangeListener() {
+                        @Override
+                        public void onError(TrackingError trackingError) {
+                            if (trackingError.getCode() == TrackingError.INVALID_PUBLISHABLE_KEY_ERROR
+                                    || trackingError.getCode() == TrackingError.AUTHORIZATION_ERROR) {
+                                Log.e(TAG, "Initialization failed");
+                            } else {
+                                Log.e(TAG, "Tracking failed");
+                            }
+                        }
+
+                        @Override
+                        public void onTrackingStart()
+                        { updateOnTrackingStart(); }
+
+                        @Override
+                        public void onTrackingStop()
+                        { updateOnTrackingStop(); }
+                    });
                     // It gives possibility to add unique attributes to each specific device.
                     HyperTrack.setNameAndMetadataForDevice(getString(R.string.name), Collections.<String, Object>emptyMap());
-
-                    onTrackingStart();
                 }
         }
     }
