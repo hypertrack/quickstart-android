@@ -14,7 +14,7 @@ import com.hypertrack.sdk.TrackingStateObserver;
 
 import java.util.Collections;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TrackingStateObserver.OnTrackingStateChangeListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String PUBLISHABLE_KEY = "paste_your_key_here";
@@ -34,20 +34,30 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (BuildConfig.DEBUG) {
-            HyperTrack.enableDebugLogging();
-        }
         if (HyperTrack.isTracking()) {
-            updateOnTrackingStart();
+            onTrackingStart();
         }
     }
 
-    public void updateOnTrackingStart() {
+    @Override
+    public void onError(TrackingError trackingError) {
+        if (trackingError.getCode() == TrackingError.INVALID_PUBLISHABLE_KEY_ERROR
+                || trackingError.getCode() == TrackingError.AUTHORIZATION_ERROR) {
+            Log.e(TAG, "Initialization failed");
+        } else {
+            Log.e(TAG, "Tracking failed");
+        }
+    }
+
+    @Override
+    public void onTrackingStart() {
         deviceId.setText(HyperTrack.getDeviceId());
         trackingSwitcher.setText(getString(R.string.pause_tracking));
+
     }
 
-    public void updateOnTrackingStop() {
+    @Override
+    public void onTrackingStop() {
         trackingSwitcher.setText(getString(R.string.resume_tracking));
     }
 
@@ -62,28 +72,20 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     // Initialize SDK with activity instance and start tracking immediately. It's preferred to use main activity.
                     HyperTrack.initialize(this, PUBLISHABLE_KEY);
-                    HyperTrack.addTrackingStateListener(new TrackingStateObserver.OnTrackingStateChangeListener() {
-                        @Override
-                        public void onError(TrackingError trackingError) {
-                            if (trackingError.getCode() == TrackingError.INVALID_PUBLISHABLE_KEY_ERROR
-                                    || trackingError.getCode() == TrackingError.AUTHORIZATION_ERROR) {
-                                Log.e(TAG, "Initialization failed");
-                            } else {
-                                Log.e(TAG, "Tracking failed");
-                            }
-                        }
+                    HyperTrack.addTrackingStateListener(this);
 
-                        @Override
-                        public void onTrackingStart()
-                        { updateOnTrackingStart(); }
-
-                        @Override
-                        public void onTrackingStop()
-                        { updateOnTrackingStop(); }
-                    });
+                    if (BuildConfig.DEBUG) {
+                        HyperTrack.enableDebugLogging();
+                    }
                     // It gives possibility to add unique attributes to each specific device.
                     HyperTrack.setNameAndMetadataForDevice(getString(R.string.name), Collections.<String, Object>emptyMap());
                 }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        HyperTrack.removeTrackingStateListener(this);
     }
 }
