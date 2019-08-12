@@ -6,16 +6,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.hypertrack.sdk.HyperTrack;
-import com.hypertrack.sdk.TrackingInitDelegate;
-import com.hypertrack.sdk.TrackingInitError;
+import com.hypertrack.sdk.TrackingError;
+import com.hypertrack.sdk.TrackingStateObserver;
 
 import java.util.Collections;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TrackingStateObserver.OnTrackingStateChangeListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String PUBLISHABLE_KEY = "paste_your_key_here";
@@ -30,16 +29,20 @@ public class MainActivity extends AppCompatActivity {
 
         trackingSwitcher = findViewById(R.id.trackingButton);
         deviceId = findViewById(R.id.deviceIdTextView);
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume");
-        HyperTrack.enableDebugLogging();
-        updateUi();
+        if (HyperTrack.isTracking()) {
+            onTrackingStart();
+        }
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        HyperTrack.removeTrackingStateListener(this);
     }
 
     public void onClick(View view) {
@@ -50,31 +53,43 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Tracking button pressed");
                 if (HyperTrack.isTracking()) {
                     HyperTrack.stopTracking();
-                    trackingSwitcher.setText(getString(R.string.resume_tracking));
                 } else {
-                    HyperTrack.initialize(this, PUBLISHABLE_KEY, new TrackingInitDelegate() {
-                        @Override public void onError(@NonNull TrackingInitError error)
-                        { Log.e(TAG, "Initialization failed with error"); }
+                    // Initialize SDK with activity instance and start tracking immediately. It's preferred to use main activity.
+                    HyperTrack.initialize(this, PUBLISHABLE_KEY);
+                    HyperTrack.addTrackingStateListener(this);
 
-                        @Override public void onSuccess() {
-                            HyperTrack.setNameAndMetadataForDevice(getString(R.string.name), Collections.<String, Object>emptyMap());
-                            updateUi();
-                        }
-                    });
+                    if (BuildConfig.DEBUG) {
+                        HyperTrack.enableDebugLogging();
+                    }
+                    // It gives possibility to add unique attributes to each specific device.
+                    HyperTrack.setNameAndMetadataForDevice(getString(R.string.name), Collections.<String, Object>emptyMap());
                 }
-
         }
     }
 
-    private void updateUi() {
-        Log.d(TAG, "Updating UI");
-        deviceId.setText(HyperTrack.getDeviceId());
+    // TrackingStateObserver.OnTrackingStateChangeListener interface methods
 
-        trackingSwitcher.setEnabled(true);
-        if (HyperTrack.isTracking()) {
-            trackingSwitcher.setText(getString(R.string.pause_tracking));
+    @Override
+    public void onError(TrackingError trackingError) {
+        if (trackingError.getCode() == TrackingError.INVALID_PUBLISHABLE_KEY_ERROR
+                || trackingError.getCode() == TrackingError.AUTHORIZATION_ERROR) {
+            Log.e(TAG, "Initialization failed");
         } else {
-            trackingSwitcher.setText(getString(R.string.resume_tracking));
+            Log.e(TAG, "Tracking failed");
         }
+        trackingSwitcher.setText(getString(R.string.resume_tracking));
     }
+
+    @Override
+    public void onTrackingStart() {
+        deviceId.setText(HyperTrack.getDeviceId());
+        trackingSwitcher.setText(getString(R.string.pause_tracking));
+
+    }
+
+    @Override
+    public void onTrackingStop() {
+        trackingSwitcher.setText(getString(R.string.resume_tracking));
+    }
+
 }

@@ -76,6 +76,9 @@ Depending on your needs, you can always _stop_ and _start_ tracking, invoking `H
 Also, checkout [overloaded variants](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/com/hypertrack/sdk/HyperTrack.html#initialize-android.app.Activity-java.lang.String-com.hypertrack.sdk.TrackingInitDelegate-) of `initialize` methods for fine-grained control
 on initialization, permission request and tracking start. You can determine current tracking state using `HyperTrack.isTracking()` call.
 
+###### Add SDK state listener to catch events.
+You can subscribe to SDK status changes `HyperTrack.addTrackingStateListener(TrackingStateObserver.OnTrackingStateChangeListener)` and handle them in the appropriate methods `onError(TrackingError)` `onTrackingStart()` `onTrackingStop()`
+
 ###### Customize foreground service notification
 HyperTrack tracking runs as a separate foreground service, so when tracking is ON, your users will see a persistent notification. By default, it displays your app icon with text `{app name} is running` but you can customize it anytime after initialization by calling:
 ```java
@@ -125,6 +128,7 @@ Last step is to add your Firebase API key to [HyperTrack dashboard](https://dash
 #### You are all set
 
 You can now run the app and start using HyperTrack. You can see your devices on the [dashboard](#dashboard).
+Also you can find more about SDK integration [here](https://github.com/hypertrack/live-app-android).
 
 ## Dashboard
 
