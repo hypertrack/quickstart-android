@@ -40,25 +40,9 @@ public class MainActivity extends AppCompatActivity implements TrackingStateObse
     }
 
     @Override
-    public void onError(TrackingError trackingError) {
-        if (trackingError.getCode() == TrackingError.INVALID_PUBLISHABLE_KEY_ERROR
-                || trackingError.getCode() == TrackingError.AUTHORIZATION_ERROR) {
-            Log.e(TAG, "Initialization failed");
-        } else {
-            Log.e(TAG, "Tracking failed");
-        }
-    }
-
-    @Override
-    public void onTrackingStart() {
-        deviceId.setText(HyperTrack.getDeviceId());
-        trackingSwitcher.setText(getString(R.string.pause_tracking));
-
-    }
-
-    @Override
-    public void onTrackingStop() {
-        trackingSwitcher.setText(getString(R.string.resume_tracking));
+    protected void onDestroy() {
+        super.onDestroy();
+        HyperTrack.removeTrackingStateListener(this);
     }
 
     public void onClick(View view) {
@@ -83,9 +67,29 @@ public class MainActivity extends AppCompatActivity implements TrackingStateObse
         }
     }
 
+    // TrackingStateObserver.OnTrackingStateChangeListener interface methods
+
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        HyperTrack.removeTrackingStateListener(this);
+    public void onError(TrackingError trackingError) {
+        if (trackingError.getCode() == TrackingError.INVALID_PUBLISHABLE_KEY_ERROR
+                || trackingError.getCode() == TrackingError.AUTHORIZATION_ERROR) {
+            Log.e(TAG, "Initialization failed");
+        } else {
+            Log.e(TAG, "Tracking failed");
+        }
+        trackingSwitcher.setText(getString(R.string.resume_tracking));
     }
+
+    @Override
+    public void onTrackingStart() {
+        deviceId.setText(HyperTrack.getDeviceId());
+        trackingSwitcher.setText(getString(R.string.pause_tracking));
+
+    }
+
+    @Override
+    public void onTrackingStop() {
+        trackingSwitcher.setText(getString(R.string.resume_tracking));
+    }
+
 }
