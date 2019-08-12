@@ -57,9 +57,7 @@ repositories {
 
 //Add HyperTrack as a dependency
 dependencies {
-    implementation("com.hypertrack:hypertrack:3.3.0@aar"){
-        transitive = true;
-    }
+    implementation 'com.hypertrack:hypertrack:3.3.1'
     ...
 }
 ```
@@ -124,6 +122,8 @@ Server to device communication uses firebase push notifications as transport for
 ```
 If you already use firebase push notifications you can extend `HyperTrackMessagingService` instead of Firebase, or declare two receivers side by side, if you wish.
 Check out [Quickstart app with notifications integrated](https://github.com/hypertrack/quickstart-android/tree/push-integration-example) if you prefer to get a look at example.
+Last step is to add your Firebase API key to [HyperTrack dashboard](https://dashboard.hypertrack.com/setup) under *Server to Device communication* section.
+![FCM-key](https://user-images.githubusercontent.com/10487613/62698515-fc1e3c00-b9e5-11e9-913a-2ad3da9d573f.png)
 
 #### You are all set
 
