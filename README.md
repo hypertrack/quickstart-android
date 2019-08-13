@@ -2,7 +2,7 @@
 # HyperTrack Quickstart for Android SDK
 ![License](https://img.shields.io/github/license/hypertrack/quickstart-android.svg)
 
-[HyperTrack](https://www.hypertrack.com) lets you add live location tracking to your mobile app. This repo contains an example client app that has everything you need to get started in minutes.
+[HyperTrack](https://www.hypertrack.com) lets you add live location tracking to your mobile app. This repo contains an example client app that has everything you need to get started in minutes. This repo written in Java, checkout [Kotlin](https://github.com/hypertrack/quickstart-android-kotlin) quickstart if your feel more comfortable with it.
 
 * [Publishable Key](#publishable-key)–Get your Publishable Key
 * [Quickstart](#quickstart-app)–Start with a ready-to-go app
