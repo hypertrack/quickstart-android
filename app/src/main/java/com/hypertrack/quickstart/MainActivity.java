@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements TrackingStateObse
 
     @Override
     public void onError(TrackingError trackingError) {
-        if (trackingError.getCode() == TrackingError.INVALID_PUBLISHABLE_KEY_ERROR
-                || trackingError.getCode() == TrackingError.AUTHORIZATION_ERROR) {
+        if (trackingError.code == TrackingError.INVALID_PUBLISHABLE_KEY_ERROR
+                || trackingError.code == TrackingError.AUTHORIZATION_ERROR) {
             Log.e(TAG, "Initialization failed");
         } else {
             Log.e(TAG, "Tracking failed");
