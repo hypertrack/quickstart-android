@@ -143,6 +143,7 @@ Once your app is running, go to the [Dashboard page](https://dashboard.hypertrac
 - [Persistent notification](#persistent-notification)
 - [Handling custom ROMs](#handling-custom-roms)
 - [HyperTrack notification shows even after app is terminated](#hypertrack-notification-shows-even-after-my-app-is-terminated)
+- [How tracking works in Doze mode](#how-tracking-service-works-in-android-doze-mode)
 
 
 #### Supported versions
@@ -238,6 +239,9 @@ Some manufacturers don't allow to whitelist apps programmatically. In that case 
 
 #### HyperTrack notification shows even after my app is terminated
 The HyperTrack service runs as a separate component and it is still running when the app that started it is terminated. That is why you can observe that notification. When you stop tracking (`stopTracking()`), the notification goes away.
+
+#### How tracking service works in android doze mode
+Doze mode requires device [to be stationary](https://developer.android.com/training/monitoring-device-state/doze-standby.html#understand_doze), so before OS starts imposing power management restrictions, exact device location is obtained. When device starts moving, Android leaves Doze mode and works regularly, so no special handling of Doze mode required with respect to location tracking.
 
 ## Support
 Join our [Slack community](https://join.slack.com/t/hypertracksupport/shared_invite/enQtNDA0MDYxMzY1MDMxLWFlMmNkYmYxOTA4OTZiNTkxOTBiY2FmYjdiMWY1NWUwYWFlYjNhNmFiNTYxYWZhNDg3Mzg2NWJiYjc4NzEzNDE) for instant responses. You can also email us at help@hypertrack.com.
