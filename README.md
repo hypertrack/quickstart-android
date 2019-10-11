@@ -57,7 +57,7 @@ repositories {
 
 //Add HyperTrack as a dependency
 dependencies {
-    implementation 'com.hypertrack:hypertrack:3.4.5'
+    implementation 'com.hypertrack:hypertrack:3.5.0'
     ...
 }
 ```
@@ -65,49 +65,54 @@ dependencies {
 #### Step 2. Start tracking.
 Add SDK init call when you wan't to start tracking:
 ```java
-    HyperTrack.initialize(MyActivity.this, "your-publishable-key-here");
+    HyperTrack.getInstance(MyActivity.this, "your-publishable-key-here")
+              .start();
 ```
-SDK will prompt for permission, if necessary, adding fragment on top of activity, that was passed in as a first argument.
+SDK will prompt for permission, if necessary, pushing new activity activity on top of tasks stack and popping it, after permission request finishes.
 That's it. You have implemented tracking.
 
 #### Step 3. _(optional)_ Utility Methods
 ###### Turn tracking on and off
-Depending on your needs, you can always _stop_ and _start_ tracking, invoking `HyperTrack.stopTracking()` and `HyperTrack.startTracking()` SDK methods.
-Also, checkout [overloaded variants](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/com/hypertrack/sdk/HyperTrack.html#initialize-android.app.Activity-java.lang.String-com.hypertrack.sdk.TrackingInitDelegate-) of `initialize` methods for fine-grained control
-on initialization, permission request and tracking start. You can determine current tracking state using `HyperTrack.isTracking()` call.
+Depending on your needs, you can always _stop_ and _start_ tracking, invoking [`.stop()`](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/latest/com/hypertrack/sdk/HyperTrack.html#stop--) and [`start()`](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/latest/com/hypertrack/sdk/HyperTrack.html#start--) SDK methods.
+It is recommended to store reference to SDK instance in order to use it for further actions. You can determine current sdk state using [`isRunning()`](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/latest/com/hypertrack/sdk/HyperTrack.html#isRunning--) call.
 
 ###### Add SDK state listener to catch events.
-You can subscribe to SDK status changes `HyperTrack.addTrackingStateListener(TrackingStateObserver.OnTrackingStateChangeListener)` and handle them in the appropriate methods `onError(TrackingError)` `onTrackingStart()` `onTrackingStop()`
+You can subscribe to SDK status changes [`addTrackingListener`](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/latest/com/hypertrack/sdk/HyperTrack.html#addTrackingListener-com.hypertrack.sdk.TrackingStateObserver.OnTrackingStateChangeListener-) and handle them in the appropriate methods [`onError(TrackingError)`](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/latest/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onError-com.hypertrack.sdk.TrackingError-) [`onTrackingStart()`](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/latest/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onTrackingStart--) [`onTrackingStop()`](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/latest/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onTrackingStop--)
 
 ###### Customize foreground service notification
-HyperTrack tracking runs as a separate foreground service, so when tracking is ON, your users will see a persistent notification. By default, it displays your app icon with text `{app name} is running` but you can customize it anytime after initialization by calling:
+HyperTrack tracking runs as a separate foreground service, so when it is running, your users will see a persistent notification. By default, it displays your app icon with text `{app name} is running` but you can customize it anytime after initialization by calling:
 ```java
-HyperTrack.addNotificationIconsAndTitle(
-    R.drawable.ic_small,
-    R.drawable.ic_large,
-    notificationTitleText,
-    notificationBodyText
-);
+HyperTrack sdkInstance = HyperTrack.getInstance(context, publishableKey);
+sdkInstance.setTrackingNotificationConfig(
+                new ServiceNotificationConfig.Builder()
+                        .setContentTitle("Tap to stop tracking")
+                        .build()
+        );
 ```
+Check out other configurable properties in [ServiceNotificationConfig reference](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/latest/com/hypertrack/sdk/ServiceNotificationConfig.html)
 
 ###### Identify devices
-All devices tracked on HyperTrack are uniquely identified using [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier). You can get this identifier programmatically in your app by calling `HyperTrack.getDeviceId()` after initialization.
+All devices tracked on HyperTrack are uniquely identified using [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier). You can get this identifier programmatically in your app by calling [`getDeviceID()`](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/latest/com/hypertrack/sdk/HyperTrack.html#getDeviceID--) after initialization.
 Another approach is to tag device with a name that will make it easy to distinguish them on HyperTrack Dashboard.
 ```java
-HyperTrack.setNameAndMetadataForDevice(name, metaData);
+HyperTrack sdkInstance = HyperTrack.getInstance(context, publishableKey);
+
+sdkInstance.setDeviceName(name);
 ```
 
 ###### Create trip marker
 Use this optional method if you want to associate data with specific place in your trip. E.g. user marking a task as done, user tapping a button to share location, user accepting an assigned job, device entering a geofence, etc.
 ```java
+HyperTrack sdkInstance = HyperTrack.getInstance(context, publishableKey);
+
 Map<String, Object> order = new HashMap<>();
 order.put("item", "Martin D-18");
 order.put("previousOwners", Collections.emptyList());
 order.put("price", 7.75);
 
-HyperTrack.tripMarker(order);
+sdkInstance.addTripMarker(order);
 ```
-Look into [documentation](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/index.html?com/hypertrack/sdk/HyperTrack.html) for more details.
+Look into [documentation](http://hypertrack-javadoc.s3-website-us-west-2.amazonaws.com/latest/com/hypertrack/sdk/HyperTrack.html) for more details.
 
 ###### Enable server to device communication
 Server to device communication uses firebase push notifications as transport for commands so for remote tracking state management Firebase integration is required. So you need to [setup Firebase Cloud Messaging](https://firebase.google.com/docs/android/setup), if you have no push notifications enabled so far. Next step is to specify `HyperTrackMessagingService` as push messages receiver by adding following snippet to your apps Android manifest:

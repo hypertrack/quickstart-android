@@ -12,8 +12,6 @@ import com.hypertrack.sdk.HyperTrack;
 import com.hypertrack.sdk.TrackingError;
 import com.hypertrack.sdk.TrackingStateObserver;
 
-import java.util.Collections;
-
 public class MainActivity extends AppCompatActivity implements TrackingStateObserver.OnTrackingStateChangeListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -22,6 +20,8 @@ public class MainActivity extends AppCompatActivity implements TrackingStateObse
     private Button trackingSwitcher;
     private TextView deviceId;
 
+    private HyperTrack sdkInstance;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,12 +29,14 @@ public class MainActivity extends AppCompatActivity implements TrackingStateObse
 
         trackingSwitcher = findViewById(R.id.trackingButton);
         deviceId = findViewById(R.id.deviceIdTextView);
+
+        sdkInstance = HyperTrack.getInstance(this, PUBLISHABLE_KEY);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (HyperTrack.isTracking()) {
+        if (sdkInstance.isRunning()) {
             onTrackingStart();
         }
     }
@@ -42,28 +44,27 @@ public class MainActivity extends AppCompatActivity implements TrackingStateObse
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        HyperTrack.removeTrackingStateListener(this);
+        sdkInstance.removeTrackingListener(this);
     }
 
     public void onClick(View view) {
         Log.d(TAG, "onClick for view " + view.getId());
 
-        switch (view.getId()) {
-            case R.id.trackingButton:
-                Log.d(TAG, "Tracking button pressed");
-                if (HyperTrack.isTracking()) {
-                    HyperTrack.stopTracking();
-                } else {
-                    // Initialize SDK with activity instance and start tracking immediately. It's preferred to use main activity.
-                    HyperTrack.initialize(this, PUBLISHABLE_KEY);
-                    HyperTrack.addTrackingStateListener(this);
+        if (view.getId() == R.id.trackingButton) {
+            Log.d(TAG, "Tracking button pressed");
+            if (sdkInstance.isRunning()) {
+                sdkInstance.stop();
+            } else {
+                // Optional: add label to easily distinguish device in dashboard
+                sdkInstance.setDeviceName(getString(R.string.name));
+                // Optional: add listener to handle tracking state changes properly
+                sdkInstance.addTrackingListener(this);
+                sdkInstance.start();
 
-                    if (BuildConfig.DEBUG) {
-                        HyperTrack.enableDebugLogging();
-                    }
-                    // It gives possibility to add unique attributes to each specific device.
-                    HyperTrack.setNameAndMetadataForDevice(getString(R.string.name), Collections.<String, Object>emptyMap());
+                if (BuildConfig.DEBUG) {
+                    HyperTrack.enableDebugLogging();
                 }
+            }
         }
     }
 
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements TrackingStateObse
 
     @Override
     public void onTrackingStart() {
-        deviceId.setText(HyperTrack.getDeviceId());
+        deviceId.setText(sdkInstance.getDeviceID());
         trackingSwitcher.setText(getString(R.string.pause_tracking));
 
     }
