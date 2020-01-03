@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.hypertrack.android.quickstart.github.BuildConfig;
-import com.hypertrack.android.quickstart.github.R;
+import com.hypertrack.quickstart.android.github.BuildConfig;
+import com.hypertrack.quickstart.android.github.R;
 import com.hypertrack.sdk.HyperTrack;
 import com.hypertrack.sdk.TrackingError;
 import com.hypertrack.sdk.TrackingStateObserver;
