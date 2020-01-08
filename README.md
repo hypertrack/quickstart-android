@@ -57,7 +57,7 @@ repositories {
 
 //Add HyperTrack as a dependency
 dependencies {
-    implementation 'com.hypertrack:hypertrack:3.7.0'
+    implementation 'com.hypertrack:hypertrack:3.8.0'
     ...
 }
 ```
@@ -73,11 +73,11 @@ That's it. You have implemented tracking.
 
 #### Step 3. _(optional)_ Utility Methods
 ###### Turn tracking on and off
-Depending on your needs, you can always _stop_ and _start_ tracking, invoking [`.stop()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.7.0/com/hypertrack/sdk/HyperTrack.html#stop--) and [`start()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.7.0/com/hypertrack/sdk/HyperTrack.html#start--) SDK methods.
-It is recommended to store reference to SDK instance in order to use it for further actions. You can determine current sdk state using [`isRunning()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.7.0/com/hypertrack/sdk/HyperTrack.html#isRunning--) call.
+Depending on your needs, you can always _stop_ and _start_ tracking, invoking [`.stop()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.0/com/hypertrack/sdk/HyperTrack.html#stop--) and [`start()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.0/com/hypertrack/sdk/HyperTrack.html#start--) SDK methods.
+It is recommended to store reference to SDK instance in order to use it for further actions. You can determine current sdk state using [`isRunning()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.0/com/hypertrack/sdk/HyperTrack.html#isRunning--) call.
 
 ###### Add SDK state listener to catch events.
-You can subscribe to SDK status changes [`addTrackingListener`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.7.0/com/hypertrack/sdk/HyperTrack.html#addTrackingListener-com.hypertrack.sdk.TrackingStateObserver.OnTrackingStateChangeListener-) and handle them in the appropriate methods [`onError(TrackingError)`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.7.0/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onError-com.hypertrack.sdk.TrackingError-) [`onTrackingStart()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.7.0/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onTrackingStart--) [`onTrackingStop()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.7.0/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onTrackingStop--)
+You can subscribe to SDK status changes [`addTrackingListener`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.0/com/hypertrack/sdk/HyperTrack.html#addTrackingListener-com.hypertrack.sdk.TrackingStateObserver.OnTrackingStateChangeListener-) and handle them in the appropriate methods [`onError(TrackingError)`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.0/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onError-com.hypertrack.sdk.TrackingError-) [`onTrackingStart()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.0/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onTrackingStart--) [`onTrackingStop()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.0/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onTrackingStop--)
 
 ###### Customize foreground service notification
 HyperTrack tracking runs as a separate foreground service, so when it is running, your users will see a persistent notification. By default, it displays your app icon with text `{app name} is running` but you can customize it anytime after initialization by calling:
@@ -89,10 +89,10 @@ sdkInstance.setTrackingNotificationConfig(
                         .build()
         );
 ```
-Check out other configurable properties in [ServiceNotificationConfig reference](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.7.0/com/hypertrack/sdk/ServiceNotificationConfig.html)
+Check out other configurable properties in [ServiceNotificationConfig reference](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.0/com/hypertrack/sdk/ServiceNotificationConfig.html)
 
 ###### Identify devices
-All devices tracked on HyperTrack are uniquely identified using [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier). You can get this identifier programmatically in your app by calling [`getDeviceID()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.7.0/com/hypertrack/sdk/HyperTrack.html#getDeviceID--) after initialization.
+All devices tracked on HyperTrack are uniquely identified using [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier). You can get this identifier programmatically in your app by calling [`getDeviceID()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.0/com/hypertrack/sdk/HyperTrack.html#getDeviceID--) after initialization.
 Another approach is to tag device with a name that will make it easy to distinguish them on HyperTrack Dashboard.
 ```java
 HyperTrack sdkInstance = HyperTrack.getInstance(context, publishableKey);
@@ -170,7 +170,7 @@ order.put("price", 7.75);
 
 sdkInstance.addTripMarker(order);
 ```
-Look into [documentation](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.7.0/com/hypertrack/sdk/HyperTrack.html) for more details.
+Look into [documentation](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.0/com/hypertrack/sdk/HyperTrack.html) for more details.
 
 ###### Enable server to device communication
 Server to device communication uses firebase push notifications as transport for commands so for remote tracking state management Firebase integration is required. So you need to [setup Firebase Cloud Messaging](https://firebase.google.com/docs/android/setup), if you have no push notifications enabled so far. Next step is to specify `HyperTrackMessagingService` as push messages receiver by adding following snippet to your apps Android manifest:
