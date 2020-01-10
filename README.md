@@ -207,6 +207,7 @@ Once your app is running, go to the [Dashboard page](https://dashboard.hypertrac
 - [Handling custom ROMs](#handling-custom-roms)
 - [HyperTrack notification shows even after app is terminated](#hypertrack-notification-shows-even-after-my-app-is-terminated)
 - [How tracking works in Doze mode](#how-tracking-service-works-in-android-doze-mode)
+- [AAPT: error: attribute android:foregroundServiceType not found](#apps-that-target-api-below-29)
 
 
 #### Supported versions
@@ -305,6 +306,9 @@ The HyperTrack service runs as a separate component and it is still running when
 
 #### How tracking service works in android doze mode
 Doze mode requires device [to be stationary](https://developer.android.com/training/monitoring-device-state/doze-standby.html#understand_doze), so before OS starts imposing power management restrictions, exact device location is obtained. When device starts moving, Android leaves Doze mode and works regularly, so no special handling of Doze mode required with respect to location tracking.
+
+#### Apps that target API below 29
+If build fails with error like `AAPT: error: attribute android:foregroundServiceType not found` that means that you're targeting your app for Android P or earlier. Starting from Android 10 Google imposes additional restrictions on services, that access location data while phone screen is turned off. Possible workaround here is to use library version 3.7.0, that compiles against API 28 and below, but tracking service won't work properly on Android Q devices with screen been turned off or locked.
 
 ## Support
 Join our [Slack community](https://join.slack.com/t/hypertracksupport/shared_invite/enQtNDA0MDYxMzY1MDMxLTdmNDQ1ZDA1MTQxOTU2NTgwZTNiMzUyZDk0OThlMmJkNmE0ZGI2NGY2ZGRhYjY0Yzc0NTJlZWY2ZmE5ZTA2NjI) for instant responses. You can also email us at help@hypertrack.com.
