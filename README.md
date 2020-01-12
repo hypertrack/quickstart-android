@@ -169,6 +169,7 @@ order.put("price", 7.75);
 
 sdkInstance.addTripMarker(order);
 ```
+
 Look into [documentation](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.1/com/hypertrack/sdk/HyperTrack.html) for more details.
 
 ###### Enable server to device communication
