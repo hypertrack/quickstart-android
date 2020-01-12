@@ -105,58 +105,57 @@ sdkInstance.setDeviceName(name);
 Create trips to track the device journey going from one place to another. Most of the time, you are not only interested in the latest location but a set of location-related data. For example how long you should expect someone to arrive, what distance someone traveled during his working day etc.
 For such cases, you can scope location data at the required level of granularity by creating a trip, through submitting a request like below to HyperTrack backend.
 
-You can use the node sample request below or create one yourself using [API Reference](https://docs.hypertrack.com/#references-apis-trips-post-trips)
-<details>
+You can create trip invoking appropriate SDK method:
+```java
+CreateTripRequest tripRequest = new CreateTripRequest.Builder()
+        .setDestinationLongitude(-115.122993)
+        .setDestinationLatitude(36.089361)
+        .build();
 
-```Javascript
-
-const request = require('request');
-// deviceId is obtained from the previous step
-const deviceId = "DEVICE_ID_HERE";
-// get two strings below from https://dashboard.hypertrack.com/setup
-const accountId = 'ACCOUNT_ID';
-const secretKey = 'SECRET_KEY';
-
-const trip ={
-  "device_id": deviceId,
-  "destination": {
-    "geometry": { "type": "Point", "coordinates": [-115.122993, 36.089361] }
-  },
-  "geofences": [
-    {
-      "geometry": { "type": "Point", "coordinates": [-115.1768575, 36.0949879] },
-      "metadata": { "building": "Luxor" }
+AsyncResultHandler<ShareableTrip> resultHandler = new AsyncResultHandler<ShareableTrip>() {
+    @Override
+    public void onResultReceived(@NonNull ShareableTrip shareableTrip) {
+        Log.d(TAG, "Created trip with id " + shareableTrip.getTripId()
+                + ",\nthat can be viewed at: " + shareableTrip.getEmbedUrl()
+                + ",\nthat can be shared with: " + shareableTrip.getShareableUrl());
     }
-  ],
-  "metadata": {"destination": "Paradise"}
+
+    @Override
+    public void onFailure(@NonNull Error error) {
+        Log.w(TAG, "Trip creation failed with error ", error);
+    }
 };
 
-const options = {
-    "uri": "https://v3.api.hypertrack.com/trips/",
-    "auth": {'user': accountId, 'pass': secretKey},
-    "json": trip
-};
-
-request.post(options, function (error, response, body) {
-  if (error) {
-    return console.error('Trip creation failed:', error);
-  }
-  console.log('Server responded with:', response.statusCode);
-  if (response.statusCode == 201) {
-    console.log('Successfully created trip', body);
-  }
-});
-
+HyperTrack sdkInstance = HyperTrack.getInstance(context, publishableKey);
+sdkInstance.createTrip(tripRequest, resultHandler);
 ```
+Handler, that you've passed to `createTrip` as a second argument, receives [`ShareableTrip`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.1/com/hypertrack/sdk/trip/ShareableTrip.html) object. Using URL obtained from `getEmbedUrl()` getter we can see device location with respect to its destination and other trip details.
 
-</details>
-
-You'll receive a response with the trip object inside. Trip object [contains lots useful fields](https://docs.hypertrack.com/#references-apis-trips-get-trips-trip_id) but let's take a look at `views.embed_url` value, that contains a reference to trip details web view like below
 ![elvis-on-trip-to-paradise](https://user-images.githubusercontent.com/10487613/69039721-26c05d80-09f5-11ea-8047-2be04607dbb4.png)
+
+When you need to finish a trip, you can do so from client via
+```java
+AsyncResultHandler<String> completionResultHandler = new AsyncResultHandler<String>() {
+    @Override
+    public void onResultReceived(@NonNull String s) {
+        Log.d(TAG, "Trip completion succeded");
+    }
+
+    @Override
+    public void onFailure(@NonNull Error error) {
+        Log.w(TAG, "Trip completion failed", error);
+    }
+};
+
+HyperTrack sdkInstance = HyperTrack.getInstance(context, publishableKey);
+sdkInstance.completeTrip(shareableTrip.getTripId(), completionResultHandler);
+```
 
 After the trip has ended, you can access its aggregate data (entire route, time, etc.). You can review the trip using the replay feature in the web view mentioned above.
 
 ![trip-replay](https://user-images.githubusercontent.com/10487613/69040653-d1854b80-09f6-11ea-9fc3-4930d68667b1.gif)
+
+Although you can use client-side trips management, someone might prefer to control them from backend. Check out [API Reference](https://docs.hypertrack.com/#references-apis-trips-post-trips) for request syntax and examples.
 
 ###### Create trip marker
 Use this optional method if you want to associate data with specific place in your trip. E.g. user marking a task as done, user tapping a button to share location, user accepting an assigned job, device entering a geofence, etc.
