@@ -57,7 +57,7 @@ repositories {
 
 //Add HyperTrack as a dependency
 dependencies {
-    implementation 'com.hypertrack:hypertrack:3.8.1'
+    implementation 'com.hypertrack:hypertrack:3.8.2'
     ...
 }
 ```
@@ -73,11 +73,11 @@ That's it. You have implemented tracking.
 
 #### Step 3. _(optional)_ Utility Methods
 ###### Turn tracking on and off
-Depending on your needs, you can always _stop_ and _start_ tracking, invoking [`.stop()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.1/com/hypertrack/sdk/HyperTrack.html#stop--) and [`start()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.1/com/hypertrack/sdk/HyperTrack.html#start--) SDK methods.
-It is recommended to store reference to SDK instance in order to use it for further actions. You can determine current sdk state using [`isRunning()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.1/com/hypertrack/sdk/HyperTrack.html#isRunning--) call.
+Depending on your needs, you can always _stop_ and _start_ tracking, invoking [`.stop()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.2/com/hypertrack/sdk/HyperTrack.html#stop--) and [`start()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.2/com/hypertrack/sdk/HyperTrack.html#start--) SDK methods.
+It is recommended to store reference to SDK instance in order to use it for further actions. You can determine current sdk state using [`isRunning()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.2/com/hypertrack/sdk/HyperTrack.html#isRunning--) call.
 
 ###### Add SDK state listener to catch events.
-You can subscribe to SDK status changes [`addTrackingListener`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.1/com/hypertrack/sdk/HyperTrack.html#addTrackingListener-com.hypertrack.sdk.TrackingStateObserver.OnTrackingStateChangeListener-) and handle them in the appropriate methods [`onError(TrackingError)`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.1/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onError-com.hypertrack.sdk.TrackingError-) [`onTrackingStart()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.1/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onTrackingStart--) [`onTrackingStop()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.1/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onTrackingStop--)
+You can subscribe to SDK status changes [`addTrackingListener`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.2/com/hypertrack/sdk/HyperTrack.html#addTrackingListener-com.hypertrack.sdk.TrackingStateObserver.OnTrackingStateChangeListener-) and handle them in the appropriate methods [`onError(TrackingError)`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.2/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onError-com.hypertrack.sdk.TrackingError-) [`onTrackingStart()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.2/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onTrackingStart--) [`onTrackingStop()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.2/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onTrackingStop--)
 
 ###### Customize foreground service notification
 HyperTrack tracking runs as a separate foreground service, so when it is running, your users will see a persistent notification. By default, it displays your app icon with text `{app name} is running` but you can customize it anytime after initialization by calling:
@@ -89,10 +89,10 @@ sdkInstance.setTrackingNotificationConfig(
                         .build()
         );
 ```
-Check out other configurable properties in [ServiceNotificationConfig reference](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.1/com/hypertrack/sdk/ServiceNotificationConfig.html)
+Check out other configurable properties in [ServiceNotificationConfig reference](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.2/com/hypertrack/sdk/ServiceNotificationConfig.html)
 
 ###### Identify devices
-All devices tracked on HyperTrack are uniquely identified using [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier). You can get this identifier programmatically in your app by calling [`getDeviceID()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.1/com/hypertrack/sdk/HyperTrack.html#getDeviceID--) after initialization.
+All devices tracked on HyperTrack are uniquely identified using [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier). You can get this identifier programmatically in your app by calling [`getDeviceID()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.2/com/hypertrack/sdk/HyperTrack.html#getDeviceID--) after initialization.
 Another approach is to tag device with a name that will make it easy to distinguish them on HyperTrack Dashboard.
 ```java
 HyperTrack sdkInstance = HyperTrack.getInstance(context, publishableKey);
@@ -129,7 +129,7 @@ AsyncResultHandler<ShareableTrip> resultHandler = new AsyncResultHandler<Shareab
 HyperTrack sdkInstance = HyperTrack.getInstance(context, publishableKey);
 sdkInstance.createTrip(tripRequest, resultHandler);
 ```
-Handler, that you've passed to `createTrip` as a second argument, receives [`ShareableTrip`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.1/com/hypertrack/sdk/trip/ShareableTrip.html) object. Using URL obtained from `getEmbedUrl()` getter we can see device location with respect to its destination and other trip details.
+Handler, that you've passed to `createTrip` as a second argument, receives [`ShareableTrip`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.2/com/hypertrack/sdk/trip/ShareableTrip.html) object. Using URL obtained from `getEmbedUrl()` getter we can see device location with respect to its destination and other trip details.
 
 ![elvis-on-trip-to-paradise](https://user-images.githubusercontent.com/10487613/69039721-26c05d80-09f5-11ea-8047-2be04607dbb4.png)
 
@@ -170,7 +170,7 @@ order.put("price", 7.75);
 sdkInstance.addTripMarker(order);
 ```
 
-Look into [documentation](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.1/com/hypertrack/sdk/HyperTrack.html) for more details.
+Look into [documentation](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.2/com/hypertrack/sdk/HyperTrack.html) for more details.
 
 ###### Enable server to device communication
 Server to device communication uses firebase push notifications as transport for commands so for remote tracking state management Firebase integration is required. So you need to [setup Firebase Cloud Messaging](https://firebase.google.com/docs/android/setup), if you have no push notifications enabled so far. Next step is to specify `HyperTrackMessagingService` as push messages receiver by adding following snippet to your apps Android manifest:
@@ -308,7 +308,18 @@ The HyperTrack service runs as a separate component and it is still running when
 Doze mode requires device [to be stationary](https://developer.android.com/training/monitoring-device-state/doze-standby.html#understand_doze), so before OS starts imposing power management restrictions, exact device location is obtained. When device starts moving, Android leaves Doze mode and works regularly, so no special handling of Doze mode required with respect to location tracking.
 
 #### Apps that target API below 29
-If build fails with error like `AAPT: error: attribute android:foregroundServiceType not found` that means that you're targeting your app for Android P or earlier. Starting from Android 10 Google imposes additional restrictions on services, that access location data while phone screen is turned off. Possible workaround here is to use library version 3.7.0, that compiles against API 28 and below, but tracking service won't work properly on Android Q devices with screen been turned off or locked.
+If build fails with error like `AAPT: error: attribute android:foregroundServiceType not found` that means that you're targeting your app for Android P or earlier. Starting from Android 10 Google imposes additional restrictions on services, that access location data while phone screen is turned off. Possible workaround here is to remove declared service property by adding following element to your app's manifest
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hypertrack.quickstart"
+    xmlns:tools="http://schemas.android.com/tools">
+    ...
+    <application>
+      ...
+      <service android:name="com.hypertrack.sdk.service.HyperTrackSDKService"
+          tools:remove="android:foregroundServiceType" />
+```
+Although you'll be able to avoid targeting API 29, but tracking service won't work properly on Android Q devices with screen been turned off or locked.
 
 ## Support
 Join our [Slack community](https://join.slack.com/t/hypertracksupport/shared_invite/enQtNDA0MDYxMzY1MDMxLTdmNDQ1ZDA1MTQxOTU2NTgwZTNiMzUyZDk0OThlMmJkNmE0ZGI2NGY2ZGRhYjY0Yzc0NTJlZWY2ZmE5ZTA2NjI) for instant responses. You can also email us at help@hypertrack.com.
