@@ -308,7 +308,18 @@ The HyperTrack service runs as a separate component and it is still running when
 Doze mode requires device [to be stationary](https://developer.android.com/training/monitoring-device-state/doze-standby.html#understand_doze), so before OS starts imposing power management restrictions, exact device location is obtained. When device starts moving, Android leaves Doze mode and works regularly, so no special handling of Doze mode required with respect to location tracking.
 
 #### Apps that target API below 29
-If build fails with error like `AAPT: error: attribute android:foregroundServiceType not found` that means that you're targeting your app for Android P or earlier. Starting from Android 10 Google imposes additional restrictions on services, that access location data while phone screen is turned off. Possible workaround here is to use library version 3.7.0, that compiles against API 28 and below, but tracking service won't work properly on Android Q devices with screen been turned off or locked.
+If build fails with error like `AAPT: error: attribute android:foregroundServiceType not found` that means that you're targeting your app for Android P or earlier. Starting from Android 10 Google imposes additional restrictions on services, that access location data while phone screen is turned off. Possible workaround here is to remove declared service property by adding following element to your app's manifest
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hypertrack.quickstart"
+    xmlns:tools="http://schemas.android.com/tools">
+    ...
+    <application>
+      ...
+      <service android:name="com.hypertrack.sdk.service.HyperTrackSDKService"
+          tools:remove="android:foregroundServiceType" />
+```
+Although you'll be able to avoid targeting API 29, but tracking service won't work properly on Android Q devices with screen been turned off or locked.
 
 ## Support
 Join our [Slack community](https://join.slack.com/t/hypertracksupport/shared_invite/enQtNDA0MDYxMzY1MDMxLTdmNDQ1ZDA1MTQxOTU2NTgwZTNiMzUyZDk0OThlMmJkNmE0ZGI2NGY2ZGRhYjY0Yzc0NTJlZWY2ZmE5ZTA2NjI) for instant responses. You can also email us at help@hypertrack.com.
