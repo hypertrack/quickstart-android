@@ -21,7 +21,7 @@ android {
 repositories {
     maven {
         name 'hypertrack'
-        url 'http://m2.hypertrack.com'
+        url  'https://s3-us-west-2.amazonaws.com/m2.hypertrack.com/'
     }
 }
 
@@ -33,7 +33,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.hypertrack:hypertrack:3.8.2'
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha03'
 

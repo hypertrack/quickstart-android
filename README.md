@@ -50,7 +50,7 @@ Add following lines to your applications `build.gradle`:
 repositories {
     maven {
         name 'hypertrack'
-        url 'http://m2.hypertrack.com'
+        url  'https://s3-us-west-2.amazonaws.com/m2.hypertrack.com/'
     }
     ...
 }
