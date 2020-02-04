@@ -14,8 +14,8 @@
 
 We use Publishable Key to identify your devices. To get one:
 1. Go to the [Signup page](https://dashboard.hypertrack.com/signup). Enter your email address and password.
-2. Open the verification link sent to your inbox.
-3. Open the [Keys page](https://dashboard.hypertrack.com/account/keys), where you can copy your Publishable Key.
+2. Open the verification link sent to your email.
+3. Open the [Setup page](https://dashboard.hypertrack.com/setup), where you can copy your Publishable Key.
 
 ![Keys page in dashboard](https://user-images.githubusercontent.com/10487613/56365755-45aa0780-61fa-11e9-858d-9a2e24ca31c9.png)
 
