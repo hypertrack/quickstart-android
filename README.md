@@ -33,7 +33,7 @@ cd quickstart-android
 
 ### Step 2: Set your Publishable Key
 
-Open the Quickstart project inside the workspace and set your [Publishable Key](#publishable-key) inside the placeholder in the [`MainActivity.java`](https://github.com/hypertrack/quickstart-android/blob/758db77066ea634699787cc5aba45459a920c4e6/app/src/main/java/com/hypertrack/quickstart/MainActivity.java#L20) file.
+Open the Quickstart project inside the workspace and set your [Publishable Key](#publishable-key) inside the placeholder in the [`MainActivity.java`](https://github.com/hypertrack/quickstart-android/blob/9491b1fc8d8a0d4af8339552257cfda5917bda27/quickstart-java/app/src/main/java/com/hypertrack/quickstart/MainActivity.java#L16)/[`MainActivity.kt`](https://github.com/hypertrack/quickstart-android/blob/9491b1fc8d8a0d4af8339552257cfda5917bda27/quickstart-kotlin/app/src/main/java/com/hypertrack/quickstart/MainActivity.kt#L89) file.
 
 ### Step 3: Setup silent push notifications
 
