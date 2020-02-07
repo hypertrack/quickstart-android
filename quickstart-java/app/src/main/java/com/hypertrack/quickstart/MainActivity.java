@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity implements TrackingStateObse
     private static final String PUBLISHABLE_KEY = "paste_your_key_here";
 
     private TextView trackingStatusLabel;
-    private PermissionManager mPermissionManager;
     private HyperTrack sdkInstance;
 
     @Override
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements TrackingStateObse
         deviceId.setText(sdkInstance.getDeviceID());
         Log.d(TAG, "device id is " + sdkInstance.getDeviceID());
 
-        mPermissionManager = PermissionManager.getInstance(this);
     }
 
     @Override
@@ -49,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements TrackingStateObse
             onTrackingStop();
         }
 
-        mPermissionManager.requestPermissionsIfNecessary();
+        sdkInstance.requestPermissionsIfNecessary();
     }
 
     @Override

@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(), TrackingStateObserver.OnTrackingStateC
             else -> onTrackingStop()
         }
 
-        PermissionManager(this).requestPermissionsIfNecessary()
+        sdkInstance.requestPermissionsIfNecessary()
     }
 
     override fun onDestroy() {
@@ -87,11 +87,5 @@ class MainActivity : AppCompatActivity(), TrackingStateObserver.OnTrackingStateC
 
         private const val TAG = "MainActivity"
         private const val PUBLISHABLE_KEY = "paste_your_key_here"
-    }
-}
-
-class PermissionManager(private val context: Context) {
-    fun requestPermissionsIfNecessary() {
-        // TODO Denys:
     }
 }

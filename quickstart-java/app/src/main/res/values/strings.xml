@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Quickstart</string>
-    <string name="name">Elvis</string>
     <string name="tracking_stopped">Not Tracking</string>
     <string name="tracking_active">Tracking</string>
     <string name="check_publishable_key">Check you publishable key</string>
