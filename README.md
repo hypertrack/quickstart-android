@@ -5,7 +5,6 @@
 [HyperTrack](https://www.hypertrack.com) lets you add live location tracking to your mobile app.
 Live location is made available along with ongoing activity, tracking controls and tracking outage with reasons.
 This repo contains an example Android app that has everything you need to get started in minutes.
-TODO update with better language?
 
 ## Create HyperTrack Account
 
@@ -23,7 +22,9 @@ in the [`MainActivity.java`](https://github.com/hypertrack/quickstart-android/bl
 
 Set up silent push notifications to manage on-device tracking using HyperTrack cloud APIs from your server.
 
-Callout: If you prefer to use your own messaging service to manage server-to-device communication, use the sync method (TODO linkd)
+```
+If you prefer to use your own messaging service to manage server-to-device communication, use the [sync](https://docs.hypertrack.com/#guides-sdks-android) method.
+```
 
 <details>
   <summary>Register Quickstart app in firebase</summary>
@@ -99,7 +100,8 @@ curl -X POST \
 
 ### Track trips with ETA
 
-If you want to track a device on its way to a destination, call the [Trips API](https://docs.hypertrack.com/#references-apis-trips-post-trips).
+If you want to track a device on its way to a destination, call the [Trips API](https://docs.hypertrack.com/#references-apis-trips-post-trips)
+and add destination.
 
 HyperTrack Trips API offers extra fields to get additional intelligence over the Devices API.
 * set destination to track route and ETA
@@ -122,23 +124,23 @@ curl -u {AccountId}:{SecretKey} --location --request POST 'https://v3.api.hypert
 ```
 
 To get `{longitude}` and `{latitude}` of your destination, you can use for example [Google Maps](https://support.google.com/maps/answer/18539?co=GENIE.Platform%3DDesktop&hl=en).
+
 Callout:
 HyperTrack uses [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON). Please make sure you follow the correct ordering of longitude and latitude.
 
+The returned JSON includes the embed_url for your dashboard and share_url for your customers.
 
-The return json included the embed_link to integrate to your dashboard as well as a tracking link to share with customers.
-
-When you are done tracking this device, call [complete trips](https://docs.hypertrack.com/#references-apis-trips-post-trips-trip_id-complete) api.
+When you are done tracking this trip, call [complete](https://docs.hypertrack.com/#references-apis-trips-post-trips-trip_id-complete) Trip API.
 ```
 curl -X POST \
   -u {AccountId}:{SecretKey} \
   https://v3.api.hypertrack.com/trips/{trip_id}/complete
 ```
 
-### Track trips to get arrival, exit, time spent and route to geofences, notifcations
+### Track trips with geofences
 
-HyperTrack supports a bunch of other cool ways to track and get intelligence on top of your location data. This is
-outside of the quickstart. Please checkout our [docs](https://docs.hypertrack.com/) for more details.
+If you want to track a device goig to a list of places, call the [Trips API](https://docs.hypertrack.com/#references-apis-trips-post-trips)
+and add geofences. This way you will get arrival, exit, time spent and route to geofences. Please checkout our [docs](https://docs.hypertrack.com/) for more details.
 
 ## Dashboard
 
@@ -146,7 +148,7 @@ Once your app is running, go to the [dashboard](https://dashboard.hypertrack.com
 
 ## Documentation
 
-You can find our [integration guide](https://docs.hypertrack.com/#guides-sdks-android) and API reference on our [documentation website](https://docs.hypertrack.com/#references-sdks-android). There is also a full in-code reference for all SDK methods.
+You can find API references in our [docs](https://docs.hypertrack.com/#references-sdks-android). There is also a full in-code reference for all SDK methods.
 
 ## Support
 Join our [Slack community](https://join.slack.com/t/hypertracksupport/shared_invite/enQtNDA0MDYxMzY1MDMxLTdmNDQ1ZDA1MTQxOTU2NTgwZTNiMzUyZDk0OThlMmJkNmE0ZGI2NGY2ZGRhYjY0Yzc0NTJlZWY2ZmE5ZTA2NjI) for instant responses. You can also email us at help@hypertrack.com.
