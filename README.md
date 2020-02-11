@@ -57,14 +57,18 @@ You may also set device name and metadata using the [Devices API](https://docs.h
 
 ## Start tracking
 
-Now the app is ready to be tracked. The tracking state is controlled from the cloud and HyperTrack gives you powerful APIs
-to control this from your backend.
+Now the app is ready to be tracked from the cloud. HyperTrack gives you powerful APIs
+to control device tracking from your backend.
 
-### Tracking during specific times (e.g., during work hours)? Use the Devices API!
+Callout:(TODO)
+To use the HyperTrack API, you will need the `{AccountId}` and `{SecretKey}` from the setup page (TODO link) 
 
-The simplest way to start and stop tracking is using the [Devices API](https://docs.hypertrack.com/#references-apis-devices)
+### Track devices during work
 
-To start, call the device [start](https://docs.hypertrack.com/?shell#references-apis-devices-post-devices-device_id-start) API.
+Track devices when user is logged in to work, or during work hours by calling the 
+[Devices API](https://docs.hypertrack.com/#references-apis-devices).
+
+To start, call the [start](https://docs.hypertrack.com/?shell#references-apis-devices-post-devices-device_id-start) API.
 
 ```
 curl -X POST \
@@ -73,7 +77,7 @@ curl -X POST \
 ```
 
 
-Now you can see the tracking status of the device by calling
+Get the tracking status of the device by calling
 [GET /devices/{device_id}](https://docs.hypertrack.com/?shell#references-apis-devices-get-devices) api.
 
 ```
@@ -83,9 +87,9 @@ curl \
 ```
 
 To see the device on a map, open the returned embed_url in your browser (no login required, so you can add embed these views directly to you web app).
-The device will also show up in the device list in the HyperTrack dashboard.
+The device will also show up in the device list in the [HyperTrack dashboard](https://dashboard.hypertrack.com/).
 
-When you are done tracking, just call the devices [stop](https://docs.hypertrack.com/?shell#references-apis-devices-post-devices-device_id-stop) api.
+To stop tracking, call the [stop](https://docs.hypertrack.com/?shell#references-apis-devices-post-devices-device_id-stop) API.
 
 ```
 curl -X POST \
@@ -93,7 +97,7 @@ curl -X POST \
   https://v3.api.hypertrack.com/devices/{device_id}/stop
 ```
 
-### Going to a known place? Create a trip!
+### Track trips with ETA
 
 If you want to track a device while it's going to a known place, call the [trips API](https://docs.hypertrack.com/#references-apis-trips-post-trips).
 
