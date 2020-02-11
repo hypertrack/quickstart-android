@@ -14,17 +14,12 @@ get your publishable key from the [Setup page](https://dashboard.hypertrack.com/
 
 ## Clone Quickstart app
 
-1. [Set your Publishable Key](#step-3-set-your-publishable-key)
-2. [Setup silent push notifications](#step-4-setup-silent-push-notifications)
-3. [Run the Quickstart app](#step-5-run-the-quickstart-app)
-TODO links
-
-### Step 1: Set your Publishable Key
+### Set your Publishable Key
 
 Open the Quickstart project inside the workspace and set your [Publishable Key](#publishable-key) inside the placeholder
 in the [`MainActivity.java`](https://github.com/hypertrack/quickstart-android/blob/9491b1fc8d8a0d4af8339552257cfda5917bda27/quickstart-java/app/src/main/java/com/hypertrack/quickstart/MainActivity.java#L16)/[`MainActivity.kt`](https://github.com/hypertrack/quickstart-android/blob/9491b1fc8d8a0d4af8339552257cfda5917bda27/quickstart-kotlin/app/src/main/java/com/hypertrack/quickstart/MainActivity.kt#L89) file.
 
-### Step 2: Set up silent push notifications
+### Set up silent push notifications
 
 Set up silent push notifications to manage on-device tracking using HyperTrack cloud APIs from your server.
 
@@ -45,7 +40,7 @@ Log into the HyperTrack dashboard and open the <a href="https://dashboard.hypert
 Fill FCM Key section in Android paragraph obtained from <i>Firebase Developer console > Project Settings (gear icon at top left) > Cloud Messaging tab.</i></p>
 <img src="Images/copy-server-key.png"/>
 
-### Step 3: Run the app
+### Run the app
 
 Run the app on your phone and you should see the following interface:
 
