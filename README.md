@@ -22,9 +22,7 @@ in the [`MainActivity.java`](https://github.com/hypertrack/quickstart-android/bl
 
 Set up silent push notifications to manage on-device tracking using HyperTrack cloud APIs from your server.
 
-```
-If you prefer to use your own messaging service to manage server-to-device communication, use the [sync](https://docs.hypertrack.com/#guides-sdks-android) method.
-```
+> If you prefer to use your own messaging service to manage server-to-device communication, use the [sync](https://docs.hypertrack.com/#guides-sdks-android) method.
 
 <details>
   <summary>Register Quickstart app in firebase</summary>
@@ -49,10 +47,9 @@ Run the app on your phone and you should see the following interface:
 
 Grant location and activity permissions when prompted.
 
-Callout: (TODO)
-HyperTrack creates a unique internal device identifier that's used as mandatory key for all HyperTrack API calls.
-Please be sure to get the `device_id` from the app or the logs. The app calls
-[getDeviceId](https://docs.hypertrack.com/#references-sdks-android-get-device-id) to retrieve it.
+> HyperTrack creates a unique internal device identifier that's used as mandatory key for all HyperTrack API calls.
+> Please be sure to get the `device_id` from the app or the logs. The app calls
+> [getDeviceId](https://docs.hypertrack.com/#references-sdks-android-get-device-id) to retrieve it.
 
 You may also set device name and metadata using the [Devices API](https://docs.hypertrack.com/#references-apis-devices)
 
@@ -61,8 +58,7 @@ You may also set device name and metadata using the [Devices API](https://docs.h
 Now the app is ready to be tracked from the cloud. HyperTrack gives you powerful APIs
 to control device tracking from your backend.
 
-Callout:(TODO)
-To use the HyperTrack API, you will need the `{AccountId}` and `{SecretKey}` from the setup page (TODO link) 
+> To use the HyperTrack API, you will need the `{AccountId}` and `{SecretKey}` from the [Setup page](https://dashboard.hypertrack.com/setup).
 
 ### Track devices during work
 
@@ -125,8 +121,7 @@ curl -u {AccountId}:{SecretKey} --location --request POST 'https://v3.api.hypert
 
 To get `{longitude}` and `{latitude}` of your destination, you can use for example [Google Maps](https://support.google.com/maps/answer/18539?co=GENIE.Platform%3DDesktop&hl=en).
 
-Callout:
-HyperTrack uses [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON). Please make sure you follow the correct ordering of longitude and latitude.
+> HyperTrack uses [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON). Please make sure you follow the correct ordering of longitude and latitude.
 
 The returned JSON includes the embed_url for your dashboard and share_url for your customers.
 
