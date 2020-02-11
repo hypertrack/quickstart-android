@@ -99,12 +99,13 @@ curl -X POST \
 
 ### Track trips with ETA
 
-If you want to track a device while it's going to a known place, call the [trips API](https://docs.hypertrack.com/#references-apis-trips-post-trips).
+If you want to track a device on its way to a destination, call the [Trips API](https://docs.hypertrack.com/#references-apis-trips-post-trips).
 
-Providing extra fields to the trip API allows HyperTrack to provide you with extra intelligence over the simple devices API:
-* ETA of arrival with delay notifications
-* Route to destination
-* Shareable links to share with your customers that are limited to the trip
+HyperTrack Trips API offers extra fields to get additional intelligence over the Devices API.
+* set destination to track route and ETA
+* set scheduled_at to track delays
+* share live tracking URL of the trip with customers 
+* embed live tracking view of the trip in your ops dashboard 
 
 ```curl
 curl -u {AccountId}:{SecretKey} --location --request POST 'https://v3.api.hypertrack.com/trips/' \
@@ -119,7 +120,11 @@ curl -u {AccountId}:{SecretKey} --location --request POST 'https://v3.api.hypert
     }
 }'
 ```
+
 To get `{longitude}` and `{latitude}` of your destination, you can use for example [Google Maps](https://support.google.com/maps/answer/18539?co=GENIE.Platform%3DDesktop&hl=en).
+Callout:
+HyperTrack uses [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON). Please make sure you follow the correct ordering of longitude and latitude.
+
 
 The return json included the embed_link to integrate to your dashboard as well as a tracking link to share with customers.
 
@@ -130,7 +135,7 @@ curl -X POST \
   https://v3.api.hypertrack.com/trips/{trip_id}/complete
 ```
 
-### Track trips to get arrival, exit, time spent and route to geofences
+### Track trips to get arrival, exit, time spent and route to geofences, notifcations
 
 HyperTrack supports a bunch of other cool ways to track and get intelligence on top of your location data. This is
 outside of the quickstart. Please checkout our [docs](https://docs.hypertrack.com/) for more details.
