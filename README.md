@@ -4,40 +4,31 @@
 
 [HyperTrack](https://www.hypertrack.com) lets you add live location tracking to your mobile app.
 Live location is made available along with ongoing activity, tracking controls and tracking outage with reasons.
-This repo contains an example iOS app that has everything you need to get started in minutes.
+This repo contains an example Android app that has everything you need to get started in minutes.
 TODO update with better language?
 
-* [HyperTrack Account](#publishable-key)–Create a HyperTrack account and get your keys
-* [Quickstart](#quickstart-app)–Start with a ready-to-go app with reliable tracking service
-* [Start Tracking](#start-tracking)-Use HyperTracks Rest APIs to control tracking from your server
-* [Dashboard](#dashboard)–See live location of all your devices on your HyperTrack dashboard
-* [Documentation](#documentation)-Refer to documentation for integration guides and API reference
-* [Support](#support)–Support
+## Create HyperTrack Account
 
-## HyperTrack Account
+[Sign up](https://dashboard.hypertrack.com/signup) for HyperTrack and 
+get your publishable key from the [Setup page](https://dashboard.hypertrack.com/setup).
 
-Before you can use HyperTrack, you need to create an account at [https://dashboard.hypertrack.com/signup](https://dashboard.hypertrack.com/signup)
+## Clone Quickstart app
 
-Once you have an account, retrieve your publishable key from the [Setup page](https://dashboard.hypertrack.com/setup).
+1. [Set your Publishable Key](#step-3-set-your-publishable-key)
+2. [Setup silent push notifications](#step-4-setup-silent-push-notifications)
+3. [Run the Quickstart app](#step-5-run-the-quickstart-app)
+TODO links
 
-## Quickstart app
-
-1. [Clone this repo](#step-1-clone-this-repo)
-3. [Set your Publishable Key](#step-3-set-your-publishable-key)
-4. [Setup silent push notifications](#step-4-setup-silent-push-notifications)
-5. [Run the Quickstart app](#step-5-run-the-quickstart-app)
-
-### Step 1: Clone this repo
-
-### Step 2: Set your Publishable Key
+### Step 1: Set your Publishable Key
 
 Open the Quickstart project inside the workspace and set your [Publishable Key](#publishable-key) inside the placeholder
 in the [`MainActivity.java`](https://github.com/hypertrack/quickstart-android/blob/9491b1fc8d8a0d4af8339552257cfda5917bda27/quickstart-java/app/src/main/java/com/hypertrack/quickstart/MainActivity.java#L16)/[`MainActivity.kt`](https://github.com/hypertrack/quickstart-android/blob/9491b1fc8d8a0d4af8339552257cfda5917bda27/quickstart-kotlin/app/src/main/java/com/hypertrack/quickstart/MainActivity.kt#L89) file.
 
-### Step 3: Setup silent push notifications
+### Step 2: Set up silent push notifications
 
-HyperTrack is a cloud platform and needs to be able to send push notifications to wake up the SDK to start tracking from
-your server (HyperTrack offers other ways to sync state with the server; please see our [docs](TODO) as it's outside of the scope of the quickstart)
+Set up silent push notifications to manage on-device tracking using HyperTrack cloud APIs from your server.
+
+Callout: If you prefer to use your own messaging service to manage server-to-device communication, use the sync method (TODO linkd)
 
 <details>
   <summary>Register Quickstart app in firebase</summary>
@@ -54,7 +45,7 @@ Log into the HyperTrack dashboard and open the <a href="https://dashboard.hypert
 Fill FCM Key section in Android paragraph obtained from <i>Firebase Developer console > Project Settings (gear icon at top left) > Cloud Messaging tab.</i></p>
 <img src="Images/copy-server-key.png"/>
 
-### Step 4: Run the app
+### Step 3: Run the app
 
 Run the app on your phone and you should see the following interface:
 
@@ -62,12 +53,12 @@ Run the app on your phone and you should see the following interface:
 
 Grant location and activity permissions when prompted.
 
-### Get the device_id
+Callout: (TODO)
+HyperTrack creates a unique internal device identifier that's used as mandatory key for all HyperTrack API calls.
+Please be sure to get the `device_id` from the app or the logs. The app calls
+[getDeviceId](https://docs.hypertrack.com/#references-sdks-android-get-device-id) to retrieve it.
 
-HyperTrack creates a unique internal device identifier. It's required for all other interactions.
-
-You can get device_id of your device from the app itself and the logs. The app calls
-[getDeviceId](https://docs.hypertrack.com/#references-sdks-android-get-device-id) to retrieve it. 
+You may also set device name and metadata using the [Devices API](https://docs.hypertrack.com/#references-apis-devices)
 
 ## Start tracking
 
