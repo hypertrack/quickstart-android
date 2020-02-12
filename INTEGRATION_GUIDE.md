@@ -1,13 +1,12 @@
 
-# HyperTrack Quickstart for Android SDK
-![License](https://img.shields.io/github/license/hypertrack/quickstart-android.svg)
+# HyperTrack Android SDK Integration Guide
 
-[HyperTrack](https://www.hypertrack.com) lets you add live location tracking to your mobile app. This repo contains an example client app that has everything you need to get started in minutes. This repo written in Java, checkout [Kotlin](https://github.com/hypertrack/quickstart-android-kotlin) quickstart if your feel more comfortable with it.
+[HyperTrack](https://www.hypertrack.com) lets you add live location tracking to your mobile app. This doc contains an step by step guide how to make it works.
 
-* [Publishable Key](#publishable-key)–Get your Publishable Key
-* [Integrate the SDK](#integrate-the-sdk)–Integrate the SDK into your app
-* [Dashboard](#dashboard)–See all your devices' locations on HyperTrack Dashboard
-* [FAQs](#frequently-asked-questions)–Frequently asked questions
+* [Publishable Key](#publishable-key) – Get your Publishable Key
+* [Basic integration](#basic-integration) – Basic Integration
+* [Dashboard](#dashboard) – See all your devices' locations on HyperTrack Dashboard
+* [FAQs](#frequently-asked-questions) – Frequently asked questions
 
 ## Publishable Key
 
@@ -16,14 +15,12 @@ We use Publishable Key to identify your devices. To get one:
 2. Open the verification link sent to your email.
 3. Open the [Setup page](https://dashboard.hypertrack.com/setup), where you can copy your Publishable Key.
 
-![Keys page in dashboard](https://user-images.githubusercontent.com/10487613/56365755-45aa0780-61fa-11e9-858d-9a2e24ca31c9.png)
 
-Next, you can [start with the Quickstart app](#quickstart-app), or can [integrate the SDK](#integrate-the-sdk) in your app.
+## Basic integration
 
-## Integrate the SDK
  - [Add Hypertrack SDK](#step-1-add-hypertrack-sdk)
- - [Start tracking](#step-2-initialize-sdk)
- - [Utility methods (optional)](#step-3-optional-utility-methods)
+ - [Enable server to device communication](#step-2-enable-server-to-device-communication)
+ - [Initialize SDK](#step-3-initialize-sdk)
 
 #### Step 1. Add Hypertrack SDK
 Add following lines to your applications `build.gradle`:
@@ -39,19 +36,35 @@ repositories {
 
 //Add HyperTrack as a dependency
 dependencies {
-    implementation 'com.hypertrack:hypertrack:3.8.3'
+    implementation 'com.hypertrack:hypertrack:4.0.0-SNAPSHOT'
     ...
 }
 ```
 
-#### Step 2. Start tracking.
-Add SDK init call when you wan't to start tracking:
-```java
-    HyperTrack.getInstance(MyActivity.this, "your-publishable-key-here")
-              .start();
+#### Step 2. Enable server to device communication.
+Server to device communication uses firebase push notifications as transport for commands, so for remote tracking state management Firebase integration is required. So you need to [setup Firebase Cloud Messaging](https://firebase.google.com/docs/android/setup), if you have no push notifications enabled so far. Next step is to specify `HyperTrackMessagingService` as push messages receiver by adding following snippet to your apps Android manifest:
+```xml
+...
+  <service android:name="com.hypertrack.sdk.HyperTrackMessagingService" android:exported="false">
+      <intent-filter>
+          <action android:name="com.google.firebase.MESSAGING_EVENT" />
+      </intent-filter>
+  </service>
+</application>
 ```
-SDK will prompt for permission, if necessary, pushing new activity activity on top of tasks stack and popping it, after permission request finishes.
-That's it. You have implemented tracking.
+If you already use firebase push notifications you can extend `HyperTrackMessagingService` instead of Firebase, or declare two receivers side by side, if you wish (don't forget to call `super.onNewToken` and `super.onMessageReceived` in that case).
+Check out [Quickstart app](https://github.com/hypertrack/quickstart-android/) if you prefer to get a look at example.
+Last step is to add your Firebase API key to [HyperTrack dashboard](https://dashboard.hypertrack.com/setup) under *Server to Device communication* section.
+
+### Step 3. Initialize SDK
+Retrieve sdk instance, when you wish to use SDK, by passing your [publishable key]().
+```java
+    HyperTrack sdkInstance = HyperTrack.getInstance(MyActivity.this, "your-publishable-key-here");
+```
+```kotlin
+  val sdkInstance = HyperTrack.getInstance(this, "your-publishable-key-here")
+```
+Also make sure you've requested permissions somewhere in your app. HyperTrack accesses location and activity data, so exact set of permissions depends on Android version, and you can use `HyperTrack.requestPermissionsIfNecessary()` convenience method to simplify it a bit.
 
 #### Step 3. _(optional)_ Utility Methods
 ###### Turn tracking on and off
