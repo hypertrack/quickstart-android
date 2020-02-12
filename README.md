@@ -13,9 +13,11 @@ get your publishable key from the [Setup page](https://dashboard.hypertrack.com/
 
 ## Clone Quickstart app
 
+Clone the app and import the source of either `quickstart-java` or `quickstart-kotlin` folder using your favorite Android IDE.
+
 ### Set your Publishable Key
 
-Open the Quickstart project inside the workspace and set your [Publishable Key](#publishable-key) inside the placeholder
+Open the Quickstart project inside the workspace and set your Publishable Key (from [Setup page](https://dashboard.hypertrack.com/setup)) inside the placeholder
 in the [`MainActivity.java`](https://github.com/hypertrack/quickstart-android/blob/9491b1fc8d8a0d4af8339552257cfda5917bda27/quickstart-java/app/src/main/java/com/hypertrack/quickstart/MainActivity.java#L16)/[`MainActivity.kt`](https://github.com/hypertrack/quickstart-android/blob/9491b1fc8d8a0d4af8339552257cfda5917bda27/quickstart-kotlin/app/src/main/java/com/hypertrack/quickstart/MainActivity.kt#L89) file.
 
 ### Set up silent push notifications
@@ -125,12 +127,23 @@ To get `{longitude}` and `{latitude}` of your destination, you can use for examp
 
 The returned JSON includes the embed_url for your dashboard and share_url for your customers.
 
-When you are done tracking this trip, call [complete](https://docs.hypertrack.com/#references-apis-trips-post-trips-trip_id-complete) Trip API.
+When you are done tracking this trip, call [complete](https://docs.hypertrack.com/#references-apis-trips-post-trips-trip_id-complete) Trip API using the `trip_id` from the create trip call above.
 ```
 curl -X POST \
   -u {AccountId}:{SecretKey} \
   https://v3.api.hypertrack.com/trips/{trip_id}/complete
 ```
+
+After the trip is completed, use the [Trips API](https://docs.hypertrack.com/#references-apis-trips-post-trips) to
+retrieve a full [summary](https://docs.hypertrack.com/#references-apis-trips-get-trips-trip_id-trip-summary) of the trip.
+The summary contains the polyline of the trip, distance, duration and markers of the trip.
+
+```
+curl -X POST \
+  -u {AccountId}:{SecretKey} \
+  https://v3.api.hypertrack.com/trips/{trip_id}
+```
+ 
 
 ### Track trips with geofences
 
