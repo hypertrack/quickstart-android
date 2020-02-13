@@ -147,7 +147,7 @@ curl -X POST \
 
 ### Track trips with geofences
 
-If you want to track a device goig to a list of places, call the [Trips API](https://docs.hypertrack.com/#references-apis-trips-post-trips)
+If you want to track a device going to a list of places, call the [Trips API](https://docs.hypertrack.com/#references-apis-trips-post-trips)
 and add geofences. This way you will get arrival, exit, time spent and route to geofences. Please checkout our [docs](https://docs.hypertrack.com/#references-apis-trips-post-trips) for more details.
 
 ## Dashboard
