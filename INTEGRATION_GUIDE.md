@@ -66,65 +66,44 @@ Retrieve sdk instance, when you wish to use SDK, by passing your [publishable ke
 ```
 Also make sure you've requested permissions somewhere in your app. HyperTrack accesses location and activity data, so exact set of permissions depends on Android version, and you can use `HyperTrack.requestPermissionsIfNecessary()` convenience method to simplify it a bit.
 
-#### Step 3. _(optional)_ Utility Methods
-###### Turn tracking on and off
-Depending on your needs, you can always _stop_ and _start_ tracking, invoking [`.stop()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/HyperTrack.html#stop--) and [`start()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/HyperTrack.html#start--) SDK methods.
-It is recommended to store reference to SDK instance in order to use it for further actions. You can determine current sdk state using [`isRunning()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/HyperTrack.html#isRunning--) call.
+### Step 4. Identify your devices
 
-###### Add SDK state listener to catch events.
-You can subscribe to SDK status changes [`addTrackingListener`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/HyperTrack.html#addTrackingListener-com.hypertrack.sdk.TrackingStateObserver.OnTrackingStateChangeListener-) and handle them in the appropriate methods [`onError(TrackingError)`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onError-com.hypertrack.sdk.TrackingError-) [`onTrackingStart()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onTrackingStart--) [`onTrackingStop()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onTrackingStop--)
-
-###### Customize foreground service notification
-HyperTrack tracking runs as a separate foreground service, so when it is running, your users will see a persistent notification. By default, it displays your app icon with text `{app name} is running` but you can customize it anytime after initialization by calling:
+HyperTrack uses string device identifiers that could be obtained from sdk instance
 ```java
-HyperTrack sdkInstance = HyperTrack.getInstance(context, publishableKey);
-sdkInstance.setTrackingNotificationConfig(
-                new ServiceNotificationConfig.Builder()
-                        .setContentTitle("Tap to stop tracking")
-                        .build()
-        );
+    String deviceId = sdkInstance.getDeviceID();
 ```
-Check out other configurable properties in [ServiceNotificationConfig reference](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/ServiceNotificationConfig.html)
-
-###### Identify devices
-All devices tracked on HyperTrack are uniquely identified using [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier). You can get this identifier programmatically in your app by calling [`getDeviceID()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/HyperTrack.html#getDeviceID--) after initialization.
-Another approach is to tag device with a name that will make it easy to distinguish them on HyperTrack Dashboard.
-```java
-HyperTrack sdkInstance = HyperTrack.getInstance(context, publishableKey);
-
-sdkInstance.setDeviceName(name);
+```kotlin
+   val deviceId = sdkInstance.deviceID
 ```
 
-###### Use trips
+Make sure you've transferred this identifier to your backend as it is required when calling HyperTrack APIs.
 
-Create trips to track the device journey going from one place to another. Most of the time, you are not only interested in the latest location but a set of location-related data. For example how long you should expect someone to arrive, what distance someone traveled during his working day etc.
-For such cases, you can scope location data at the required level of granularity by creating a trip, through submitting a request like below to HyperTrack backend.
+### Step 5. Verify your Integration
 
-You can create trip invoking appropriate SDK method:
-```java
-CreateTripRequest tripRequest = new CreateTripRequest.Builder()
-        .setDestinationLongitude(-115.122993)
-        .setDestinationLatitude(36.089361)
-        .build();
-
-AsyncResultHandler<ShareableTrip> resultHandler = new AsyncResultHandler<ShareableTrip>() {
-    @Override
-    public void onResultReceived(@NonNull ShareableTrip shareableTrip) {
-        Log.d(TAG, "Created trip with id " + shareableTrip.getTripId()
-                + ",\nthat can be viewed at: " + shareableTrip.getEmbedUrl()
-                + ",\nthat can be shared with: " + shareableTrip.getShareableUrl());
-    }
-
-    @Override
-    public void onFailure(@NonNull Error error) {
-        Log.w(TAG, "Trip creation failed with error ", error);
-    }
-};
-
-HyperTrack sdkInstance = HyperTrack.getInstance(context, publishableKey);
-sdkInstance.createTrip(tripRequest, resultHandler);
+Once you've finished pervious steps you are ready to test your integration.
+Simplest way to start tracking is to create a test trip for device. Once active trip is created, HyperTrack issues push notification (without UI) with a command to start tracking and you'll be able to see your device location. We'll use [HyperTrack public API](https://docs.hypertrack.com/#references-apis-trips-post-trips) and you need to copy your authentication credentials from [Dashboard](https://dashboard.hypertrack.com/setup)
+Use following command to create trip in POSIX shell:
+```bash
+curl 'https://v3.api.hypertrack.com/trips/' \
+      --request POST \
+      --user {AccountId}:{SecretKey} \
+      --header 'Content-Type: application/json' \
+      --data-raw '{
+          "device_id": "{device_id}",
+          "metadata": {"name": "My First Trip"}
+      }'
 ```
-Handler, that you've passed to `createTrip` as a second argument, receives [`ShareableTrip`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/trip/ShareableTrip.html) object. Using URL obtained from `getEmbedUrl()` getter we can see device location with respect to its destination and other trip details.
+
+Once the command above is done, you'll be able to see your device location either on dashboard or using `embed_url` trip property, that you've received in response.
+![elvis-on-trip-to-paradise](https://user-images.githubusercontent.com/10487613/69039721-26c05d80-09f5-11ea-8047-2be04607dbb4.png)
+When you're done you can finish the trip using following bash command:
+```bash
+curl -X POST \
+  -u {AccountId}:{SecretKey} \
+  https://v3.api.hypertrack.com/trips/{trip_id}/complete
+```
+where `{trip_id}` is from response to command when you've created it (it is also part of `embed_url`). Trip completion is asynchronous, and once finished, you'll notice that tracking notification will disappear from your phone.
+
 
 ![elvis-on-trip-to-paradise](https://user-images.githubusercontent.com/10487613/69039721-26c05d80-09f5-11ea-8047-2be04607dbb4.png)
 
@@ -183,6 +162,36 @@ Check out [Quickstart app with notifications integrated](https://github.com/hype
 Last step is to add your Firebase API key to [HyperTrack dashboard](https://dashboard.hypertrack.com/setup) under *Server to Device communication* section.
 ![FCM-key](https://user-images.githubusercontent.com/10487613/62698515-fc1e3c00-b9e5-11e9-913a-2ad3da9d573f.png)
 
+
+
+#### Step 3. _(optional)_ Utility Methods
+###### Turn tracking on and off
+Depending on your needs, you can always _stop_ and _start_ tracking, invoking [`.stop()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/HyperTrack.html#stop--) and [`start()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/HyperTrack.html#start--) SDK methods.
+It is recommended to store reference to SDK instance in order to use it for further actions. You can determine current sdk state using [`isRunning()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/HyperTrack.html#isRunning--) call.
+
+###### Add SDK state listener to catch events.
+You can subscribe to SDK status changes [`addTrackingListener`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/HyperTrack.html#addTrackingListener-com.hypertrack.sdk.TrackingStateObserver.OnTrackingStateChangeListener-) and handle them in the appropriate methods [`onError(TrackingError)`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onError-com.hypertrack.sdk.TrackingError-) [`onTrackingStart()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onTrackingStart--) [`onTrackingStop()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/TrackingStateObserver.OnTrackingStateChangeListener.html#onTrackingStop--)
+
+###### Customize foreground service notification
+HyperTrack tracking runs as a separate foreground service, so when it is running, your users will see a persistent notification. By default, it displays your app icon with text `{app name} is running` but you can customize it anytime after initialization by calling:
+```java
+HyperTrack sdkInstance = HyperTrack.getInstance(context, publishableKey);
+sdkInstance.setTrackingNotificationConfig(
+                new ServiceNotificationConfig.Builder()
+                        .setContentTitle("Tap to stop tracking")
+                        .build()
+        );
+```
+Check out other configurable properties in [ServiceNotificationConfig reference](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/ServiceNotificationConfig.html)
+
+###### Identify devices
+All devices tracked on HyperTrack are uniquely identified using [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier). You can get this identifier programmatically in your app by calling [`getDeviceID()`](https://hypertrack.github.io/sdk-android-hidden/javadoc/3.8.3/com/hypertrack/sdk/HyperTrack.html#getDeviceID--) after initialization.
+Another approach is to tag device with a name that will make it easy to distinguish them on HyperTrack Dashboard.
+```java
+HyperTrack sdkInstance = HyperTrack.getInstance(context, publishableKey);
+
+sdkInstance.setDeviceName(name);
+```
 #### You are all set
 
 You can now run the app and start using HyperTrack. You can see your devices on the [dashboard](#dashboard).
