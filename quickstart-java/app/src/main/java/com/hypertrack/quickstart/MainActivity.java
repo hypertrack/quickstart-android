@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements TrackingStateObse
         HyperTrack.enableDebugLogging();
 
         sdkInstance = HyperTrack
-                .getInstance(this, PUBLISHABLE_KEY)
+                .getInstance(PUBLISHABLE_KEY)
                 .addTrackingListener(this);
 
         deviceId.setText(sdkInstance.getDeviceID());

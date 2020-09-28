@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(), TrackingStateObserver.OnTrackingStateC
         Log.d(TAG, "onCreate")
 
         sdkInstance = HyperTrack
-                .getInstance(this as Context, PUBLISHABLE_KEY)
+                .getInstance(PUBLISHABLE_KEY)
                 .addTrackingListener(this)
 
         trackingStatus = findViewById(R.id.statusLabel)
