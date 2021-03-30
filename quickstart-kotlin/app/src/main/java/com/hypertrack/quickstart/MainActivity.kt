@@ -1,6 +1,5 @@
 package com.hypertrack.quickstart
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
