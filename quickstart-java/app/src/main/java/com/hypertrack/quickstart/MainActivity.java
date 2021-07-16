@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.hypertrack.quickstart.android.github.R;
 import com.hypertrack.sdk.HyperTrack;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements TrackingStateObse
 
     private TextView trackingStatusLabel;
     private HyperTrack sdkInstance;
+    private boolean shouldRequestPermissions = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,10 @@ public class MainActivity extends AppCompatActivity implements TrackingStateObse
             onTrackingStop();
         }
 
-        sdkInstance.requestPermissionsIfNecessary();
+        if (shouldRequestPermissions) {
+            shouldRequestPermissions = false;
+            sdkInstance.requestPermissionsIfNecessary();
+        }
     }
 
     @Override
@@ -61,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements TrackingStateObse
     @Override
     public void onError(TrackingError trackingError) {
         Log.d(TAG, "onError: " + trackingError.message);
-        trackingStatusLabel.setBackgroundColor(getResources().getColor(R.color.colorLabelError));
+        trackingStatusLabel.setBackgroundColor(ContextCompat.getColor(this, R.color.colorLabelError));
         switch (trackingError.code) {
             case TrackingError.INVALID_PUBLISHABLE_KEY_ERROR:
             case TrackingError.AUTHORIZATION_ERROR:
@@ -81,14 +86,16 @@ public class MainActivity extends AppCompatActivity implements TrackingStateObse
 
     @Override
     public void onTrackingStart() {
-        trackingStatusLabel.setBackgroundColor(getResources().getColor(R.color.colorLabelActive));
+
+        trackingStatusLabel.setBackgroundColor(ContextCompat.getColor(this, R.color.colorLabelActive));
         trackingStatusLabel.setText(R.string.tracking_active);
 
     }
 
     @Override
     public void onTrackingStop() {
-        trackingStatusLabel.setBackgroundColor(getResources().getColor(R.color.colorLabelStopped));
+
+        trackingStatusLabel.setBackgroundColor(ContextCompat.getColor(this, R.color.colorLabelStopped));
         trackingStatusLabel.setText(R.string.tracking_stopped);
 
     }
