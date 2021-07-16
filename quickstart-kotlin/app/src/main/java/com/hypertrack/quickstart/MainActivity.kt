@@ -16,6 +16,8 @@ class MainActivity : AppCompatActivity(), TrackingStateObserver.OnTrackingStateC
     private lateinit var trackingStatus: TextView
     private lateinit var sdkInstance: HyperTrack
 
+    private var shoudlAskPermissions = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,7 +43,10 @@ class MainActivity : AppCompatActivity(), TrackingStateObserver.OnTrackingStateC
             else -> onTrackingStop()
         }
 
-        sdkInstance.requestPermissionsIfNecessary()
+        if (shoudlAskPermissions) {
+            shoudlAskPermissions = false
+            sdkInstance.requestPermissionsIfNecessary()
+        }
     }
 
     override fun onDestroy() {
