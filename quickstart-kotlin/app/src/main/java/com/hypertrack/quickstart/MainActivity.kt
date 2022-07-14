@@ -32,6 +32,13 @@ class MainActivity : AppCompatActivity(), TrackingStateObserver.OnTrackingStateC
         deviceId.text = sdkInstance.deviceID
         Log.d(TAG, "device id is ${sdkInstance.deviceID}")
 
+        trackingStatus.setOnClickListener {
+            if(sdkInstance.isRunning) {
+                sdkInstance.stop()
+            } else {
+                sdkInstance.start()
+            }
+        }
     }
 
     override fun onResume() {
@@ -53,7 +60,6 @@ class MainActivity : AppCompatActivity(), TrackingStateObserver.OnTrackingStateC
         super.onDestroy()
         Log.d(TAG, "onDestroy")
         sdkInstance.removeTrackingListener(this)
-
     }
 
     // TrackingStateObserver.OnTrackingStateChangeListener interface methods
@@ -88,8 +94,7 @@ class MainActivity : AppCompatActivity(), TrackingStateObserver.OnTrackingStateC
     }
 
     companion object {
-
         private const val TAG = "MainActivity"
-        private const val PUBLISHABLE_KEY = "paste_your_key_here"
+        private const val PUBLISHABLE_KEY = "Paste_your_publishable_key_here"
     }
 }
