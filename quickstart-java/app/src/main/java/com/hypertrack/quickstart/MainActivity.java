@@ -37,6 +37,14 @@ public class MainActivity extends AppCompatActivity implements TrackingStateObse
         deviceId.setText(sdkInstance.getDeviceID());
         Log.d(TAG, "device id is " + sdkInstance.getDeviceID());
 
+        trackingStatusLabel.setOnClickListener(view -> {
+            if (sdkInstance.isRunning()) {
+                sdkInstance.stop();
+            } else {
+                sdkInstance.start();
+            }
+        });
+
     }
 
     @Override
