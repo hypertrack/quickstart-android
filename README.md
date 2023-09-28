@@ -1,6 +1,6 @@
 # HyperTrack Quickstart for Android SDK
 
-![License](https://img.shields.io/github/license/hypertrack/quickstart-android.svg)
+[![License](https://img.shields.io/github/license/hypertrack/quickstart-android?color=orange)](./LICENSE)
 
 [HyperTrack](https://www.hypertrack.com) lets you add live location tracking to your mobile app.
 Live location is made available along with ongoing activity, tracking controls and tracking outage with reasons.
