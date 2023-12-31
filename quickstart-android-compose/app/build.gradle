@@ -9,6 +9,8 @@ android {
 
     defaultConfig {
         applicationId "com.hypertrack.quickstart.sdk_androidkotlin"
+//        minSdk 19 // for HyperTrack SDK
+//        minSdk 21 is required by Material library
         minSdk 21
         targetSdk 33
         versionCode 1

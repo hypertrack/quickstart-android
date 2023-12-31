@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "com.hypertrack.quickstart.sdkandroid.kotlin"
         minSdk 19
-        targetSdk 33 // according to: https://developer.android.com/google/play/requirements/target-sdk
+        targetSdk 33
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
