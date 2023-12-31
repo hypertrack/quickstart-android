@@ -21,7 +21,7 @@
 
         <meta-data
             android:name="HyperTrackPublishableKey"
-            android:value="uvIAA8xJANxUxDgINOX62-LINLuLeymS6JbGieJ9PegAPITcr9fgUpROpfSMdL9kv-qFjl17NeAuBHse8Qu9sw" />
+            android:value="Paste_your_publishable_key_here" />
     </application>
 
 </manifest>
