@@ -9,29 +9,43 @@
     tools:context="com.hypertrack.quickstart.MainActivity">
 
     <TextView
-        android:id="@+id/deviceIdTextView"
+        android:id="@+id/tvDeviceId"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="20dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text=""
         android:textIsSelectable="true"
         android:textSize="14sp"
         android:textStyle="bold"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="57dp" />
+        tools:layout_editor_absoluteY="57dp"
+        tools:text="-- deviceId --" />
 
     <TextView
-        android:id="@+id/statusLabel"
+        android:id="@+id/tvLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:lineSpacingExtra="10sp"
-        android:padding="20dp"
-        android:text="@string/tracking_stopped"
-        android:textColor="@color/colorTextLight"
-        android:background="@color/colorLabelStopped"
-        android:textAlignment="center" />
+        android:layout_marginTop="16dp"
+        tools:text="-- location --" />
+
+    <Button
+        android:id="@+id/bStartTracking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Start tracking" />
+
+    <Button
+        android:id="@+id/bStopTracking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Stop tracking" />
+
+    <Button
+        android:id="@+id/bStartPermissionsFlow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start permissions flow" />
 
 </LinearLayout>
