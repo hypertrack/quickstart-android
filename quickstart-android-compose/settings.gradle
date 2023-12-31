@@ -1,0 +1,21 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven {
+            name 'hypertrack'
+            url 'https://s3-us-west-2.amazonaws.com/m2.hypertrack.com/'
+        }
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "SDK-Android Kotlin"
+include ':app'
