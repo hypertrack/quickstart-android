@@ -49,10 +49,10 @@ android {
 }
 
 dependencies {
-    def hypertrackVersion = '7.0.11'
-    implementation "com.hypertrack:sdk-android:$hypertrackVersion"
-    implementation "com.hypertrack:push-service-firebase:$hypertrackVersion"
-    implementation "com.hypertrack:location-services-google:$hypertrackVersion"
+    def hyperTrackVersion = '7.0.11'
+    implementation "com.hypertrack:sdk-android:$hyperTrackVersion"
+    implementation "com.hypertrack:push-service-firebase:$hyperTrackVersion"
+    implementation "com.hypertrack:location-services-google:$hyperTrackVersion"
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'

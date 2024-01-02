@@ -28,10 +28,10 @@ dependencies {
 
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    def hypertrackVersion = '7.0.11'
-    implementation "com.hypertrack:sdk-android:$hypertrackVersion"
-    implementation "com.hypertrack:push-service-firebase:$hypertrackVersion"
-    implementation "com.hypertrack:location-services-google:$hypertrackVersion"
+    def hyperTrackVersion = '7.0.11'
+    implementation "com.hypertrack:sdk-android:$hyperTrackVersion"
+    implementation "com.hypertrack:push-service-firebase:$hyperTrackVersion"
+    implementation "com.hypertrack:location-services-google:$hyperTrackVersion"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
