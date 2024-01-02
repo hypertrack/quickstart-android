@@ -29,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*
+         * It's very important to call this method prior to any other SDK call
+         * (e.g. on app start or on login)
+         */
+        HyperTrack.setDynamicPublishableKey("Paste_your_publishable_key_here");
+
         TextView deviceId = findViewById(R.id.tvDeviceId);
         TextView tvLocation = findViewById(R.id.tvLocation);
 
