@@ -17,5 +17,4 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SDK-Android Java"
 include ':app'

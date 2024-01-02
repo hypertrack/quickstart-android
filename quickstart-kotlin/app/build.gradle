@@ -41,9 +41,10 @@ android {
 }
 
 dependencies {
-    implementation 'com.hypertrack:sdk-android:7.0.6'
-    implementation 'com.hypertrack:push-service-firebase:7.0.6'
-    implementation 'com.hypertrack:location-services-google:7.0.6'
+    def hypertrackVersion = '7.0.11'
+    implementation "com.hypertrack:sdk-android:$hypertrackVersion"
+    implementation "com.hypertrack:push-service-firebase:$hypertrackVersion"
+    implementation "com.hypertrack:location-services-google:$hypertrackVersion"
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
