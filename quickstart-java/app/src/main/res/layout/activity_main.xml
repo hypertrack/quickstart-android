@@ -1,37 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    tools:context="com.hypertrack.quickstart.MainActivity">
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/deviceIdTextView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:gravity="center"
-        android:text=""
-        android:textIsSelectable="true"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="57dp" />
-
-    <TextView
-        android:id="@+id/statusLabel"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:lineSpacingExtra="10sp"
-        android:padding="20dp"
-        android:text="@string/tracking_stopped"
-        android:textColor="@color/colorTextLight"
-        android:background="@color/colorLabelStopped"
-        android:textAlignment="center" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvDeviceIdTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Device ID:"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvDeviceId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tvLocationTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Location:"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tvErrorsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Errors:"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tvErrors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:id="@+id/btnStartTracking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start Tracking"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tvIsTracking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="isTracking: false"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:id="@+id/btnStopTracking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stop Tracking"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:id="@+id/btnSetAvailable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Set Available"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tvIsAvailable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="isAvailable: false"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:id="@+id/btnSetUnavailable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Set Unavailable"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:id="@+id/btnAddGeotag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Geotag"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:id="@+id/btnAddGeotagWithExpectedLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Geotag with Expected Location"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:id="@+id/btnLocate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Locate User"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:id="@+id/btnGetErrors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get Errors"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:id="@+id/btnGetIsAvailable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get isAvailable"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:id="@+id/btnGetIsTracking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get isTracking"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:id="@+id/btnGetLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get Location"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:id="@+id/btnGetMetadata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get Metadata"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:id="@+id/btnGetName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get Name"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:id="@+id/btnStartPermissionsFlow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start permissions flow"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+</ScrollView>
