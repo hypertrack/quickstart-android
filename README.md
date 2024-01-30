@@ -1,163 +1,50 @@
-# HyperTrack Quickstart for Android SDK
+# Android Quickstart for HyperTrack SDK
 
 [![License](https://img.shields.io/github/license/hypertrack/quickstart-android?color=orange)](./LICENSE)
-[![Android SDK](https://img.shields.io/badge/Android%20SDK-6.3.0-brightgreen.svg)](https://github.com/hypertrack/sdk-android)
+[![Android SDK](https://img.shields.io/badge/Android%20SDK-7.4.0-brightgreen.svg)](https://github.com/hypertrack/sdk-android)
 
-[HyperTrack](https://www.hypertrack.com) lets you add live location tracking to your mobile app.
-Live location is made available along with ongoing activity, tracking controls and tracking outage with reasons.
-This repo contains an example Android app that has everything you need to get started in minutes.
+[HyperTrack](https://www.hypertrack.com/) lets you add live location tracking to your mobile app. Live location is made available along with ongoing activity, tracking controls and tracking outage with reasons.
 
-## Create HyperTrack Account
+This repo contains examples of Android app for Java and Kotlin that has everything you need to get started.
 
-[Sign up](https://dashboard.hypertrack.com/signup) for HyperTrack and 
-get your publishable key from the [Setup page](https://dashboard.hypertrack.com/setup).
+For more information please check this [Guide](https://www.hypertrack.com/docs/install-sdk-android).
 
-## Clone Quickstart app
+## How to get started?
 
-Clone the app and import the source of either `quickstart-java` or `quickstart-kotlin` folder using your favorite Android IDE.
+### Create HyperTrack Account
 
-### Set your Publishable Key
+[Sign up](https://dashboard.hypertrack.com/signup) for HyperTrack and get your publishable key from the [Setup page](https://dashboard.hypertrack.com/setup).
 
-Open the Quickstart project inside the workspace and set your Publishable Key (from [Setup page](https://dashboard.hypertrack.com/setup)) inside the placeholder
-in the [`MainActivity.java`](https://github.com/hypertrack/quickstart-android/blob/9491b1fc8d8a0d4af8339552257cfda5917bda27/quickstart-java/app/src/main/java/com/hypertrack/quickstart/MainActivity.java#L16)/[`MainActivity.kt`](https://github.com/hypertrack/quickstart-android/blob/9491b1fc8d8a0d4af8339552257cfda5917bda27/quickstart-kotlin/app/src/main/java/com/hypertrack/quickstart/MainActivity.kt#L89) file.
+### Set up the environment
+
+You need to install [Android Studio](https://developer.android.com/studio)
+
+### Clone Quickstart app
+
+### Set up the publishable key
+
+Follow the [instructions on setting up publishable key](https://hypertrack.com/docs/install-sdk-android#set-the-publishable-key) in our docs
 
 ### Set up silent push notifications
 
-Set up silent push notifications to manage on-device tracking using HyperTrack cloud APIs from your server.
+Follow the [instructions on setting up silent push notifications](https://hypertrack.com/docs/install-sdk-android/#set-up-silent-push-notifications) in our docs.
 
-> If you prefer to use your own messaging service to manage server-to-device communication, use the [sync](https://hypertrack.github.io/sdk-android-hidden/javadoc/latest/com/hypertrack/sdk/HyperTrack.html#syncDeviceSettings--) method.
-
-<details>
-  <summary>Register Quickstart app in firebase</summary>
-  <br/>
-  <p>1. Goto <a href="https://console.firebase.google.com/">Firebase Console</a> and create test project (or you can reuse existing one)</p>
-  <img src="Images/add-app-to-test-project.png"/>
-  <p>2. Register new Android application using <code>com.hypertrack.quickstart.android.github</code> package name.</p>
-  <img src="Images/register-quickstart-app.png"/>
-  <p>3. Download <code>google-services.json</code> file and copy it to <code>/quickstart-java/app</code> or <code>/quickstart-kotlin/app/</code> folder.</p>
-  <img src="Images/download-google-services-json.png"/>
-
-</details>
-Log into the HyperTrack dashboard and open the <a href="https://dashboard.hypertrack.com/setup#server_device_communication">setup page</a>.
-Fill FCM Key section in Android paragraph obtained from <i>Firebase Developer console > Project Settings (gear icon at top left) > Cloud Messaging tab.</i></p>
-<img src="Images/copy-server-key.png"/>
+HyperTrack SDK needs Firebase Cloud Messaging to manage on-device tracking as well as enable using HyperTrack cloud APIs from your server to control the tracking.
 
 ### Run the app
 
-Run the app on your phone and you should see the following interface:
+### Grant permissions
 
-![Quickstart app](Images/On_Device.png)
+[Grant required permissions to the app](https://hypertrack.com/docs/install-sdk-android#grant-the-permissions-to-the-app)
 
-Grant location and activity permissions when prompted.
+### Start tracking
 
-> HyperTrack creates a unique internal device identifier that's used as mandatory key for all HyperTrack API calls.
-> Please be sure to get the `device_id` from the app or the logs. The app calls
-> [getDeviceId](https://hypertrack.com/docs/references/#references-sdks-android-get-device-id) to retrieve it.
+Press `Start tracking` button.
 
-You may also set device name and metadata using the [Devices API](https://hypertrack.com/docs/references/#references-apis-devices-set-device-name-and-metadata)
+To see the device on a map, open the [HyperTrack dashboard](https://dashboard.hypertrack.com/).
 
-## Start tracking
-
-Now the app is ready to be tracked from the cloud. HyperTrack gives you powerful APIs
-to control device tracking from your backend.
-
-> To use the HyperTrack API, you will need the `{AccountId}` and `{SecretKey}` from the [Setup page](https://dashboard.hypertrack.com/setup).
-
-### Track devices during work
-
-Track devices when user is logged in to work, or during work hours by calling the 
-[Devices API](https://hypertrack.com/docs/references/#references-apis-devices).
-
-To start, call the [start](https://hypertrack.com/docs/references/#references-apis-devices-start-tracking) API.
-
-```
-curl -X POST \
-  -u {AccountId}:{SecretKey} \
-  https://v3.api.hypertrack.com/devices/{device_id}/start
-```
-
-
-Get the tracking status of the device by calling
-[GET /devices/{device_id}](https://hypertrack.com/docs/references/#references-apis-devices-get-device-location-and-status) api.
-
-```
-curl \
-  -u {AccountId}:{SecretKey} \
-  https://v3.api.hypertrack.com/devices/{device_id}
-```
-
-To see the device on a map, open the returned embed_url in your browser (no login required, so you can add embed these views directly to you web app).
-The device will also show up in the device list in the [HyperTrack dashboard](https://dashboard.hypertrack.com/).
-
-To stop tracking, call the [stop](https://hypertrack.com/docs/references/#references-apis-devices-stop-tracking) API.
-
-```
-curl -X POST \
-  -u {AccountId}:{SecretKey} \
-  https://v3.api.hypertrack.com/devices/{device_id}/stop
-```
-
-### Track trips with ETA
-
-If you want to track a device on its way to a destination, call the [Trips API](https://hypertrack.com/docs/references/#references-apis-trips-start-trip)
-and add destination.
-
-HyperTrack Trips API offers extra fields to get additional intelligence over the Devices API.
-* set destination to track route and ETA
-* set scheduled_at to track delays
-* share live tracking URL of the trip with customers 
-* embed live tracking view of the trip in your ops dashboard 
-
-```curl
-curl -u {AccountId}:{SecretKey} --location --request POST 'https://v3.api.hypertrack.com/trips/' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "device_id": "{device_id}",
-    "destination": {
-        "geometry": {
-            "type": "Point",
-            "coordinates": [{longitude}, {latitude}]
-        }
-    }
-}'
-```
-
-To get `{longitude}` and `{latitude}` of your destination, you can use for example [Google Maps](https://support.google.com/maps/answer/18539?co=GENIE.Platform%3DDesktop&hl=en).
-
-> HyperTrack uses [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON). Please make sure you follow the correct ordering of longitude and latitude.
-
-The returned JSON includes the embed_url for your dashboard and share_url for your customers.
-
-When you are done tracking this trip, call [complete](https://docs.hypertrack.com/#references-apis-trips-post-trips-trip_id-complete) Trip API using the `trip_id` from the create trip call above.
-```
-curl -X POST \
-  -u {AccountId}:{SecretKey} \
-  https://v3.api.hypertrack.com/trips/{trip_id}/complete
-```
-
-After the trip is completed, use the [Trips API](https://hypertrack.com/docs/references/#references-apis-trips-complete-trip) to
-retrieve a full [summary](https://hypertrack.com/docs/references/#references-apis-trips-get-trip-summary) of the trip.
-The summary contains the polyline of the trip, distance, duration and markers of the trip.
-
-```
-curl -X POST \
-  -u {AccountId}:{SecretKey} \
-  https://v3.api.hypertrack.com/trips/{trip_id}
-```
- 
-
-### Track trips with geofences
-
-If you want to track a device going to a list of places, call the [Trips API](https://hypertrack.com/docs/references/#references-apis-trips-start-trip-with-geofences)
-and add geofences. This way you will get arrival, exit, time spent and route to geofences. Please checkout our [docs](https://hypertrack.com/docs/references/#references-apis-trips) for more details.
-
-## Dashboard
-
-Once your app is running, go to the [dashboard](https://dashboard.hypertrack.com/devices) where you can see a list of all your devices and their live location with ongoing activity on the map.
-
-## Documentation
-
-You can find API references in our [docs](https://hypertrack.com/docs/references/#references-sdks-android). There is also a full in-code reference for all SDK methods.
+The app will create a driver with driver handle `test_driver_quickstart_android_<your platform>` (platform here is `java` or `kotlin`)
 
 ## Support
-Join our [Slack community](https://join.slack.com/t/hypertracksupport/shared_invite/enQtNDA0MDYxMzY1MDMxLTdmNDQ1ZDA1MTQxOTU2NTgwZTNiMzUyZDk0OThlMmJkNmE0ZGI2NGY2ZGRhYjY0Yzc0NTJlZWY2ZmE5ZTA2NjI) for instant responses. You can also email us at help@hypertrack.com.
+
+Join our [Slack community](https://join.slack.com/t/hypertracksupport/shared_invite/enQtNDA0MDYxMzY1MDMxLTdmNDQ1ZDA1MTQxOTU2NTgwZTNiMzUyZDk0OThlMmJkNmE0ZGI2NGY2ZGRhYjY0Yzc0NTJlZWY2ZmE5ZTA2NjI) for instant responses. You can also email us at help@hypertrack.com
