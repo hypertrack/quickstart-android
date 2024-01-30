@@ -25,16 +25,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     def hyperTrackVersion = '7.4.0'
     implementation "com.hypertrack:sdk-android:$hyperTrackVersion"
     implementation "com.hypertrack:push-service-firebase:$hyperTrackVersion"
     implementation "com.hypertrack:location-services-google:$hyperTrackVersion"
-
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
 }
