@@ -4,10 +4,10 @@ plugins {
 }
 
 android {
-    namespace 'com.hypertrack.quickstart.sdk_androidkotlin'
+    namespace 'com.hypertrack.quickstart.android.kotlin'
     compileSdk 34
     defaultConfig {
-        applicationId "com.hypertrack.quickstart.sdkandroid.kotlin"
+        applicationId "com.hypertrack.quickstart.android.kotlin"
         minSdk 19
         targetSdk 33
         versionCode 1
