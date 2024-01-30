@@ -1,9 +1,3 @@
 <resources>
-    <string name="app_name">Quickstart</string>
-    <string name="tracking_stopped">Not Tracking</string>
-    <string name="tracking_active">Tracking</string>
-    <string name="check_publishable_key">Check you publishable key</string>
-    <string name="enable_gps">Enable location data access</string>
-    <string name="permissions_not_granted">Data access permissions were not granted</string>
-    <string name="cant_start_tracking">Can\'t start tracking</string>
+    <string name="app_name">Quickstart Java</string>
 </resources>

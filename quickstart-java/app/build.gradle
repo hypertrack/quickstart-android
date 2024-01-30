@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'com.hypertrack.quickstart.sdk_androidjava'
+    namespace 'com.hypertrack.quickstart.android.java'
     compileSdk 34
     defaultConfig {
         applicationId "com.hypertrack.quickstart.android.java"
