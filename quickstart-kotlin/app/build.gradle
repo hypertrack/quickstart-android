@@ -3,11 +3,13 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+def appId = "com.hypertrack.quickstart.android.kotlin"
+
 android {
-    namespace 'com.hypertrack.quickstart.android.kotlin'
+    namespace appId
     compileSdk 34
     defaultConfig {
-        applicationId "com.hypertrack.quickstart.android.kotlin"
+        applicationId appId
         minSdk 19
         targetSdk 33
         versionCode 1
@@ -41,7 +43,7 @@ android {
 }
 
 dependencies {
-    def hyperTrackVersion = '7.4.0'
+    def hyperTrackVersion = '7.4.2'
     implementation "com.hypertrack:sdk-android:$hyperTrackVersion"
     implementation "com.hypertrack:push-service-firebase:$hyperTrackVersion"
     implementation "com.hypertrack:location-services-google:$hyperTrackVersion"
