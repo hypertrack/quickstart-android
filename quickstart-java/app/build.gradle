@@ -2,11 +2,13 @@ plugins {
     id 'com.android.application'
 }
 
+def appId = "com.hypertrack.quickstart.android.java"
+
 android {
-    namespace 'com.hypertrack.quickstart.android.java'
+    namespace appId
     compileSdk 34
     defaultConfig {
-        applicationId "com.hypertrack.quickstart.android.java"
+        applicationId appId
         minSdk 19
         targetSdk 33
         versionCode 1
@@ -27,7 +29,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    def hyperTrackVersion = '7.4.0'
+    def hyperTrackVersion = '7.4.2'
     implementation "com.hypertrack:sdk-android:$hyperTrackVersion"
     implementation "com.hypertrack:push-service-firebase:$hyperTrackVersion"
     implementation "com.hypertrack:location-services-google:$hyperTrackVersion"
