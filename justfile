@@ -1,6 +1,7 @@
 alias ogp := open-github-prs
 alias us := update-sdk
 
+SDK_NAME := "HyperTrack SDK Android"
 REPOSITORY_NAME := "quickstart-android"
 
 open-github-prs:
@@ -10,7 +11,7 @@ update-sdk android_version:
     git checkout -b update-sdk-{{android_version}}
     just _update-sdk-android-version-file {{android_version}}
     git add .
-    git commit -m "Update HyperTrack SDK Android to {{android_version}}"
+    git commit -m "Update {{SDK_NAME}} to {{android_version}}"
     just open-github-prs
 
 
