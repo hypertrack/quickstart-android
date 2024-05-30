@@ -23,6 +23,19 @@
         <meta-data
             android:name="HyperTrackPublishableKey"
             android:value="Paste_your_publishable_key_here" />
+
+        <!-- You can check the description of the SDK config params in the docs:
+            https://hypertrack.com/docs/sdk-config -->
+        <meta-data
+            android:name="HyperTrackAllowMockLocation"
+            android:value="true" />
+        <meta-data
+            android:name="HyperTrackForegroundNotificationTitle"
+            android:resource="@string/notification_title" />
+        <meta-data
+            android:name="HyperTrackForegroundNotificationText"
+            android:resource="@string/notification_message" />
+
     </application>
 
 </manifest>

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Quickstart Java</string>
+    <string name="notification_title">@string/app_name</string>
+    <string name="notification_message">Your work is now being tracked (you can configure this text with AndroidManifest params)</string>
 </resources>
