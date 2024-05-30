@@ -14,7 +14,6 @@ update-sdk android_version:
     git commit -m "Update {{SDK_NAME}} to {{android_version}}"
     just open-github-prs
 
-
 _update-sdk-android-version-file android_version:
     ./scripts/update_file.sh quickstart-java/app/build.gradle "def hyperTrackVersion = \'.*\'" "def hyperTrackVersion = \'{{android_version}}\'"
     ./scripts/update_file.sh quickstart-kotlin/app/build.gradle "def hyperTrackVersion = \'.*\'" "def hyperTrackVersion = \'{{android_version}}\'"

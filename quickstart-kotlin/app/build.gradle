@@ -43,7 +43,7 @@ android {
 }
 
 dependencies {
-    def hyperTrackVersion = '7.5.4'
+    def hyperTrackVersion = '7.5.5'
     implementation "com.hypertrack:sdk-android:$hyperTrackVersion"
     implementation "com.hypertrack:push-service-firebase:$hyperTrackVersion"
     implementation "com.hypertrack:location-services-google:$hyperTrackVersion"
