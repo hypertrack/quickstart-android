@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.hypertrack.quickstart.android.kotlin.R
 import com.hypertrack.sdk.android.HyperTrack
+import com.hypertrack.sdk.android.HyperTrack.metadata
 import com.hypertrack.sdk.android.Json
 import com.hypertrack.sdk.android.Result
 import java.util.Random
@@ -60,6 +61,12 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "Device ID: $deviceId")
         tvDeviceId.text = deviceId
 
+        // `worker_handle` is used to link the device and the driver.
+        // You can use any unique user identifier here.
+        // The recommended way is to set it on app login in set it to null on logout
+        // (to remove the link between the device and the worker)
+        HyperTrack.workerHandle = "test_worker_quickstart_android_kotlin"
+
         // Set Name
         val name = "Quickstart Android Kotlin"
         HyperTrack.name = name
@@ -67,13 +74,6 @@ class MainActivity : AppCompatActivity() {
 
         // Set Metadata
         val metadata: MutableMap<String, Any?> = HashMap()
-
-        // `worker_handle` is used to link the device and the driver.
-        // You can use any unique user identifier here.
-        // The recommended way is to set it on app login in set it to null on logout
-        // (to remove the link between the device and the worker)
-        HyperTrack.workerHandle = "test_worker_quickstart_android_kotlin"
-
         // You can also add any custom data to the metadata.
         metadata["source"] = name
         metadata["employee_id"] = Random().nextInt(10000)

@@ -177,5 +177,12 @@
             android:text="Get Orders"
             android:layout_marginTop="8dp"/>
 
+        <Button
+            android:id="@+id/btnStartPermissionsFlow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start permissions flow"
+            android:layout_marginTop="8dp"/>
+
     </LinearLayout>
 </ScrollView>
