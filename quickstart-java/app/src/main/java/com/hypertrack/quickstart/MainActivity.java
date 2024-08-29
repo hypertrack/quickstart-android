@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private HyperTrack.Cancellable isTrackingSubscription;
     private HyperTrack.Cancellable locationSubscription;
     private HyperTrack.Cancellable locateSubscription;
+    private HyperTrack.Cancellable ordersSubscription;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -41,30 +42,38 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView tvDeviceId = findViewById(R.id.tvDeviceId);
-        TextView tvLocation = findViewById(R.id.tvLocation);
         TextView tvErrors = findViewById(R.id.tvErrors);
-        TextView tvIsTracking = findViewById(R.id.tvIsTracking);
         TextView tvIsAvailable = findViewById(R.id.tvIsAvailable);
+        TextView tvIsTracking = findViewById(R.id.tvIsTracking);
+        TextView tvLocation = findViewById(R.id.tvLocation);
+        TextView tvOrders = findViewById(R.id.tvOrders);
 
-        View btnStartTracking = findViewById(R.id.btnStartTracking);
-        View btnStopTracking = findViewById(R.id.btnStopTracking);
-        View btnSetAvailable = findViewById(R.id.btnSetAvailable);
-        View btnSetUnavailable = findViewById(R.id.btnSetUnavailable);
         View btnAddGeotag = findViewById(R.id.btnAddGeotag);
         View btnAddGeotagWithExpectedLocation = findViewById(R.id.btnAddGeotagWithExpectedLocation);
-        View btnLocate = findViewById(R.id.btnLocate);
         View btnGetErrors = findViewById(R.id.btnGetErrors);
         View btnGetIsAvailable = findViewById(R.id.btnGetIsAvailable);
         View btnGetIsTracking = findViewById(R.id.btnGetIsTracking);
         View btnGetLocation = findViewById(R.id.btnGetLocation);
         View btnGetMetadata = findViewById(R.id.btnGetMetadata);
         View btnGetName = findViewById(R.id.btnGetName);
+        View btnGetOrders = findViewById(R.id.btnGetOrders);
+        View btnLocate = findViewById(R.id.btnLocate);
+        View btnSetAvailable = findViewById(R.id.btnSetAvailable);
+        View btnSetUnavailable = findViewById(R.id.btnSetUnavailable);
         View btnStartPermissionsFlow = findViewById(R.id.btnStartPermissionsFlow);
+        View btnStartTracking = findViewById(R.id.btnStartTracking);
+        View btnStopTracking = findViewById(R.id.btnStopTracking);
 
         // Get Device ID
         String deviceId = HyperTrack.getDeviceID();
         Log.d(TAG, "Device ID: " + deviceId);
         tvDeviceId.setText(deviceId);
+
+        // `worker_handle` is used to link the device and the driver.
+        // You can use any unique user identifier here.
+        // The recommended way is to set it on app login in set it to null on logout
+        // (to remove the link between the device and the worker)
+        HyperTrack.setWorkerHandle("test_worker_quickstart_android_java");
 
         // Set Name
         String name = "Quickstart Android Java";
@@ -207,6 +216,10 @@ public class MainActivity extends AppCompatActivity {
             showDialog("Get name", "name: " + HyperTrack.getName());
         });
 
+        btnGetOrders.setOnClickListener(v -> {
+            showDialog("Get orders", getOrdersText(HyperTrack.getOrders()));
+        });
+
         btnStartPermissionsFlow.setOnClickListener(view -> {
             PermissionsFlow.startPermissionsFlow(this);
         });
@@ -228,6 +241,11 @@ public class MainActivity extends AppCompatActivity {
 
         locationSubscription = HyperTrack.subscribeToLocation(locationResult -> {
             tvLocation.setText(getLocationResultText(locationResult));
+            return null;
+        });
+
+        ordersSubscription = HyperTrack.subscribeToOrders(orders -> {
+            tvOrders.setText(getOrdersText(orders));
             return null;
         });
     }
@@ -283,16 +301,20 @@ public class MainActivity extends AppCompatActivity {
             HyperTrack.LocationError error = (
                     (Result.Failure<HyperTrack.Location, HyperTrack.LocationError>) locationResult
             ).getFailure();
-            if(error instanceof HyperTrack.LocationError.Errors) {
-                HyperTrack.LocationError.Errors errors = (HyperTrack.LocationError.Errors) error;
-                return getErrorsText(errors.getErrors());
-            } else if(error instanceof HyperTrack.LocationError.NotRunning) {
-                return "Not running";
-            } else if(error instanceof HyperTrack.LocationError.Starting) {
-                return "Starting";
-            } else {
-                throw new RuntimeException("Unknown error type " + error.getClass().getName());
-            }
+            return getLocationErrorText(error);
+        }
+    }
+
+    private String getLocationErrorText(HyperTrack.LocationError locationError) {
+        if(locationError instanceof HyperTrack.LocationError.Errors) {
+            HyperTrack.LocationError.Errors errors = (HyperTrack.LocationError.Errors) locationError;
+            return getErrorsText(errors.getErrors());
+        } else if(locationError instanceof HyperTrack.LocationError.NotRunning) {
+            return "Not running";
+        } else if(locationError instanceof HyperTrack.LocationError.Starting) {
+            return "Starting";
+        } else {
+            throw new RuntimeException("Unknown error type " + locationError.getClass().getName());
         }
     }
 
@@ -333,6 +355,28 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private String getOrdersText(Map<String, HyperTrack.Order> orders) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("[\n");
+
+        for (HyperTrack.Order order : orders.values()) {
+            Result<Boolean, HyperTrack.LocationError> isInsideGeofence = order.isInsideGeofence();
+            String isInsideGeofenceText;
+
+            if (isInsideGeofence instanceof Result.Success) {
+                isInsideGeofenceText = ((Result.Success<Boolean, HyperTrack.LocationError>) isInsideGeofence).getSuccess().toString();
+            } else {
+                isInsideGeofenceText = getLocationErrorText(((Result.Failure<Boolean, HyperTrack.LocationError>) isInsideGeofence).getFailure());
+            }
+
+            builder.append("\t").append(order.getOrderHandle()).append(" > isInsideGeofence: ").append(isInsideGeofenceText);
+            builder.append(",\n");
+        }
+
+        builder.append("]");
+        return builder.toString();
+    }
+
     @Override
     protected void onDestroy() {
         if(errorsSubscription != null) {
@@ -349,6 +393,9 @@ public class MainActivity extends AppCompatActivity {
         }
         if(locateSubscription != null) {
             locateSubscription.cancel();
+        }
+        if(ordersSubscription != null) {
+            ordersSubscription.cancel();
         }
         super.onDestroy();
     }
