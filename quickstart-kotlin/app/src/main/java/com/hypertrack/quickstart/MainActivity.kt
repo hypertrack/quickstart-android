@@ -25,16 +25,19 @@ class MainActivity : AppCompatActivity() {
     private var isTrackingSubscription: HyperTrack.Cancellable? = null
     private var locationSubscription: HyperTrack.Cancellable? = null
     private var locateSubscription: HyperTrack.Cancellable? = null
+    private var ordersSubscription: HyperTrack.Cancellable? = null
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val tvDeviceId = findViewById<TextView>(R.id.tvDeviceId)
-        val tvLocation = findViewById<TextView>(R.id.tvLocation)
         val tvErrors = findViewById<TextView>(R.id.tvErrors)
-        val tvIsTracking = findViewById<TextView>(R.id.tvIsTracking)
         val tvIsAvailable = findViewById<TextView>(R.id.tvIsAvailable)
+        val tvIsTracking = findViewById<TextView>(R.id.tvIsTracking)
+        val tvLocation = findViewById<TextView>(R.id.tvLocation)
+        val tvOrders = findViewById<TextView>(R.id.tvOrders)
 
         val btnStartTracking = findViewById<Button>(R.id.btnStartTracking)
         val btnStopTracking = findViewById<Button>(R.id.btnStopTracking)
@@ -50,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         val btnGetLocation = findViewById<Button>(R.id.btnGetLocation)
         val btnGetMetadata = findViewById<Button>(R.id.btnGetMetadata)
         val btnGetName = findViewById<Button>(R.id.btnGetName)
+        val btnGetOrders = findViewById<Button>(R.id.btnGetOrders)
 
         // Get Device ID
         val deviceId = HyperTrack.deviceID
@@ -63,15 +67,16 @@ class MainActivity : AppCompatActivity() {
 
         // Set Metadata
         val metadata: MutableMap<String, Any?> = HashMap()
-        // `driver_handle` is used to link the device and the driver.
+
+        // `worker_handle` is used to link the device and the driver.
         // You can use any unique user identifier here.
         // The recommended way is to set it on app login in set it to null on logout
-        // (to remove the link between the device and the driver)
-        metadata["driver_handle"] = "test_driver_quickstart_android_kotlin"
+        // (to remove the link between the device and the worker)
+        HyperTrack.workerHandle = "test_worker_quickstart_android_kotlin"
+
         // You can also add any custom data to the metadata.
         metadata["source"] = name
         metadata["employee_id"] = Random().nextInt(10000)
-
         // We convert metadata to custom Json object to make sure that the data is Json compatible
         // If it can't be converted to Json, the result will be null
         val metadataJson = Json.fromMap(metadata)
@@ -79,6 +84,7 @@ class MainActivity : AppCompatActivity() {
         // don't forget to check it and add proper error handling
         HyperTrack.metadata = metadataJson
         Log.d(TAG, "Metadata set to: $metadata")
+
         tvDeviceId.setOnClickListener { _ ->
             // copy device id to clipboard
             val clipboard =
@@ -200,6 +206,11 @@ class MainActivity : AppCompatActivity() {
                 "name: $name"
             )
         }
+        btnGetOrders.setOnClickListener {
+            showDialog(
+                "Get orders",
+                "orders: ${getOrdersText(HyperTrack.orders)}")
+        }
         errorsSubscription = HyperTrack.subscribeToErrors { errors: Set<HyperTrack.Error> ->
             tvErrors.text = getErrorsText(errors)
         }
@@ -213,6 +224,9 @@ class MainActivity : AppCompatActivity() {
             HyperTrack.subscribeToLocation { locationResult: Result<HyperTrack.Location, HyperTrack.LocationError> ->
                 tvLocation.text = getLocationResultText(locationResult)
             }
+        ordersSubscription = HyperTrack.subscribeToOrders { orders ->
+            tvOrders.text = getOrdersText(HyperTrack.orders)
+        }
     }
 
     private fun getErrorsText(errors: Set<HyperTrack.Error>): String {
@@ -268,19 +282,23 @@ class MainActivity : AppCompatActivity() {
             }
 
             is Result.Failure -> {
-                when (val error = locationResult.failure) {
-                    is HyperTrack.LocationError.Errors -> {
-                        getErrorsText(error.errors)
-                    }
+                getLocationErrorText(locationResult.failure)
+            }
+        }
+    }
 
-                    is HyperTrack.LocationError.NotRunning -> {
-                        "Not running"
-                    }
+    private fun getLocationErrorText(locationError: HyperTrack.LocationError): String {
+        return when (locationError) {
+            is HyperTrack.LocationError.Errors -> {
+                getErrorsText(locationError.errors)
+            }
 
-                    is HyperTrack.LocationError.Starting -> {
-                        "Starting"
-                    }
-                }
+            is HyperTrack.LocationError.NotRunning -> {
+                "Not running"
+            }
+
+            is HyperTrack.LocationError.Starting -> {
+                "Starting"
             }
         }
     }
@@ -297,12 +315,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun getOrdersText(orders: Map<String, HyperTrack.Order>): String {
+        return orders.values.joinToString(",\n") {
+            val isInsideGeofenceText = when(val isInsideGeofence = it.isInsideGeofence) {
+                is Result.Success -> {
+                    isInsideGeofence.success.toString()
+                }
+                is Result.Failure -> {
+                    getLocationErrorText(isInsideGeofence.failure)
+                }
+            }
+            "${it.orderHandle} > isInsideGeofence: $isInsideGeofenceText"
+        }.let { "[\n$it\n]" }
+    }
+
     override fun onDestroy() {
         errorsSubscription?.cancel()
         isAvailableSubscription?.cancel()
         isTrackingSubscription?.cancel()
         locateSubscription?.cancel()
         locationSubscription?.cancel()
+        ordersSubscription?.cancel()
         super.onDestroy()
     }
 

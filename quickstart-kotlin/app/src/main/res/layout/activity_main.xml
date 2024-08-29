@@ -51,6 +51,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"/>
 
+        <TextView
+            android:id="@+id/tvOrdersTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Orders:"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tvOrders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
+
         <Button
             android:id="@+id/btnStartTracking"
             android:layout_width="match_parent"
@@ -154,6 +168,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Get Name"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:id="@+id/btnGetOrders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get Orders"
             android:layout_marginTop="8dp"/>
 
     </LinearLayout>
