@@ -29,7 +29,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    def hyperTrackVersion = '7.7.0'
+    def hyperTrackVersion = '7.8.3'
     implementation "com.hypertrack:sdk-android:$hyperTrackVersion"
     implementation "com.hypertrack:push-service-firebase:$hyperTrackVersion"
     implementation "com.hypertrack:location-services-google:$hyperTrackVersion"
